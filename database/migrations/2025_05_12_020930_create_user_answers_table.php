@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('assignment_id')->constrained('quiz_assignments')->onDelete('cascade');
             $table->foreignId('question_id')->constrained()->onDelete('cascade');
-            $table->foreignId('option_id')->constrained()->onDelete('cascade');
+            $table->foreignId('choice_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
+
+            $table->unique(['assignment_id', 'question_id']);
         });
     }
 
