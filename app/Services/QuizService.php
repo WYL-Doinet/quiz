@@ -19,4 +19,10 @@ class QuizService {
     {
         return $this->quiz->findOrFail($id);
     }
+
+    public function store($data)
+    {
+        return $this->quiz->create($data);
+    }
+
 }

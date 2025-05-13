@@ -19,8 +19,6 @@ class QuizAssignment extends Model
         return $this->belongsTo(Quiz::class);
     }
 
-
-
     public function scopeFilter($query, $filter)
     {
         $query->when($filter['user_id'] ?? false, function ($query, $userId) {

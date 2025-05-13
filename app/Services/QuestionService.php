@@ -14,4 +14,9 @@ class QuestionService
     {
         return $this->question->filter($filter)->get();
     }
+
+    public function store($data)
+    {
+        return $this->question->create($data);
+    }
 }

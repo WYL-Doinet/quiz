@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuizAssignmentResource;
-use App\Models\UserAnswer;
 use App\Services\QuestionService;
 use App\Services\QuizAssignmentService;
 use App\Services\QuizService;
@@ -23,7 +22,7 @@ class UserController extends Controller
 
     ) {}
 
-    public function __invoke(Request $request)
+    public function user(Request $request)
     {
         return $request->user();
     }
@@ -115,7 +114,7 @@ class UserController extends Controller
             ];
 
             if (
-                $correctAnswers[$answer['question_id']]->id === $answer['choice_id']
+                isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]->id === $answer['choice_id']
             ) {
                 $score++;
             }
@@ -138,7 +137,6 @@ class UserController extends Controller
             return response()->json([
                 'message' => $e->getMessage()
             ], 500);
-
         }
 
         return response()->json([

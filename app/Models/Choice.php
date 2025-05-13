@@ -13,8 +13,12 @@ class Choice extends Model
         'choice_text',
     ];
 
+    protected $casts = [
+        'is_correct' => 'boolean',
+    ];
 
-    public function question() :BelongsTo
+
+    public function question(): BelongsTo
     {
         return $this->belongsTo(Quiz::class);
     }

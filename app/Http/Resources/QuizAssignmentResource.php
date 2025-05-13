@@ -17,7 +17,6 @@ class QuizAssignmentResource extends JsonResource
         return [
             'id' => $this->id,
             'quiz' =>  new QuizResource($this->whenLoaded('quiz')),
-            // 'questions' => QuestionResource::collection($this->quiz->questions),
         ];
     }
 }
