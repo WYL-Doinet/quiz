@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
 use App\Services\QuizService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
 class UserController extends Controller
@@ -33,5 +35,21 @@ class UserController extends Controller
         }
 
         return [];
+    }
+
+    public function create()
+    {
+        return Inertia::render('Dashboard/User/Create');
+    }
+
+    public function store(StoreUserRequest $request)
+    {   
+        $password = Hash::make($request->input('password'));
+
+        $data = [...$request->only(['name', 'email']), 'password' =>  $password];
+
+        $this->userService->store($data);
+
+        return redirect()->route('user.index');
     }
 }

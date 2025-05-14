@@ -13,4 +13,9 @@ class UserService
     {
         return $this->user->filter($filter)->get();
     }
+
+    public function store($data)
+    {
+        return $this->user->create($data);
+    }
 }

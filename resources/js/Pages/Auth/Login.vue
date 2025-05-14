@@ -2,7 +2,7 @@
     <div class="bg-gray-50 h-screen flex  justify-center items-center">
         <div class="max-w-2xl flex w-full gap-5 rounded-lg bg-white shadow-md  overflow-hidden">
             <div class="bg-indigo-950 flex justify-center items-center py-20">
-                <img :src="logo" alt="logo" class="size-64" />
+                <img :src="logo" alt="logo" class="size-54" />
             </div>
             <form class="flex-1 space-y-3 p-5" @submit.prevent="submit">
                 <h1 class="font-bold text-4xl text-indigo-800">Login</h1>

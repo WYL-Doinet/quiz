@@ -1,11 +1,11 @@
 <template>
     <div class="flex h-screen">
-        <div class="w-[18%] bg-indigo-950">
+        <div class="w-[16%] bg-indigo-950">
             <h1 class="text-center text-white font-bold text-4xl p-2 italic">Lara Quiz</h1>
             <ul class="px-14 mt-10 space-y-5">
                 <li
                     :class="['text-md flex gap-2 ', route().current('home.dashboard') ? 'text-orange-500 font-bold' : 'text-white']">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
                         <path
                             d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z" />
                         <path
@@ -14,8 +14,17 @@
                     <Link :href="route('home.dashboard')">Dashboard</Link>
                 </li>
                 <li
+                    :class="['text-md flex gap-2 ', route().current('category.*') ? 'text-orange-500 font-bold' : 'text-white']">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+                        <path fill-rule="evenodd"
+                            d="M5.25 2.25a3 3 0 0 0-3 3v4.318a3 3 0 0 0 .879 2.121l9.58 9.581c.92.92 2.39 1.186 3.548.428a18.849 18.849 0 0 0 5.441-5.44c.758-1.16.492-2.629-.428-3.548l-9.58-9.581a3 3 0 0 0-2.122-.879H5.25ZM6.375 7.5a1.125 1.125 0 1 0 0-2.25 1.125 1.125 0 0 0 0 2.25Z"
+                            clip-rule="evenodd" />
+                    </svg>
+                    <Link :href="route('category.index')">Categories</Link>
+                </li>
+                <li
                     :class="['text-md flex gap-2 ', route().current('quiz.*') ? 'text-orange-500 font-bold' : 'text-white']">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
                         <path fill-rule="evenodd"
                             d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
                             clip-rule="evenodd" />
@@ -27,20 +36,21 @@
                 </li>
                 <li
                     :class="['text-md flex gap-2 ', route().current('user.*') ? 'text-orange-500 font-bold' : 'text-white']">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
                         <path fill-rule="evenodd"
                             d="M8.25 6.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM15.75 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM2.25 9.75a3 3 0 1 1 6 0 3 3 0 0 1-6 0ZM6.31 15.117A6.745 6.745 0 0 1 12 12a6.745 6.745 0 0 1 6.709 7.498.75.75 0 0 1-.372.568A12.696 12.696 0 0 1 12 21.75c-2.305 0-4.47-.612-6.337-1.684a.75.75 0 0 1-.372-.568 6.787 6.787 0 0 1 1.019-4.38Z"
                             clip-rule="evenodd" />
                         <path
                             d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z" />
                     </svg>
-                    <Link :href="route('user.index')" >Users</Link>
+                    <Link :href="route('user.index')">Users</Link>
                 </li>
             </ul>
         </div>
         <div class="flex-1 overflow-hidden flex flex-col">
-            <div class="bg-gray-100 p-3 flex justify-end">
+            <div class="bg-white  p-3 flex justify-end">
                 <button @click="logout" class="btn-danger flex justify-center items-center gap-2">
+
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
                         <path fill-rule="evenodd"
                             d="M7.5 3.75A1.5 1.5 0 0 0 6 5.25v13.5a1.5 1.5 0 0 0 1.5 1.5h6a1.5 1.5 0 0 0 1.5-1.5V15a.75.75 0 0 1 1.5 0v3.75a3 3 0 0 1-3 3h-6a3 3 0 0 1-3-3V5.25a3 3 0 0 1 3-3h6a3 3 0 0 1 3 3V9A.75.75 0 0 1 15 9V5.25a1.5 1.5 0 0 0-1.5-1.5h-6Zm10.72 4.72a.75.75 0 0 1 1.06 0l3 3a.75.75 0 0 1 0 1.06l-3 3a.75.75 0 1 1-1.06-1.06l1.72-1.72H9a.75.75 0 0 1 0-1.5h10.94l-1.72-1.72a.75.75 0 0 1 0-1.06Z"
@@ -48,8 +58,10 @@
                     </svg>
                 </button>
             </div>
-            <div class="p-5 flex-1 overflow-y-auto">
-                <slot />
+            <div class=" bg-gray-100 flex-1 p-5 flex flex-col overflow-y-scroll">
+               <div class="bg-white p-5 flex-1 rounded-lg">
+                    <slot />
+               </div>
             </div>
         </div>
     </div>

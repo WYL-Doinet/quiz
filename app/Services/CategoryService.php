@@ -12,4 +12,9 @@ class CategoryService
     {
         return $this->category->all();
     }
+
+    public function store($data)
+    {
+        return $this->category->create($data);
+    }
 }
