@@ -1,6 +1,6 @@
 <template>
     <div class="flex h-screen">
-        <div class="w-[16%] bg-indigo-950">
+        <div class="w-[250px] bg-indigo-950">
             <h1 class="text-center text-white font-bold text-4xl p-2 italic">Lara Quiz</h1>
             <ul class="px-14 mt-10 space-y-5">
                 <li
