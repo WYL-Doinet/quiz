@@ -1,6 +1,8 @@
 <template>
     <DashboardLayout>
+
         <form class="space-y-5" @submit.prevent="submit">
+            <div></div>
             <div class="space-y-3">
                 <div>
                     <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select

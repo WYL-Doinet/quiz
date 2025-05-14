@@ -1,17 +1,16 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\User;
 
-class UserService {
-    public function __construct(protected User $user)
-    {
-        
-    }
+class UserService
+{
+    public function __construct(protected User $user) {}
 
 
-    public function findAll()
+    public function findAll($filter = [])
     {
-        return $this->user->get();
+        return $this->user->filter($filter)->get();
     }
 }

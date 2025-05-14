@@ -1,8 +1,9 @@
 import "./bootstrap";
-
+import "vue-toastification/dist/index.css";
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { ZiggyVue } from "ziggy-js";
+import Toast from "vue-toastification";
 
 createInertiaApp({
     resolve: (name) => {
@@ -13,6 +14,7 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })
             .use(plugin)
             .use(ZiggyVue)
+            .use(Toast)
             .mount(el);
     },
 });

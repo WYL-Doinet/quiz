@@ -54,4 +54,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(QuizAssignment::class);
     }
+
+    public function scopeFilter($query, $filter)
+    {
+        $query->when($filter['q'] ?? false, function ($query, $q) {
+            $query->where('name', 'LIKE', '%'.$q.'%')->orWhere('email','LIKE', '%'.$q.'%');
+        });
+    }
 }

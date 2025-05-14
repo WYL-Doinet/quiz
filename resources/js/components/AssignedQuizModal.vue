@@ -22,7 +22,7 @@
                 </ul>
                 <p v-if="!assigns.length" class="text-center"> No Quizzes</p>
             </div>
-            <div class="flex justify-end">
+            <div class="flex justify-end gap-2">
                 <button class="btn-danger" @click="hideModal()">Close</button>
             </div>
         </div>

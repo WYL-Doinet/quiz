@@ -86,6 +86,6 @@ const form = useForm({
 })
 
 const submit = () => {
-    form.post(route('auth.login'))
+    form.post(route('login'))
 }
 </script>

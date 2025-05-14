@@ -2,8 +2,7 @@
     <div class="w-full space-y-5 p-6 bg-white border border-gray-300 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
         <div class="flex justify-between items-center">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-indigo-800  dark:text-white">Question {{
-                questionIndex +
-                1 }}
+                questionIndex + 1 }}
             </h5>
             <div class="flex justify-center items-center gap-3">
                 <button type="button" disabled @click="addChoice"
@@ -25,9 +24,9 @@
             </div>
         </div>
         <div>
-            <label for="first_name"
+            <label :for="`question-${questionIndex}`"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Question</label>
-            <input type="text" :name="`questions[${questionIndex}][question_text]`"
+            <input :id="`question-${questionIndex}`" type="text" :name="`questions[${questionIndex}][question_text]`"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 placeholder="Question text" required />
         </div>
@@ -39,7 +38,7 @@
             <div class="grid grid-cols-2 gap-5">
                 <div v-for="choice, i in choices" :key="choice">
                     <div class="flex items-center gap-3">
-                        <input type="text" id="title" :name="`questions[${questionIndex}][choices][${i}][choice_text]`"
+                        <input type="text" :name="`questions[${questionIndex}][choices][${i}][choice_text]`"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             required />
                         <input type="hidden" :value="i === checkedIndex"
@@ -53,15 +52,18 @@
 
         </div>
     </div>
-
 </template>
 <script setup lang="ts">
 import { ref } from 'vue';
 const choices = ref<Array<number>>([1, 2, 3, 4]);
-defineProps<{
+    
+withDefaults(defineProps<{
     questionIndex: number
     removeQuestion: CallableFunction
-}>()
+    increase?: number
+}>(), {
+    increase: 1
+})
 
 const addChoice = () => {
     choices.value.push(choices.value.length + 1)

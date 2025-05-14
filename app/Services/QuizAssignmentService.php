@@ -17,4 +17,14 @@ class QuizAssignmentService
     {
         return $this->quizAssignment->filter($filter)->findOrFail($id);
     }
+
+    public function store($data)
+    {
+        return $this->quizAssignment->create($data);
+    }
+
+    public function findFirst($filter = [])
+    {
+         return $this->quizAssignment->filter($filter)->first();
+    }
 }

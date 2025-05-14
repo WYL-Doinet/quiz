@@ -1,6 +1,8 @@
 <template>
     <DashboardLayout>
-        <AssignedQuizModal v-if="modal.open" :hideModal="hideModal"  :assigns="modal.assigns"/>
+        <transition name="fade">
+            <AssignedQuizModal v-if="modal.open" :hideModal="hideModal" :assigns="modal.assigns" />
+        </transition>
         <div class="flex justify-end mb-5">
             <Link :href="route('quiz.create')" prefetch class="btn-primary flex  items-center justify-center gap-2">
             <span>Add</span>
@@ -21,10 +23,7 @@
                             Email
                         </th>
                         <th scope="col" class="px-6 py-3">
-                            Quiz
-                        </th>
-                        <th>
-                            Complete Quiz
+                            Status
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Action
@@ -41,17 +40,15 @@
                             {{ user.email }}
                         </td>
                         <td class="px-6 py-4">
-                            <!-- {{ quiz['created_by']['name'] }} -->
-                        </td>
-                        <td class="px-6 py-4">
-                            <!-- <span
+                            <span
                                 class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
-                                {{ quiz['questions_count'] }}</span> -->
+                                completed quizzes : {{ user['completed_assigns_count'] }}</span>
                         </td>
+
                         <td class="px-6 py-4 ">
                             <button class="btn-primary flex justify-center items-center gap-2"
                                 @click="showModal(user.assigns)">
-                                <span>Assigned Quiz</span>
+                                <span>Assigned</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="size-6">
                                     <path fill-rule="evenodd"
@@ -98,3 +95,15 @@ const hideModal = () => {
 }
 
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+</style>
