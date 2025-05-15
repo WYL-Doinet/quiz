@@ -2,7 +2,7 @@
     <div class="fixed top-0 left-0 w-screen h-screen z-10 flex justify-center items-center bg-black/25"
         @click.self="hideModal()">
         <div class="min-w-xl max-w-2xl rounded-lg p-5 bg-white space-y-5">
-            <h2 class="font-bold text-indigo-800 text-3xl text-center">Assigned Quizzes</h2>
+            <h2 class="font-bold text-indigo-900 text-3xl text-center italic">Assigned Quizzes</h2>
             <div class="w-full rounded-lg border-gray-300 p-5 border h-[300px] overflow-y-scroll">
                 <ul class="space-y-5">
                     <li v-for="assign in assigns" :key="assign.id" class="gap-2 flex items-center justify-between">

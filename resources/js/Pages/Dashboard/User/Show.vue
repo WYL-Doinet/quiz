@@ -4,10 +4,7 @@
             <div>
                 <label
                     for="name"
-                    :class="[
-                        'block mb-2 text-sm font-medium  dark:text-white',
-                        form.errors.name ? 'text-red-600' : 'text-gray-900',
-                    ]"
+                    :class="['block mb-2 text-sm font-medium  dark:text-white']"
                 >
                     User Name</label
                 >
@@ -40,25 +37,16 @@
                         v-model="form.name"
                         :class="[
                             'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                            form.errors.name
-                                ? 'border-red-600'
-                                : 'border-gray-300',
                         ]"
                         placeholder="name@flowbite.com"
                         required
                     />
                 </div>
-                <p v-if="form.errors.name" class="p-1 text-red-600">
-                    {{ form.errors.name }}
-                </p>
             </div>
             <div>
                 <label
                     for="email"
-                    :class="[
-                        'block mb-2 text-sm font-medium  dark:text-white',
-                        form.errors.email ? 'text-red-600' : 'text-gray-900',
-                    ]"
+                    :class="['block mb-2 text-sm font-medium  dark:text-white']"
                     >User Email</label
                 >
                 <div class="relative">
@@ -66,12 +54,7 @@
                         class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
                     >
                         <svg
-                            :class="[
-                                'w-4 h-4  dark:text-gray-400',
-                                form.errors.email
-                                    ? 'text-red-600'
-                                    : 'text-gray-500',
-                            ]"
+                            :class="['w-4 h-4  text-gray-500 dark:text-gray-400']"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor"
@@ -88,20 +71,15 @@
                     <input
                         type="text"
                         id="email"
-                        v-model="form.email"
+                        :value="user.email"
+                        disabled
                         :class="[
                             'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                            form.errors.email
-                                ? 'border-red-600'
-                                : 'border-gray-300',
                         ]"
                         placeholder="name@flowbite.com"
                         required
                     />
                 </div>
-                <p v-if="form.errors.email" class="p-1 text-red-600">
-                    {{ form.errors.email }}
-                </p>
             </div>
             <div>
                 <label
@@ -144,9 +122,6 @@
                         required
                         :class="[
                             'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                            form.errors.email
-                                ? 'border-red-600'
-                                : 'border-gray-300',
                         ]"
                     />
                 </div>
@@ -187,8 +162,8 @@
                             fill="currentColor"
                         />
                     </svg>
-                    <span v-if="form.processing"> Submitting </span>
-                    <span v-else> Submit </span>
+                    <span v-if="form.processing"> Saving </span>
+                    <span v-else> Save </span>
                 </button>
             </div>
         </form>
@@ -199,14 +174,25 @@
 import DashboardLayout from "@components/layout/DashboardLayout.vue";
 import { useForm } from "@inertiajs/vue3";
 
+const props = defineProps<PropsType>();
+
 const form = useForm({
-    name: "",
-    email: "",
+    name: props.user.name,
     password: "",
     is_admin: false,
 });
 
+type User = {
+    id: string;
+    name: string;
+    email: string;
+};
+
+type PropsType = {
+    user: User;
+};
+
 const submit = () => {
-    form.post(route("user.store"));
+    // form.post(route("user.store"));
 };
 </script>

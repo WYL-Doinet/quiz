@@ -27,6 +27,7 @@ class UserController extends Controller
         return $request->user();
     }
 
+    
     public function quizAssignment(Request $request)
     {
         $filters = ['user_id' => $request->user()->id];

@@ -5,10 +5,10 @@
         <input type="hidden" :name="`questions[${questionIndex}][correct_answer]`" :value="correctText">
         <div class="grid grid-cols-2 gap-5">
             <div class="flex items-center gap-2" v-for="choice, i in question.choices" :key="choice.id">
-                <label :for="`choice-${i}`" class="font-semibold">
+                <label :for="`choice-${i}-${questionIndex}`" class="font-semibold">
                     {{ choice.choice_text }}
                 </label>
-                <input :id="`choice-${i}`" required type="radio" :value="choice.choice_text"
+                <input :id="`choice-${i}-${questionIndex}`" required type="radio" :value="choice.choice_text"
                     :name="`questions[${questionIndex}][user_answer]`"
                     class="w-4 h-4 accent-indigo-800 bg-gray-100 border-gray-300 focus:outline-none focus:border-0">
             </div>

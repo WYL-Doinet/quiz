@@ -9,6 +9,7 @@ use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -42,8 +43,16 @@ class UserController extends Controller
         return Inertia::render('Dashboard/User/Create');
     }
 
+
+    public function show($id)
+    {
+        return Inertia::render('Dashboard/User/Show', [
+            'user' => fn() => $this->userService->find($id)
+        ]);
+    }
+
     public function store(StoreUserRequest $request)
-    {   
+    {
         $password = Hash::make($request->input('password'));
 
         $data = [...$request->only(['name', 'email']), 'password' =>  $password];
@@ -51,5 +60,16 @@ class UserController extends Controller
         $this->userService->store($data);
 
         return redirect()->route('user.index');
+    }
+
+    public function qrLoginCode(Request $request, $id)
+    {
+        if ($request->wantsJson()) {
+            $code =  Str::random(8);
+
+            $this->userService->find($id)->update(['qr_login_code' => $code]);
+
+            return response()->json(['code' =>  $code]);
+        }
     }
 }

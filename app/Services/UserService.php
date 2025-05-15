@@ -19,4 +19,14 @@ class UserService
     {
         return $this->user->create($data);
     }
+
+    public function find($id, $filter = [])
+    {
+        return $this->user->filter($filter)->findOrFail($id);
+    }
+
+    public function findFirst($filter = [])
+    {
+        return $this->user->filter($filter)->first();
+    }
 }

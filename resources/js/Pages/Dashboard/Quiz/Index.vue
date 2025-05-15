@@ -76,7 +76,7 @@
                                     d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z" />
                             </svg>
                             </Link>
-                            <Link :href="route('quiz.demo', quiz.id)" class="btn-green flex gap-2 items-center">
+                            <Link :href="route('quiz.demo', quiz.id)" cache-for="30m" class="btn-green flex gap-2 items-center">
                                 <span>Demo</span>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                     stroke-width="1.5" stroke="currentColor" class="size-5">
