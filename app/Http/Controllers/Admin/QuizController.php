@@ -107,4 +107,14 @@ class QuizController extends Controller
             }
         ]);
     }
+
+    public function demo($id)
+    {
+        $quiz = $this->quizService->find($id);
+        $quiz->load('questions.choices');
+
+        return Inertia::render('Dashboard/Quiz/Demo', [
+            'quiz' =>  $quiz
+        ]);
+    }
 }

@@ -62,6 +62,12 @@
                 </div>
                 <p v-if="form.errors.password" class="p-1 text-red-600">{{ form.errors.password }}</p>
             </div>
+             <div class="flex items-center">
+                <input  id="checked-checkbox" type="checkbox" v-model="form.is_admin"
+                    class="w-4 h-4 accent-indigo-800 focus:border-0 focus:outline-none focus:right-0 bg-gray-100 border-gray-300 rounded-sm">
+                <label for="checked-checkbox"
+                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Admin</label>
+            </div>
             <div>
                 <button class="btn-primary">
                     <svg v-if="form.processing" aria-hidden="true" role="status"
@@ -93,7 +99,8 @@ import { useForm } from '@inertiajs/vue3';
 const form = useForm({
     name: '',
     email: '',
-    password: ''
+    password: '',
+    is_admin: false
 })
 
 const submit = () => {

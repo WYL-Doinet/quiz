@@ -58,9 +58,9 @@
                     </svg>
                 </button>
             </div>
-            <div class=" bg-gray-100 flex-1 p-5 flex flex-col overflow-y-scroll">
-               <div class="bg-white p-5 flex-1 rounded-lg">
-                    <slot />
+            <div class=" bg-gray-100 flex-1 p-5 flex flex-col overflow-y-scroll"  id="scroll-able">
+               <div class="bg-white p-5 flex-1 rounded-lg space-y-5">
+                    <slot/>
                </div>
             </div>
         </div>
@@ -70,4 +70,6 @@
 <script setup lang="ts">
 import { Link, router } from '@inertiajs/vue3';
 const logout = () => router.post(route('auth.logout'))
+
 </script>
+

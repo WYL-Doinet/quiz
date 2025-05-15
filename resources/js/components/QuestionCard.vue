@@ -45,7 +45,7 @@
                             :name="`questions[${questionIndex}][choices][${i}][is_correct]`">
                         <input :checked="i === checkedIndex" required type="radio" value="true"
                             @change="checkedIndex = i"
-                            class="w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 focus:outline-none focus:border-0">
+                            class="w-4 h-4 accent-indigo-800 bg-gray-100 border-gray-300 focus:outline-none focus:border-0">
                     </div>
                 </div>
             </div>

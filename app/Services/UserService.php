@@ -11,7 +11,8 @@ class UserService
 
     public function findAll($filter = [])
     {
-        return $this->user->filter($filter)->get();
+        return $this->user->filter($filter)
+            ->get();
     }
 
     public function store($data)

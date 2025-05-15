@@ -17,7 +17,7 @@
                     </div>
                 </div>
                 <div class="flex justify-end col-span-3">
-                    <Link :href="route('user.create')" prefetch
+                    <Link :href="route('category.create')" prefetch
                         class="btn-primary flex  items-center justify-center gap-2">
                     <span>Create</span>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
@@ -56,5 +56,6 @@
 
 <script lang="ts" setup>
 import DashboardLayout from '@components/layout/DashboardLayout.vue'
+import { Link } from '@inertiajs/vue3';
 defineProps<{ categories: any }>()
 </script>

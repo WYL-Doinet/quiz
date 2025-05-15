@@ -96,7 +96,7 @@ const submit = (e: Event) => {
     const formData = new FormData(el);
     const queryString = new URLSearchParams(formData as any).toString();
 
-    const data = qs.parse(queryString)
+    const data = qs.parse(queryString, { arrayLimit: 1000 })
 
     for (let key in data) {
         console.log(key)
