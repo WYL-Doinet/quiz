@@ -68,7 +68,7 @@
                 </button>
             </div>
         </form>
-        <h2 class="text-2xl font-bold text-indigo-900">quizzes</h2>
+        <h2 class="text-2xl font-bold text-indigo-900">Quizzes</h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table
                 class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
