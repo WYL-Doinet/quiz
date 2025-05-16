@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
+use App\Services\QuizAssignmentService;
 use App\Services\QuizService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -13,7 +14,11 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function __construct(protected UserService $userService, protected QuizService $quizService) {}
+    public function __construct(
+        protected UserService $userService,
+        protected QuizService $quizService,
+        protected QuizAssignmentService $quizAssignmentService
+    ) {}
 
     public function index()
     {
@@ -47,7 +52,12 @@ class UserController extends Controller
     public function show($id)
     {
         return Inertia::render('Dashboard/User/Show', [
-            'user' => fn() => $this->userService->find($id)
+            'user' => fn() => $this->userService->find($id),
+            'completed_assigns' => function () use ($id) {
+                $assigns = $this->quizAssignmentService->findAll(filter: ['user_id', $id, 'completed_at' => true]);
+                $assigns->load('quiz');
+                return $assigns;
+            }
         ]);
     }
 

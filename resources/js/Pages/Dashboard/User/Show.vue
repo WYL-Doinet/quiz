@@ -36,7 +36,7 @@
                         id="name"
                         v-model="form.name"
                         :class="[
-                            'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                            'bg-gray-50 border-gray-300 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
                         ]"
                         placeholder="name@flowbite.com"
                         required
@@ -54,7 +54,9 @@
                         class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
                     >
                         <svg
-                            :class="['w-4 h-4  text-gray-500 dark:text-gray-400']"
+                            :class="[
+                                'w-4 h-4  text-gray-500 dark:text-gray-400',
+                            ]"
                             aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg"
                             fill="currentColor"
@@ -74,7 +76,7 @@
                         :value="user.email"
                         disabled
                         :class="[
-                            'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                            'bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
                         ]"
                         placeholder="name@flowbite.com"
                         required
@@ -121,7 +123,7 @@
                         id="password"
                         required
                         :class="[
-                            'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                            'bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
                         ]"
                     />
                 </div>
@@ -167,6 +169,32 @@
                 </button>
             </div>
         </form>
+        <h2 class="text-2xl font-bold text-indigo-900">Completed Assigns</h2>
+        <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+            <table
+                class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
+            >
+                <thead
+                    class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                >
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Name</th>
+                        <th scope="col" class="px-6 py-3">Title</th>
+                        <th scope="col" class="px-6 py-3">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if="completed_assigns.length === 0">
+                        <td
+                            colspan="100%"
+                            class="text-center py-3 font-bold text-indigo-900"
+                        >
+                            No completed assigns
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </DashboardLayout>
 </template>
 
@@ -182,14 +210,26 @@ const form = useForm({
     is_admin: false,
 });
 
+type Quiz = {
+    id: number;
+    title: string;
+};
+
+type CompletedAssign = {
+    id: number;
+    completed_at: string;
+    quiz: Quiz;
+};
+
 type User = {
-    id: string;
+    id: number;
     name: string;
     email: string;
 };
 
 type PropsType = {
     user: User;
+    completed_assigns: Array<CompletedAssign>;
 };
 
 const submit = () => {

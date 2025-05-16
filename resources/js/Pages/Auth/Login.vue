@@ -61,7 +61,7 @@
                                 fill="currentColor" />
                         </svg>
                         <span v-if="form.processing">
-                            Logging
+                            Logging ☕
                         </span>
                         <span v-else>
                             Login

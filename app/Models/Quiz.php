@@ -15,6 +15,9 @@ class Quiz extends Model
         'created_by'
     ];
 
+
+    // protected $withCount = ['questions'];
+
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');
@@ -34,6 +37,10 @@ class Quiz extends Model
     {
         $query->when($filter['user_id'] ?? false, function ($query, $userId) {
             $query->where('user_id', $userId);
+        });
+
+        $query->when($filter['category_id'] ?? false, function ($query, $categoryId) {
+            $query->where('category_id', $categoryId);
         });
     }
 }

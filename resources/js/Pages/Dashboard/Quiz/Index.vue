@@ -1,10 +1,10 @@
 <template>
     <DashboardLayout>
-        <div class="flex-1 grid grid-cols-4 mb-5">
+        <div class="flex-1 grid grid-cols-4 items-end">
             <div>
                 <select required id="category_id" name="category_id"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected value>Filter Category</option>
+                    <option selected value>Select category</option>
                     <option v-for="category in categories" :value="category.id" :key="category.id">{{
                         category.name }}</option>
                 </select>

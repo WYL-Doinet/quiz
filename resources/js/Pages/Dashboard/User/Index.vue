@@ -14,8 +14,13 @@
                 :hideModal="hideQrCodeModal"
             />
         </transition>
-        <div class="grid grid-cols-4">
+        <div class="grid grid-cols-4 gap-3 items-end">
             <div>
+                <label
+                    for=""
+                    class="block mb-2 text-sm font-medium dark:text-white'"
+                    >Filter</label
+                >
                 <div class="relative">
                     <div
                         class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
@@ -35,11 +40,40 @@
                         type="text"
                         id="assign-user"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Filter user"
+                        placeholder="Name or email"
                     />
                 </div>
             </div>
-            <div class="flex justify-end mb-5 col-span-3">
+            <div>
+                <label
+                    for=""
+                    class="block mb-2 text-sm font-medium dark:text-white'"
+                    >Registered At</label
+                >
+                <div class="relative">
+                    <div
+                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="size-4"
+                        >
+                            <path
+                                fill-rule="evenodd"
+                                d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+                    </div>
+                    <input
+                        type="date"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    />
+                </div>
+            </div>
+            <div class="flex justify-end items-end  col-span-2">
                 <Link
                     :href="route('user.create')"
                     prefetch
@@ -93,7 +127,7 @@
                             <span
                                 class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
                             >
-                                completed quizzes :
+                                completed :
                                 {{ user["completed_assigns_count"] }}</span
                             >
                         </td>

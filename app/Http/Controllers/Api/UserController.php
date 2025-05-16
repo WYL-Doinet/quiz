@@ -34,7 +34,7 @@ class UserController extends Controller
 
         $assignments = $this->quizAssignmentService->findAll(filter: $filters);
 
-        $assignments->load('quiz');
+        $assignments->load(['quiz' => fn($query) => $query->withCount('questions')]);
 
         return QuizAssignmentResource::collection($assignments);
     }
@@ -65,7 +65,9 @@ class UserController extends Controller
         if ($assignment->completed !== null) {
             return response()->json([
                 'message' => 'You have already completed this quiz. Submitting answers again is not allowed.'
-            ], 422);
+            ], 409
+        
+        );
         }
 
         $validated = $request->validate([

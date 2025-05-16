@@ -34,6 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'qr_login_code'
     ];
 
     /**
@@ -69,5 +70,10 @@ class User extends Authenticatable
         $query->when($filter['qr_login_code'] ?? false, function ($query, $qrLoginCode) {
             $query->where('qr_login_code', $qrLoginCode);
         });
+    }
+
+    public function scopeSort($query, $sort)
+    {
+        
     }
 }

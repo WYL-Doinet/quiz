@@ -17,4 +17,9 @@ class CategoryService
     {
         return $this->category->create($data);
     }
+
+    public function find($id)
+    {
+        return $this->category->find($id);
+    }
 }
