@@ -74,6 +74,7 @@ const i18n = createI18n({
             qrCodeOnce: "This QR code can be used only once",
             scanToLogin: "Scan to login",
             pleaseWait: "Please wait, this can take a little...",
+              dataUpdated: "Data is updated", 
         },
         ja: {
             create: "作成",
@@ -140,6 +141,7 @@ const i18n = createI18n({
             qrCodeOnce: "このQRコードは一度だけ使用できます",
             scanToLogin: "スキャンしてログイン",
             pleaseWait: "しばらくお待ちください、少し時間がかかります...",
+            dataUpdated: "データが更新されました"
         },
     },
 });

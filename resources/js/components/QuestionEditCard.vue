@@ -7,10 +7,10 @@
             <h5
                 class="mb-2 text-2xl font-bold tracking-tight text-indigo-800 dark:text-white"
             >
-                Question {{ index + 1 }}
+                {{ $t("question") }} {{ index + 1 }}
             </h5>
             <button class="btn-primary">
-                {{ form.processing ? 'Saving ... ☕' : 'Save' }}
+                {{ form.processing ? $t("save") + " ☕" : $t("save") }}
             </button>
         </div>
         <div>
@@ -39,7 +39,11 @@
             <div class="grid grid-cols-2 gap-5">
                 <div v-for="(choice, i) in question.choices" :key="choice.id">
                     <div class="flex items-center gap-3">
-                        <input type="hidden" :name="`choices[${i}][id]`" :value="choice.id" />
+                        <input
+                            type="hidden"
+                            :name="`choices[${i}][id]`"
+                            :value="choice.id"
+                        />
                         <input
                             required
                             type="text"
@@ -77,6 +81,7 @@
 import { useForm } from "@inertiajs/vue3";
 import qs from "qs";
 import { ref } from "vue";
+import { useToast } from "vue-toastification";
 const props = defineProps<{ question: any; index: any }>();
 
 const initiAlFormProps = {
@@ -84,6 +89,8 @@ const initiAlFormProps = {
     choices: [],
 };
 const form = useForm(initiAlFormProps);
+
+const toast = useToast();
 
 const onQuestionSave = (e: Event) => {
     const el = e.target as HTMLFormElement;
@@ -96,7 +103,11 @@ const onQuestionSave = (e: Event) => {
     form["question_text"] = data["question_text"] as any;
     form["choices"] = data["choices"] as any;
 
-    form.patch(route("question.update", props.question.id));
+    form.patch(route("question.update", props.question.id), {
+        onSuccess: async () => {
+            toast.success("データが更新されました", { timeout: 2000 });
+        },
+    });
 };
 
 const checkedIndex = ref<undefined | number>(

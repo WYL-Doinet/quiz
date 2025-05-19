@@ -231,7 +231,7 @@
 
 <script setup lang="ts">
 import DashboardLayout from "@components/layout/DashboardLayout.vue";
-import { Link, router, usePage } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
 import { ref } from "vue";
 import AssignedQuizModal from "../../../components/AssignedQuizModal.vue";
 import QrLoginModal from "../../../components/QrLoginModal.vue";
