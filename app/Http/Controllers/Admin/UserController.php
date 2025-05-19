@@ -20,16 +20,17 @@ class UserController extends Controller
         protected QuizAssignmentService $quizAssignmentService
     ) {}
 
-    public function index()
+    public function index(Request $request)
     {
+        $q =  $request->query('q');
+        $createdAt = $request->query('created_at');
+
         return Inertia::render('Dashboard/User/Index', [
-            'users' =>  function () {
-                $users =  $this->userService->findAll();
+            'users' =>  function ()  use ($q, $createdAt) {
+                $users =  $this->userService->findAll(filter: ['q' => $q, 'created_at' => $createdAt]);
                 $users->load('assigns.quiz');
-                $users->loadCount(['assigns as completed_assigns_count' => fn($query) =>  $query->whereNotNull('completed_at')]);
                 return $users;
             },
-            'quizzes'  => fn() => $this->quizService->findAll(),
         ]);
     }
 

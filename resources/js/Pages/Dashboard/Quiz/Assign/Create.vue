@@ -33,7 +33,7 @@
                         class="btn-primary flex gap-2"
                         @click="modal.open = true"
                     >
-                        <span>Assign</span>
+                        <span>{{ $t('assign') }}</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -59,11 +59,11 @@
                         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                     >
                         <tr>
-                            <th scope="col" class="px-6 py-3">Name</th>
-                            <th scope="col" class="px-6 py-3">Email</th>
+                            <th scope="col" class="px-6 py-3">{{ $t('name') }}</th>
+                            <th scope="col" class="px-6 py-3">{{ $t('email') }}</th>
 
-                            <th>Assign At</th>
-                            <th scope="col" class="px-6 py-3">Status</th>
+                            <th>{{ $t('assignedAt') }}</th>
+                            <th scope="col" class="px-6 py-3">{{ $t('status') }}</th>
                         </tr>
                     </thead>
                     <tbody>

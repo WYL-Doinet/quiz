@@ -13,7 +13,7 @@
             />
 
             <div>
-                <button class="btn-primary">Submit</button>
+                <button class="btn-primary">{{ $t('submit') }}</button>
             </div>
         </form>
         <transition name="fade">
@@ -31,7 +31,7 @@
                     </h3>
                     <div class="grid grid-cols-2 gap-3 text-md">
                         <div>
-                            <span class="font-semibold">Your answer</span> :
+                            <span class="font-semibold">{{ $t('yourAnswer') }}</span> :
                             <span
                                 :class="[
                                     result.user_answer !== result.correct_answer
@@ -43,7 +43,7 @@
                             >
                         </div>
                         <div>
-                            <span class="font-semibold">Correct answer</span> :
+                            <span class="font-semibold">{{ $t('correctAnswer') }}</span> :
                             <span class="text-green-600 font-bold">{{
                                 result.correct_answer
                             }}</span>
@@ -55,12 +55,12 @@
                 >
                     <div>
                         <span class="text-white font-semibold"
-                            >Total Question</span
+                            >{{ $t('totalQuestions') }}</span
                         >
                         : <span class="font-bold">{{ results.length }}</span>
                     </div>
                     <div>
-                        <span class="text-white font-semibold">Your Score</span>
+                        <span class="text-white font-semibold">{{ $t('yourScore') }}</span>
                         : <span class="font-bold">{{ score }}</span>
                     </div>
                 </div>

@@ -2,9 +2,9 @@
     <DashboardLayout>
         <transition name="fade">
             <AssignedQuizModal
-                v-if="modal.open"
-                :hideModal="hideModal"
-                :assigns="modal.assigns"
+                v-if="assignedModal.open"
+                :hideModal="hideAssignedModal"
+                :assigns="assignedModal.assigns"
             />
         </transition>
         <transition name="fade">
@@ -17,9 +17,9 @@
         <div class="grid grid-cols-4 gap-3 items-end">
             <div>
                 <label
-                    for=""
+                    for="q"
                     class="block mb-2 text-sm font-medium dark:text-white'"
-                    >Filter</label
+                    >{{ $t('filter') }}</label
                 >
                 <div class="relative">
                     <div
@@ -29,7 +29,7 @@
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            class="size-4"
+                            class="size-4 text-gray-500"
                         >
                             <path
                                 d="M4.5 6.375a4.125 4.125 0 1 1 8.25 0 4.125 4.125 0 0 1-8.25 0ZM14.25 8.625a3.375 3.375 0 1 1 6.75 0 3.375 3.375 0 0 1-6.75 0ZM1.5 19.125a7.125 7.125 0 0 1 14.25 0v.003l-.001.119a.75.75 0 0 1-.363.63 13.067 13.067 0 0 1-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 0 1-.364-.63l-.001-.122ZM17.25 19.128l-.001.144a2.25 2.25 0 0 1-.233.96 10.088 10.088 0 0 0 5.06-1.01.75.75 0 0 0 .42-.643 4.875 4.875 0 0 0-6.957-4.611 8.586 8.586 0 0 1 1.71 5.157v.003Z"
@@ -37,8 +37,10 @@
                         </svg>
                     </div>
                     <input
+                        v-model="search.q"
                         type="text"
-                        id="assign-user"
+                        id="q"
+                        name="q"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Name or email"
                     />
@@ -46,9 +48,9 @@
             </div>
             <div>
                 <label
-                    for=""
+                    for="created_at"
                     class="block mb-2 text-sm font-medium dark:text-white'"
-                    >Registered At</label
+                    >{{ $t('registeredAt') }}</label
                 >
                 <div class="relative">
                     <div
@@ -68,18 +70,43 @@
                         </svg>
                     </div>
                     <input
+                        v-model="search.created_at"
+                        id="created_at"
+                        name="created_at"
                         type="date"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     />
                 </div>
             </div>
-            <div class="flex justify-end items-end  col-span-2">
+            <div>
+                <button
+                    class="btn-blue flex items-center gap-2"
+                    @click="onSearch"
+                >
+                    <span> {{ $t('search') }} </span>
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-5"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                        />
+                    </svg>
+                </button>
+            </div>
+            <div class="flex justify-end items-end">
                 <Link
                     :href="route('user.create')"
                     prefetch
                     class="btn-primary flex items-center justify-center gap-2"
                 >
-                    <span>Create</span>
+                    <span>{{ $t('create') }}</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -102,10 +129,10 @@
                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
-                        <th scope="col" class="px-6 py-3">Name</th>
-                        <th scope="col" class="px-6 py-3">Email</th>
-                        <th scope="col" class="px-6 py-3">Status</th>
-                        <th scope="col" class="px-6 py-3">Action</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('name') }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('email') }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('status') }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -125,19 +152,19 @@
                         </td>
                         <td class="px-6 py-4">
                             <span
-                                class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
+                                class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300"
                             >
-                                completed :
-                                {{ user["completed_assigns_count"] }}</span
+                                Total Assigned :
+                                {{ user.assigns.length }}</span
                             >
                         </td>
 
                         <td class="px-6 py-4 flex gap-2">
                             <button
-                                class="btn-primary flex justify-center items-center gap-2"
-                                @click="showModal(user.assigns)"
+                                class="btn-blue flex justify-center items-center gap-2"
+                                @click="showAssignedModal(user.assigns)"
                             >
-                                <span>Assigned</span>
+                                <span>{{ $t('quizzes') }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -155,7 +182,7 @@
                                 :href="route('user.show', user.id)"
                                 class="btn-primary flex justify-center items-center gap-2"
                             >
-                                <span>Detail</span>
+                                <span>{{ $t('detail') }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -180,7 +207,7 @@
                                 class="btn-green flex justify-center items-center gap-2"
                                 @click="showQrCodeModal(user.id)"
                             >
-                                <span>App Login</span>
+                                <span>{{ $t('appLogin') }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -204,14 +231,15 @@
 
 <script setup lang="ts">
 import DashboardLayout from "@components/layout/DashboardLayout.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, router, usePage } from "@inertiajs/vue3";
 import { ref } from "vue";
 import AssignedQuizModal from "../../../components/AssignedQuizModal.vue";
 import QrLoginModal from "../../../components/QrLoginModal.vue";
+import { cleanObj } from "../../../lib/utility";
 
-defineProps({ users: Object, quizzes: Object });
+defineProps({ users: Object });
 
-const modal = ref<{ open: boolean; assigns: Array<any> }>({
+const assignedModal = ref<{ open: boolean; assigns: Array<any> }>({
     open: false,
     assigns: [],
 });
@@ -228,8 +256,8 @@ const showQrCodeModal = (userId: number) => {
     };
 };
 
-const showModal = (assigns: Array<any>) => {
-    modal.value = {
+const showAssignedModal = (assigns: Array<any>) => {
+    assignedModal.value = {
         assigns,
         open: true,
     };
@@ -242,11 +270,36 @@ const hideQrCodeModal = () => {
     };
 };
 
-const hideModal = () => {
-    modal.value = {
+const hideAssignedModal = () => {
+    assignedModal.value = {
         assigns: [],
         open: false,
     };
+};
+
+const searchParams = new URLSearchParams(window.location.search);
+
+const search = ref({
+    q: searchParams.get("q"),
+    created_at: searchParams.get("created_at"),
+});
+
+const onSearch = () => {
+    const queryString = new URLSearchParams(
+        cleanObj({
+            q: search.value.q,
+            created_at: search.value.created_at,
+        }) as any
+    ).toString();
+
+    router.visit(
+        `${
+            queryString
+                ? route("user.index") + "?" + queryString
+                : route("user.index")
+        }`,
+        { only: ["users"], preserveState: true }
+    );
 };
 </script>
 

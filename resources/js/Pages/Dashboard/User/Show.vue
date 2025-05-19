@@ -6,7 +6,7 @@
                     for="name"
                     :class="['block mb-2 text-sm font-medium  dark:text-white']"
                 >
-                    User Name</label
+                    {{ $t('name') }}</label
                 >
                 <div class="relative">
                     <div
@@ -38,7 +38,7 @@
                         :class="[
                             'bg-gray-50 border-gray-300 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
                         ]"
-                        placeholder="name@flowbite.com"
+
                         required
                     />
                 </div>
@@ -47,7 +47,7 @@
                 <label
                     for="email"
                     :class="['block mb-2 text-sm font-medium  dark:text-white']"
-                    >User Email</label
+                    >{{ $t('email') }}</label
                 >
                 <div class="relative">
                     <div
@@ -78,7 +78,6 @@
                         :class="[
                             'bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
                         ]"
-                        placeholder="name@flowbite.com"
                         required
                     />
                 </div>
@@ -92,7 +91,7 @@
                         form.errors.password ? 'text-red-600' : 'text-gray-900',
                     ]"
                 >
-                    Password</label
+                    {{ $t('password') }}</label
                 >
                 <div class="relative">
                     <div
@@ -164,12 +163,12 @@
                             fill="currentColor"
                         />
                     </svg>
-                    <span v-if="form.processing"> Saving </span>
-                    <span v-else> Save </span>
+                    <span v-if="form.processing"> {{ $t("save") }} ☕ </span>
+                    <span v-else> {{ $t("save") }} </span>
                 </button>
             </div>
         </form>
-        <h2 class="text-2xl font-bold text-indigo-900">Completed Assigns</h2>
+        <h2 class="text-2xl font-bold text-indigo-900">{{ $t('completedAssigns') }}</h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table
                 class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -178,9 +177,9 @@
                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
-                        <th scope="col" class="px-6 py-3">Name</th>
-                        <th scope="col" class="px-6 py-3">Title</th>
-                        <th scope="col" class="px-6 py-3">Status</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('name') }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('title') }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('status') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -189,7 +188,7 @@
                             colspan="100%"
                             class="text-center py-3 font-bold text-indigo-900"
                         >
-                            No completed assigns
+                    {{ $t('noCompletedAssigns') }}
                         </td>
                     </tr>
                 </tbody>

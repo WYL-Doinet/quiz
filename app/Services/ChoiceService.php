@@ -14,4 +14,9 @@ class ChoiceService {
     {
         return $this->choice->filter($filter)->get();
     }
+
+    public function update($id, $data)
+    {
+        return $this->choice->where('id', $id)->update($data);
+    }
 }

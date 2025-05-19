@@ -1,6 +1,10 @@
 
 import { AxiosInstance } from "axios";
 import ziggyRoute, { Config as ZiggyConfig } from "ziggy-js";
+import { ComponentCustomProperties } from 'vue';
+import { I18n } from 'vue-i18n';
+
+
 
 export {};
 
@@ -22,6 +26,9 @@ interface InertiaAppProps {
 
 declare module "@inertiajs/core" {
     interface PageProps extends InertiaAppProps {}
+    interface ComponentCustomProperties {
+    $t: I18n['global']['t'];
+  }
 }
 
 declare module "vue" {

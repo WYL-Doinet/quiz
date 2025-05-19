@@ -35,6 +35,10 @@ class Quiz extends Model
 
     public function scopeFilter($query, $filter)
     {
+        $query->when($filter['title'] ?? false, function ($query, $title) {
+            $query->where('title', 'like', '%' . $title . '%');
+        });
+
         $query->when($filter['user_id'] ?? false, function ($query, $userId) {
             $query->where('user_id', $userId);
         });

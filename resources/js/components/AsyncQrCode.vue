@@ -1,6 +1,6 @@
 <template>
     <QrcodeVue :value="qrValue" :size="250" :image-settings="imageSettings" />
-    <p class="text-red-600 font-bold mt-3">This QR code can be used only once.</p>
+    <p class="text-red-600 font-bold mt-3">{{ $t("qrCodeOnce") }}</p>
 </template>
 
 <script setup lang="ts">
@@ -24,10 +24,13 @@ const imageSettings = ref<ImageSettings>({
     height: 75,
 });
 
-const data = await res.json();
-
-qrValue.value = JSON.stringify({
-    user_id: props.userId,
-    qr_login_code: data.code,
-});
+if (res.ok) {
+    const data = await res.json();
+    qrValue.value = JSON.stringify({
+        user_id: props.userId,
+        qr_login_code: data.code,
+    });
+} else {
+    throw new Error("Qr generating failed.");
+}
 </script>

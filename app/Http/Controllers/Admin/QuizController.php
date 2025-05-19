@@ -21,11 +21,15 @@ class QuizController extends Controller
         protected QuizAssignmentService $quizAssignmentService,
     ) {}
 
-    public function index()
+    public function index(Request $request)
     {
+        $filter = [
+            'title' => $request->query('title'),
+            'category_id' => $request->query('category_id')
+        ];
         return Inertia::render('Dashboard/Quiz/Index', [
-            'quizzes' => function () {
-                $quizzes = $this->quizService->findAll();
+            'quizzes' => function () use ($filter) {
+                $quizzes = $this->quizService->findAll(filter: $filter);
                 $quizzes->load('createdBy');
                 $quizzes->loadCount('questions');
                 return $quizzes;

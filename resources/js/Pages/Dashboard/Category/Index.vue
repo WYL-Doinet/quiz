@@ -1,12 +1,12 @@
 <template>
     <DashboardLayout>
         <div class="space-y-5">
-            <div class="grid grid-cols-4 items-end">
+            <div class="grid grid-cols-4 items-end gap-3">
                 <div>
                     <label
-                        for=""
+                        for="name"
                         class="block mb-2 text-sm font-medium dark:text-white'"
-                        >Filter</label
+                        >{{ $t('filter') }}</label
                     >
                     <div class="relative">
                         <div
@@ -27,19 +27,37 @@
                         </div>
                         <input
                             type="text"
-                            id="assign-user"
+                            id="name"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Enter category name"
                         />
                     </div>
                 </div>
-                <div class="flex justify-end col-span-3">
+                <div>
+                    <button class="btn-blue flex items-center gap-2">
+                        <span> {{ $t('search') }} </span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="size-5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                            />
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex justify-end col-span-2">
                     <Link
                         :href="route('category.create')"
                         prefetch
                         class="btn-primary flex items-center justify-center gap-2"
                     >
-                        <span>Create</span>
+                        <span>{{ $t('create') }}</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -62,8 +80,8 @@
                         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                     >
                         <tr>
-                            <th scope="col" class="px-6 py-3">Name</th>
-                            <th scope="col" class="px-6 py-3">Action</th>
+                            <th scope="col" class="px-6 py-3">{{ $t('name') }}</th>
+                            <th scope="col" class="px-6 py-3">{{ $t('action') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -83,7 +101,7 @@
                                     :href="route('category.show', category.id)"
                                     class="btn-primary flex justify-center items-center gap-2"
                                 >
-                                    <span>Detail</span>
+                                    <span>{{ $t('detail') }}</span>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"

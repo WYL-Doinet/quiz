@@ -70,10 +70,11 @@ class User extends Authenticatable
         $query->when($filter['qr_login_code'] ?? false, function ($query, $qrLoginCode) {
             $query->where('qr_login_code', $qrLoginCode);
         });
+
+        $query->when($filter['created_at'] ?? false, function ($query, $createdAt) {
+            $query->where('created_at', '>=', $createdAt);
+        });
     }
 
-    public function scopeSort($query, $sort)
-    {
-        
-    }
+    public function scopeSort($query, $sort) {}
 }

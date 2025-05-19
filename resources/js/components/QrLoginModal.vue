@@ -4,8 +4,8 @@
         @click.self="hideModal()"
     >
         <div class="min-w-xl max-w-2xl rounded-lg p-5 bg-white space-y-5">
-            <h2 class="font-bold text-indigo-900 text-3xl text-center italic">
-                Scan to login
+            <h2 class="font-bold text-indigo-900 text-3xl text-center">
+                {{ $t('scanToLogin') }}
             </h2>
             <div
                 class="w-full flex flex-col justify-center items-center rounded-lg border-gray-300 p-5 border h-[300px]"
@@ -15,12 +15,12 @@
                         <AsyncQrCode :userId="userId" />
                     </template>
                     <template #fallback>
-                        <div>Please wait this can take a little...</div>
+                        <div class="text-indigo-900">{{ $t('pleaseWait') }}</div>
                     </template>
                 </Suspense>
             </div>
             <div class="flex justify-end gap-2">
-                <button class="btn-danger" @click="hideModal()">Close</button>
+                <button class="btn-danger" @click="hideModal()">{{ $t('cancel') }}</button>
             </div>
         </div>
     </div>

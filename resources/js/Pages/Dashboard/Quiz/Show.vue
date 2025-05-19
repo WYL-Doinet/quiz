@@ -2,51 +2,44 @@
     <DashboardLayout>
         <div class="space-y-5">
             <div>
-                <label for="title" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Title</label>
-                <input disabled type="text" id="title" name="title" :value="quiz.title"
-                    class="bg-gray-50 border  border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Quiz Title" required />
+                <label
+                    for="title"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >{{ $t('title') }}</label
+                >
+                <input
+                    disabled
+                    type="text"
+                    id="title"
+                    name="title"
+                    :value="quiz.title"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Quiz Title"
+                    required
+                />
             </div>
             <div>
-                <label for="message"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                <textarea disabled id="description" rows="4" name="description"
+                <label
+                    for="message"
+                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    >{{ $t('description') }}</label
+                >
+                <textarea
+                    disabled
+                    id="description"
+                    rows="4"
+                    name="description"
                     class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="About the quiz...">{{ quiz.description }}</textarea>
+                    placeholder="About the quiz..."
+                    >{{ quiz.description }}</textarea
+                >
             </div>
-            <div v-for="question, i in quiz.questions" :key="question.id"
-                class="w-full space-y-5 p-6 bg-white border border-gray-300 rounded-lg  dark:bg-gray-800 dark:border-gray-700">
-                <div class="flex justify-between items-center">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-indigo-800  dark:text-white">Question {{
-                        i + 1 }}
-                    </h5>
-
-                </div>
-                <div>
-                    <label for="first_name"
-                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Question</label>
-                    <input type="text" :value="question.question_text" disabled
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Question text" />
-                </div>
-                <div>
-                    <div class=" col-span-2">
-                        <label for="first_name"
-                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Answer</label>
-                    </div>
-                    <div class="grid grid-cols-2 gap-5">
-                        <div v-for="choice, i in question.choices" :key="choice.id">
-                            <div class="flex items-center gap-3">
-                                <input type="text" :value="choice.choice_text" disabled
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                <input disabled type="radio" value="true" :checked="choice.is_correct"
-                                    class="w-4 h-4 text-indigo-800 bg-gray-100 border-gray-300 focus:outline-none focus:border-0">
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+            <QuestionEditCard
+                v-for="(question, i) in quiz.questions"
+                :key="question.id"
+                :index="i"
+                :question="question"
+            />
             <!-- <form class="space-y-5" @submit.prevent="submit">
                 <QuestionCard :removeQuestion="() => removeQuestion(question)" v-for="question, i in questions"
                     :key="question" :questionIndex="i + quiz.questions.length" />
@@ -80,48 +73,45 @@
                 </div>
             </form> -->
         </div>
-
     </DashboardLayout>
 </template>
 
 <script setup lang="ts">
-import qs from 'qs'
-import DashboardLayout from '@components/layout/DashboardLayout.vue'
-import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import QuestionCard from '@components/QuestionCard.vue';
+import qs from "qs";
+import DashboardLayout from "@components/layout/DashboardLayout.vue";
+import { useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
+import QuestionEditCard from "../../../components/QuestionEditCard.vue";
 
-defineProps<{ quiz: any }>()
+defineProps<{ quiz: any }>();
 
-const questions = ref<Array<number>>([])
+const questions = ref<Array<number>>([]);
 
 const initialFormProps: { [key: string]: any } = {
-    'questions': [],
-}
+    questions: [],
+};
 
 const form = useForm(initialFormProps);
 
 const addQuestion = () => {
-    questions.value.push(new Date().getTime())
-}
+    questions.value.push(new Date().getTime());
+};
 
 const removeQuestion = (id: number) => {
-    questions.value = questions.value.filter((item) => item !== id)
-}
+    questions.value = questions.value.filter((item) => item !== id);
+};
 
 const submit = (e: Event) => {
-    const el = e.target as HTMLFormElement
+    const el = e.target as HTMLFormElement;
     const formData = new FormData(el);
     const queryString = new URLSearchParams(formData as any).toString();
 
-    const data = qs.parse(queryString)
+    const data = qs.parse(queryString);
 
     for (let key in data) {
-        form[key] = data[key]
+        form[key] = data[key];
     }
 
-    form.post(route('quiz.store'))
-
-}
-
+    form.post(route("quiz.store"));
+};
 </script>
