@@ -7,7 +7,7 @@
             <h5
                 class="mb-2 text-2xl font-bold tracking-tight text-indigo-800 dark:text-white"
             >
-                {{ $t("question") }} {{ index + 1 }}
+                {{ $t("question") }} <span class="text-orange-500 font-extrabold">{{ index + 1 }}</span>
             </h5>
             <button class="btn-primary">
                 {{ form.processing ? $t("save") + " ☕" : $t("save") }}
