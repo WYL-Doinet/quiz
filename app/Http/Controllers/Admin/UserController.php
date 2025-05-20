@@ -8,6 +8,7 @@ use App\Services\QuizAssignmentService;
 use App\Services\QuizService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
@@ -82,5 +83,28 @@ class UserController extends Controller
 
             return response()->json(['code' =>  $code]);
         }
+    }
+
+    public function answer(Request $request)
+    {
+        $id = $request->route('id');
+        $assignmentId = $request->route('assignment_id');
+        $filter = ['user_id' => $id, 'id' => $assignmentId, 'completed_at' => true];
+        $assignment = $this->quizAssignmentService->findFirst(filter: $filter);
+        $assignment->load([
+            'quiz' => fn($query) =>
+            $query->with([
+                'questions' => fn($query) => $query->addSelect(
+                    [
+                        'user_choice_id' => DB::table('user_answers')
+                            ->select('choice_id')
+                            ->where('assignment_id', $assignment->id)
+                            ->whereColumn('user_answers.question_id', 'questions.id')->limit(1)
+                    ]
+                )
+                    ->with(['choices'])
+            ])
+        ]);
+        return $assignment;
     }
 }

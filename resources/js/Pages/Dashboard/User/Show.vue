@@ -177,7 +177,7 @@
                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
-                        <th scope="col" class="px-6 py-3">{{ $t('name') }}</th>
+         
                         <th scope="col" class="px-6 py-3">{{ $t('title') }}</th>
                         <th scope="col" class="px-6 py-3">{{ $t('status') }}</th>
                     </tr>
@@ -191,6 +191,15 @@
                     {{ $t('noCompletedAssigns') }}
                         </td>
                     </tr>
+                    <tr v-else v-for="assign in completed_assigns" :key="assign.id">
+                        <th scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ assign.quiz.title }}
+                        </th>
+                        <td class="px-3 py-6">
+                            
+                        </td>
+                    </tr> 
                 </tbody>
             </table>
         </div>

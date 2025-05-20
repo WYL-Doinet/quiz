@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use Hamcrest\Type\IsBoolean;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
-use function PHPUnit\Framework\isBool;
-use function PHPUnit\Framework\isNull;
 
 class QuizAssignment extends Model
 {
@@ -15,6 +12,9 @@ class QuizAssignment extends Model
         'quiz_id',
         'user_id',
         'assign_at',
+        'completed_at',
+        'status',
+        'score'
     ];
 
     public function quiz(): BelongsTo

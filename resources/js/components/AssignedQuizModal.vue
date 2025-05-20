@@ -8,30 +8,30 @@
                  {{ $t('quizzes') }}
             </h2>
             <div
-                class="w-full rounded-lg border-gray-300 p-5 border h-[300px] overflow-y-scroll"
+                class="w-full rounded-lg border-gray-300 p-3 border h-[300px] overflow-y-scroll"
             >
                 <ul class="space-y-5">
                     <li
                         v-for="assign in assigns"
                         :key="assign.id"
-                        class="gap-2 flex items-center justify-between"
+                        class="gap-2 flex items-center justify-between p-3 rounded-lg bg-gray-50"
                     >
-                        <p>{{ assign.quiz.title }}</p>
+                        <p class="text-md font-semibold">{{ assign.quiz.title }}</p>
                         <div class="space-x-3">
                             <span
                                 class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
-                                >Score : {{ assign.score }}</span
+                                >{{ $t('score') }} : {{ assign.score }}</span
                             >
                             <span
                                 v-if="assign.completed_at"
-                                class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
+                                class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"
                             >
-                                complete
+                                {{ $t('complete') }}
                             </span>
                             <span
                                 v-else
                                 class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
-                                >Pending</span
+                                > {{ $t('pending') }}</span
                             >
                         </div>
                     </li>

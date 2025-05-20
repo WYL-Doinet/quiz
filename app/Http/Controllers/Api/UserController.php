@@ -93,7 +93,7 @@ class UserController extends Controller
             ->sort()
             ->toArray();
 
-        if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
+        if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($expectedQuestionIds)) {
             return response()->json([
                 'message' => 'Some provided question IDs do not match the expected questions.'
             ], 422);
@@ -114,12 +114,9 @@ class UserController extends Controller
             $userAnswers[] = [
                 'assignment_id' => $assignment->id,
                 'question_id' => $answer['question_id'],
-                'choice_id' => $answer['choice_id']
+                'choice_id' => $answer['choice_id'] ?? null
             ];
-
-            if (
-                isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]['id'] === $answer['choice_id']
-            ) {
+            if (isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]['id'] === $answer['choice_id']) {
                 $score++;
             }
         }
