@@ -63,6 +63,5 @@ class QuestionController extends Controller
             DB::rollBack();
             return back()->withErrors(['message' => 'An error occurred while updating.']);
         }
-        return redirect()->back()->with(['success' => 'Question updated successfully.']);
     }
 }

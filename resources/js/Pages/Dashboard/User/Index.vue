@@ -19,7 +19,7 @@
                 <label
                     for="q"
                     class="block mb-2 text-sm font-medium dark:text-white'"
-                    >{{ $t('filter') }}</label
+                    >{{ $t("filter") }}</label
                 >
                 <div class="relative">
                     <div
@@ -42,7 +42,6 @@
                         id="q"
                         name="q"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Name or email"
                     />
                 </div>
             </div>
@@ -50,7 +49,7 @@
                 <label
                     for="created_at"
                     class="block mb-2 text-sm font-medium dark:text-white'"
-                    >{{ $t('registeredAt') }}</label
+                    >{{ $t("registeredAt") }}</label
                 >
                 <div class="relative">
                     <div
@@ -83,7 +82,7 @@
                     class="btn-blue flex items-center gap-2"
                     @click="onSearch"
                 >
-                    <span> {{ $t('search') }} </span>
+                    <span> {{ $t("search") }} </span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -106,7 +105,7 @@
                     prefetch
                     class="btn-primary flex items-center justify-center gap-2"
                 >
-                    <span>{{ $t('create') }}</span>
+                    <span>{{ $t("create") }}</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -129,10 +128,14 @@
                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
-                        <th scope="col" class="px-6 py-3">{{ $t('name') }}</th>
-                        <th scope="col" class="px-6 py-3">{{ $t('email') }}</th>
-                        <th scope="col" class="px-6 py-3">{{ $t('status') }}</th>
-                        <th scope="col" class="px-6 py-3">{{ $t('action') }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t("name") }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t("email") }}</th>
+                        <th scope="col" class="px-6 py-3">
+                            {{ $t("status") }}
+                        </th>
+                        <th scope="col" class="px-6 py-3">
+                            {{ $t("action") }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -154,7 +157,7 @@
                             <span
                                 class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300"
                             >
-                                Total Assigned :
+                                {{ $t("quizzes") }} :
                                 {{ user.assigns.length }}</span
                             >
                         </td>
@@ -164,7 +167,7 @@
                                 class="btn-blue flex justify-center items-center gap-2"
                                 @click="showAssignedModal(user.assigns)"
                             >
-                                <span>{{ $t('quizzes') }}</span>
+                                <span>{{ $t("quizzes") }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -182,7 +185,7 @@
                                 :href="route('user.show', user.id)"
                                 class="btn-primary flex justify-center items-center gap-2"
                             >
-                                <span>{{ $t('detail') }}</span>
+                                <span>{{ $t("detail") }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -207,7 +210,7 @@
                                 class="btn-green flex justify-center items-center gap-2"
                                 @click="showQrCodeModal(user.id)"
                             >
-                                <span>{{ $t('appLogin') }}</span>
+                                <span>{{ $t("appLogin") }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -285,12 +288,7 @@ const search = ref({
 });
 
 const onSearch = () => {
-    const queryString = new URLSearchParams(
-        cleanObj({
-            q: search.value.q,
-            created_at: search.value.created_at,
-        }) as any
-    ).toString();
+    const queryString = new URLSearchParams(cleanObj(search.value)).toString();
 
     router.visit(
         `${

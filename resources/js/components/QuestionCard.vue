@@ -6,7 +6,7 @@
             <h5
                 class="mb-2 text-2xl font-bold tracking-tight text-indigo-800 dark:text-white"
             >
-                {{ $t('question') }} {{ index + 1 }}
+                {{ $t('question') }} <span class="text-orange-500">{{ index + 1 }}</span>
             </h5>
             <div class="flex justify-center items-center gap-3">
                 <button

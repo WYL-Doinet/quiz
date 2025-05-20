@@ -2,7 +2,7 @@
     <div class="flex h-screen">
         <div class="w-[250px] flex flex-col bg-indigo-950">
             <h1 class="text-center text-white font-bold text-4xl p-2 italic">
-                Lara Quiz
+                <span class="text-orange-500">Lara</span> Quiz
             </h1>
             <ul class="px-12 mt-10 space-y-5 flex-1">
                 <li
@@ -26,7 +26,9 @@
                             d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z"
                         />
                     </svg>
-                    <Link :href="route('home.dashboard')">{{ $t('dashboard') }}</Link>
+                    <Link :href="route('home.dashboard')">{{
+                        $t("dashboard")
+                    }}</Link>
                 </li>
                 <li
                     :class="[
@@ -48,7 +50,9 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    <Link :href="route('category.index')">{{ $t('categories') }}</Link>
+                    <Link :href="route('category.index')">{{
+                        $t("categories")
+                    }}</Link>
                 </li>
                 <li
                     :class="[
@@ -75,7 +79,7 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    <Link :href="route('quiz.index')">{{ $t('quizzes') }}</Link>
+                    <Link :href="route('quiz.index')">{{ $t("quizzes") }}</Link>
                 </li>
                 <li
                     :class="[
@@ -100,7 +104,7 @@
                             d="M5.082 14.254a8.287 8.287 0 0 0-1.308 5.135 9.687 9.687 0 0 1-1.764-.44l-.115-.04a.563.563 0 0 1-.373-.487l-.01-.121a3.75 3.75 0 0 1 3.57-4.047ZM20.226 19.389a8.287 8.287 0 0 0-1.308-5.135 3.75 3.75 0 0 1 3.57 4.047l-.01.121a.563.563 0 0 1-.373.486l-.115.04c-.567.2-1.156.349-1.764.441Z"
                         />
                     </svg>
-                    <Link :href="route('user.index')">{{ $t('users') }}</Link>
+                    <Link :href="route('user.index')">{{ $t("users") }}</Link>
                 </li>
             </ul>
             <div>
@@ -112,39 +116,12 @@
             </div>
         </div>
         <div class="flex-1 overflow-hidden flex flex-col">
-            <div class="bg-white p-3 flex justify-end gap-5">
-                <button @click="notificationModal.open = true"
-                    type="button"
-                    class="relative cursor-pointer inline-flex items-center p-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-full hover:bg-indigo-800"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        fill="currentColor"
-                        class="size-5"
-                    >
-                        <path
-                            d="M5.85 3.5a.75.75 0 0 0-1.117-1 9.719 9.719 0 0 0-2.348 4.876.75.75 0 0 0 1.479.248A8.219 8.219 0 0 1 5.85 3.5ZM19.267 2.5a.75.75 0 1 0-1.118 1 8.22 8.22 0 0 1 1.987 4.124.75.75 0 0 0 1.48-.248A9.72 9.72 0 0 0 19.266 2.5Z"
-                        />
-                        <path
-                            fill-rule="evenodd"
-                            d="M12 2.25A6.75 6.75 0 0 0 5.25 9v.75a8.217 8.217 0 0 1-2.119 5.52.75.75 0 0 0 .298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 1 0 7.48 0 24.583 24.583 0 0 0 4.83-1.244.75.75 0 0 0 .298-1.205 8.217 8.217 0 0 1-2.118-5.52V9A6.75 6.75 0 0 0 12 2.25ZM9.75 18c0-.034 0-.067.002-.1a25.05 25.05 0 0 0 4.496 0l.002.1a2.25 2.25 0 1 1-4.5 0Z"
-                            clip-rule="evenodd"
-                        />
-                    </svg>
-
-                    <span class="sr-only">Notifications</span>
-                    <div
-                        class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900"
-                    >
-                        20
-                    </div>
-                </button>
-
+            <div class="bg-white px-5 py-3 flex justify-between gap-5">
                 <button
                     @click="logout"
                     class="btn-danger flex justify-center items-center gap-2"
                 >
+                    <span>{{ $t('logout') }}</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -158,6 +135,41 @@
                         />
                     </svg>
                 </button>
+                <div class="flex items-center gap-5">
+                    <div class="flex items-center gap-3">
+                        <span
+                            class="fi fi-jp text-4xl border border-gray-300 rounded-md"
+                        ></span>
+                    </div>
+                    <button
+                        @click="notificationModal.open = true"
+                        type="button"
+                        class="relative cursor-pointer inline-flex items-center p-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-full hover:bg-indigo-800"
+                    >   
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="size-5"
+                        >
+                            <path
+                                d="M5.85 3.5a.75.75 0 0 0-1.117-1 9.719 9.719 0 0 0-2.348 4.876.75.75 0 0 0 1.479.248A8.219 8.219 0 0 1 5.85 3.5ZM19.267 2.5a.75.75 0 1 0-1.118 1 8.22 8.22 0 0 1 1.987 4.124.75.75 0 0 0 1.48-.248A9.72 9.72 0 0 0 19.266 2.5Z"
+                            />
+                            <path
+                                fill-rule="evenodd"
+                                d="M12 2.25A6.75 6.75 0 0 0 5.25 9v.75a8.217 8.217 0 0 1-2.119 5.52.75.75 0 0 0 .298 1.206c1.544.57 3.16.99 4.831 1.243a3.75 3.75 0 1 0 7.48 0 24.583 24.583 0 0 0 4.83-1.244.75.75 0 0 0 .298-1.205 8.217 8.217 0 0 1-2.118-5.52V9A6.75 6.75 0 0 0 12 2.25ZM9.75 18c0-.034 0-.067.002-.1a25.05 25.05 0 0 0 4.496 0l.002.1a2.25 2.25 0 1 1-4.5 0Z"
+                                clip-rule="evenodd"
+                            />
+                        </svg>
+
+                        <span class="sr-only">Notifications</span>
+                        <div
+                            class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900"
+                        >
+                            20
+                        </div>
+                    </button>
+                </div>
             </div>
             <div
                 class="bg-gray-100 flex-1 p-5 relative flex flex-col overflow-y-scroll"

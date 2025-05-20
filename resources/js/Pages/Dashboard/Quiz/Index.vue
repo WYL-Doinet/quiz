@@ -5,7 +5,7 @@
                 <label
                     for="q"
                     class="block mb-2 text-sm font-medium dark:text-white'"
-                    >{{ $t('filter') }}</label
+                    >{{ $t("filter") }}</label
                 >
                 <div class="relative">
                     <div
@@ -26,11 +26,10 @@
                     </div>
                     <input
                         v-model="search.title"
-                        type="text"
+                         type="text"
                         id="q"
                         name="q"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Enter title name"
                     />
                 </div>
             </div>
@@ -38,7 +37,7 @@
                 <label
                     for="q"
                     class="block mb-2 text-sm font-medium dark:text-white'"
-                    >{{ $t('category                         ') }}</label
+                    >{{ $t("category") }}</label
                 >
                 <select
                     v-model="search.category_id"
@@ -46,7 +45,7 @@
                     name="category_id"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 >
-                    <option value="">Select category</option>
+                    <option value="">{{ $t('selectCategory') }}</option>
                     <option
                         v-for="category in categories"
                         :value="category.id"
@@ -61,7 +60,7 @@
                     class="btn-blue flex items-center gap-2"
                     @click="onSearch"
                 >
-                    <span> {{ $t('search') }} </span>
+                    <span> {{ $t("search") }} </span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
@@ -107,16 +106,16 @@
                 >
                     <tr>
                         <th scope="col" class="px-6 py-3 min-w-[200px]">
-                            {{ $t('title') }}
+                            {{ $t("title") }}
                         </th>
                         <th scope="col" class="px-6 py-3 min-w-[200px]">
-                             {{ $t('createdBy') }}
+                            {{ $t("createdBy") }}
                         </th>
                         <th scope="col" class="px-6 py-3 min-w-[200px]">
-                             {{ $t('status') }}
+                            {{ $t("status") }}
                         </th>
                         <th scope="col" class="px-6 py-3 min-w-[200px]">
-                            {{ $t('action') }}
+                            {{ $t("action") }}
                         </th>
                     </tr>
                 </thead>
@@ -139,7 +138,8 @@
                             <span
                                 class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded-full dark:bg-indigo-900 dark:text-indigo-300"
                             >
-                                questions : {{ quiz["questions_count"] }}</span
+                                {{ $t("question") }} :
+                                {{ quiz["questions_count"] }}</span
                             >
                         </td>
                         <td class="px-6 py-4 flex gap-2">
@@ -147,7 +147,7 @@
                                 :href="route('quiz.assign.create', quiz.id)"
                                 class="btn-blue flex justify-center items-center gap-2"
                             >
-                                <span>{{ $t('assign') }}</span>
+                                <span>{{ $t("assign") }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -163,7 +163,7 @@
                                 :href="route('quiz.show', quiz.id)"
                                 class="btn-primary flex justify-center items-center gap-2"
                             >
-                                <span>{{ $t('review') }}</span>
+                                <span>{{ $t("review") }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 24 24"
@@ -188,7 +188,7 @@
                                 cache-for="30m"
                                 class="btn-green flex gap-2 items-center"
                             >
-                                <span>{{ $t('demoTest') }}</span>
+                                <span>{{ $t("demoTest") }}</span>
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     fill="none"
@@ -235,19 +235,15 @@ const search = ref({
 });
 
 const onSearch = () => {
-    const queryString = new URLSearchParams(
-        cleanObj({
-            title: search.value.title,
-            category_id: search.value.category_id,
-        })
-    );
-
-    router.visit(
-        `${
+    const cleanParams =  cleanObj(search.value);
+    const queryString = new URLSearchParams(cleanParams).toString();
+    const url =`${
             queryString
                 ? route("quiz.index") + "?" + queryString
                 : route("quiz.index")
-        }`,
+        }`
+    router.visit(
+         url,
         {
             only: ["quizzes"],
             preserveState: true,

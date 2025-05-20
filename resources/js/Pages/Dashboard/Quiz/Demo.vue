@@ -1,17 +1,17 @@
 <template>
     <DashboardLayout>
+        <h2 class="text-3                                                                                                                                                                                                                                                                                    xl font-bold text-indigo-900 text-center">{{ quiz.title }}</h2>
         <form
             :class="['space-y-5', { 'pointer-events-none': results.length }]"
             @submit.prevent="submit"
         >
             <QuestionDemoCard
-                :questionIndex="i"
+                :index="i"
                 v-for="(question, i) in quiz.questions"
                 :id="question.id"
                 :key="question.id"
                 :question="question"
             />
-
             <div>
                 <button class="btn-primary">{{ $t('submit') }}</button>
             </div>
@@ -27,7 +27,7 @@
                     class="space-y-5 p-5 border-gray-300 border rounded-lg"
                 >
                     <h3 class="font-bold text-2xl text-indigo-900">
-                        {{ i + 1 }}. {{ result["question_text"] }}
+                        <span class="text-orange-500">{{ i + 1 }}.</span> {{ result["question_text"] }}
                     </h3>
                     <div class="grid grid-cols-2 gap-3 text-md">
                         <div>

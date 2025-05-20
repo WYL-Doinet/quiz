@@ -8,6 +8,7 @@ import QrcodeVue, { ImageSettings } from "qrcode.vue";
 import { ref } from "vue";
 const props = defineProps<{ userId: any }>();
 import logo from "@images/qr-logo-2.svg";
+import { sleep } from "../lib/utility";
 
 const qrValue = ref("");
 
@@ -25,6 +26,7 @@ const imageSettings = ref<ImageSettings>({
 });
 
 if (res.ok) {
+    await sleep(2000);
     const data = await res.json();
     qrValue.value = JSON.stringify({
         user_id: props.userId,

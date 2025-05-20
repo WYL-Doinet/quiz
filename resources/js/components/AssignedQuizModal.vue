@@ -4,8 +4,8 @@
         @click.self="hideModal()"
     >
         <div class="min-w-xl max-w-2xl rounded-lg p-5 bg-white space-y-5">
-            <h2 class="font-bold text-indigo-900 text-3xl text-center italic">
-                 Quizzes
+            <h2 class="font-bold text-indigo-900 text-3xl text-center ">
+                 {{ $t('quizzes') }}
             </h2>
             <div
                 class="w-full rounded-lg border-gray-300 p-5 border h-[300px] overflow-y-scroll"
@@ -38,7 +38,7 @@
                 </ul>
             </div>
             <div class="flex justify-end gap-2">
-                <button class="btn-danger" @click="hideModal()">Close</button>
+                <button class="btn-danger" @click="hideModal()">{{ $t('cancel') }}</button>
             </div>
         </div>
     </div>

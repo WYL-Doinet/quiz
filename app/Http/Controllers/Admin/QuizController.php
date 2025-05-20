@@ -103,6 +103,11 @@ class QuizController extends Controller
 
     public function show($id)
     {
+        $quiz = $this->quizService->find($id);
+        $quiz->load('questions.choices');
+       
+
+        dd($quiz->toArray());
         return Inertia::render('Dashboard/Quiz/Show', [
             'quiz' => function () use ($id) {
                 $quiz = $this->quizService->find($id);

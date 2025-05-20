@@ -4,9 +4,9 @@
             <div class="grid grid-cols-4 items-end gap-3">
                 <div>
                     <label
-                        for="name"
+                        for="q"
                         class="block mb-2 text-sm font-medium dark:text-white'"
-                        >{{ $t('filter') }}</label
+                        >{{ $t("filter") }}</label
                     >
                     <div class="relative">
                         <div
@@ -26,15 +26,16 @@
                             </svg>
                         </div>
                         <input
+                            v-model="search.q"
                             type="text"
-                            id="name"
+                            id="q"
                             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         />
                     </div>
                 </div>
                 <div>
-                    <button class="btn-blue flex items-center gap-2">
-                        <span> {{ $t('search') }} </span>
+                    <button class="btn-blue flex items-center gap-2" @click="onSearch">
+                        <span> {{ $t("search") }} </span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -57,7 +58,7 @@
                         prefetch
                         class="btn-primary flex items-center justify-center gap-2"
                     >
-                        <span>{{ $t('create') }}</span>
+                        <span>{{ $t("create") }}</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
@@ -80,8 +81,12 @@
                         class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                     >
                         <tr>
-                            <th scope="col" class="px-6 py-3">{{ $t('name') }}</th>
-                            <th scope="col" class="px-6 py-3">{{ $t('action') }}</th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ $t("name") }}
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ $t("action") }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,7 +106,7 @@
                                     :href="route('category.show', category.id)"
                                     class="btn-primary flex justify-center items-center gap-2"
                                 >
-                                    <span>{{ $t('detail') }}</span>
+                                    <span>{{ $t("detail") }}</span>
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 24 24"
@@ -132,6 +137,29 @@
 
 <script lang="ts" setup>
 import DashboardLayout from "@components/layout/DashboardLayout.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, router } from "@inertiajs/vue3";
+import { ref } from "vue";
+import { cleanObj } from "../../../lib/utility";
 defineProps<{ categories: any }>();
+
+const searchParams = new URLSearchParams(window.location.search);
+
+const search = ref({
+    q: searchParams.get("q"),
+});
+
+const onSearch = () => {
+    const queryString = new URLSearchParams(cleanObj(search.value)).toString();
+    const url  = `${
+            queryString
+                ? route("category.index") + "?" + queryString
+                : route("category.index")
+        }`
+    router.visit(url,
+        {
+            only: ["categories"],
+            preserveState: true,
+        }
+    );
+};
 </script>

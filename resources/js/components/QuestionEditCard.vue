@@ -81,6 +81,7 @@
 import { useForm } from "@inertiajs/vue3";
 import qs from "qs";
 import { ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { useToast } from "vue-toastification";
 const props = defineProps<{ question: any; index: any }>();
 
@@ -91,6 +92,7 @@ const initiAlFormProps = {
 const form = useForm(initiAlFormProps);
 
 const toast = useToast();
+const {t} = useI18n();
 
 const onQuestionSave = (e: Event) => {
     const el = e.target as HTMLFormElement;
@@ -100,12 +102,13 @@ const onQuestionSave = (e: Event) => {
     const queryString = new URLSearchParams(formData as any).toString();
 
     const data = qs.parse(queryString);
+    
     form["question_text"] = data["question_text"] as any;
     form["choices"] = data["choices"] as any;
 
     form.patch(route("question.update", props.question.id), {
         onSuccess: async () => {
-            toast.success("データが更新されました", { timeout: 2000 });
+            toast.success(t('dataUpdated'), { timeout: 2000 });
         },
     });
 };

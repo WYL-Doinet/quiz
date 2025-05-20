@@ -6,7 +6,7 @@
                     for="name"
                     :class="['block mb-2 text-sm font-medium  dark:text-white']"
                 >
-                    Category Name</label
+                    {{ $t('name') }}</label
                 >
                 <div class="relative">
                     <div
@@ -63,12 +63,12 @@
                             fill="currentColor"
                         />
                     </svg>
-                    <span v-if="form.processing"> Saving </span>
-                    <span v-else> Save </span>
+                    <span v-if="form.processing"> {{ $t('save') }} ☕ </span>
+                    <span v-else> {{ $t('save') }} </span>
                 </button>
             </div>
         </form>
-        <h2 class="text-2xl font-bold text-indigo-900">Quizzes</h2>
+        <h2 class="text-2xl font-bold text-indigo-900">{{ $t('quizzes') }}</h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table
                 class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -77,8 +77,8 @@
                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
-                        <th scope="col" class="px-6 py-3">Title</th>
-                        <th scope="col" class="px-6 py-3">Status</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('title') }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t('status') }}</th>
                     </tr>
                 </thead>
                 <tbody>

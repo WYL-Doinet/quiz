@@ -198,6 +198,8 @@
 <script setup lang="ts">
 import DashboardLayout from "@components/layout/DashboardLayout.vue";
 import { useForm } from "@inertiajs/vue3";
+import { useI18n } from "vue-i18n";
+import { useToast } from "vue-toastification";
 
 const form = useForm({
     name: "",
@@ -206,7 +208,12 @@ const form = useForm({
     is_admin: false,
 });
 
+const toast = useToast();
+const {t} = useI18n();
+
 const submit = () => {
-    form.post(route("user.store"));
+    form.post(route("user.store"),{onSuccess:() => {
+            toast.success(t('dataCreated'), {timeout:2000})
+    }});
 };
 </script>

@@ -15,10 +15,12 @@ class CategoryController extends Controller
         protected QuizService $quizService
     ) {}
 
-    public function index()
-    {
+    public function index(Request $request)
+    {   
+        $filter = ['q' => $request->query('q')];
+
         return Inertia::render('Dashboard/Category/Index', [
-            'categories' => fn() => $this->categoryService->findAll(),
+            'categories' => fn() => $this->categoryService->findAll(filter:$filter),
 
         ]);
     }

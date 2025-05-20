@@ -27,7 +27,7 @@ class UserController extends Controller
         return $request->user();
     }
 
-    
+
     public function quizAssignment(Request $request)
     {
         $filters = ['user_id' => $request->user()->id];
@@ -57,17 +57,19 @@ class UserController extends Controller
     public function quizAssignmentAnswer(Request $request, $id)
     {
         $filter =  [
-            'user_id' => $request->user->id(),
+            'user_id' => $request->user()->id,
         ];
+
 
         $assignment = $this->quizAssignmentService->find(id: $id, filter: $filter);
 
         if ($assignment->completed !== null) {
-            return response()->json([
-                'message' => 'You have already completed this quiz. Submitting answers again is not allowed.'
-            ], 409
-        
-        );
+            return response()->json(
+                [
+                    'message' => 'You have already completed this quiz. Submitting answers again is not allowed.'
+                ],
+                409
+            );
         }
 
         $validated = $request->validate([
@@ -81,27 +83,26 @@ class UserController extends Controller
         $receivedQuestionIds = collect($answers)
             ->pluck('question_id')
             ->sort()
-            ->values();
+            ->toArray();
 
         $questions = $this->questionService
             ->findAll(filter: ['quiz_id' => $assignment->quiz_id]);
 
-        $questions->load('choices');
-
         $expectedQuestionIds =
             $questions->pluck('id')
             ->sort()
-            ->values();
+            ->toArray();
 
-        if (!$receivedQuestionIds->equals($expectedQuestionIds)) {
+        if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
             return response()->json([
-                'message' => 'You must submit answers for all questions, even if unanswered.'
+                'message' => 'Some provided question IDs do not match the expected questions.'
             ], 422);
         }
 
         $correctAnswers = $questions
             ->flatMap(fn($q) => $q->choices)
             ->where('is_correct', true)
+            ->select(['id', 'question_id'])
             ->keyBy('question_id');
 
 
@@ -117,7 +118,7 @@ class UserController extends Controller
             ];
 
             if (
-                isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]->id === $answer['choice_id']
+                isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]['id'] === $answer['choice_id']
             ) {
                 $score++;
             }

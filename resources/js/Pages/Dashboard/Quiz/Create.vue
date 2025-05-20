@@ -15,7 +15,7 @@
                         name="category_id"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     >
-                        <option selected value>Choose category</option>
+                        <option selected value>{{ $t('selectCategory') }}</option>
                         <option
                             v-for="category in categories"
                             :value="category.id"
@@ -114,6 +114,8 @@ import { ref } from "vue";
 import QuestionCard from "@components/QuestionCard.vue";
 import qs from "qs";
 import { useForm } from "@inertiajs/vue3";
+import { useToast } from "vue-toastification";
+import { useI18n } from "vue-i18n";
 const questions = ref<Array<number>>(
     Array.from(Array(5), (v, k) => new Date().getTime() + k)
 );
@@ -124,6 +126,9 @@ const initialFormProps: { [key: string]: any } = {
     description: null,
     questions: [],
 };
+
+const toast =useToast();
+const {t} = useI18n();
 
 const form = useForm(initialFormProps);
 
@@ -146,7 +151,9 @@ const submit = (e: Event) => {
         form[key] = data[key];
     }
 
-    form.post(route("quiz.store"));
+    form.post(route("quiz.store"), {onSuccess:() => {
+            toast.success(t('dataCreated'), {timeout:2000})
+    }});
 };
 
 defineProps({ categories: Object });

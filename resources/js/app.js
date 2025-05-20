@@ -1,5 +1,6 @@
 import "./bootstrap";
 import "vue-toastification/dist/index.css";
+import "flag-icons/css/flag-icons.min.css";
 import { createApp, h } from "vue";
 import { createInertiaApp } from "@inertiajs/vue3";
 import { ZiggyVue } from "ziggy-js";
@@ -9,6 +10,7 @@ import { createI18n } from "vue-i18n";
 const i18n = createI18n({
     locale: "ja",
     fallbackLocale: "en",
+    legacy: false,
     messages: {
         en: {
             create: "Create",
@@ -74,7 +76,10 @@ const i18n = createI18n({
             qrCodeOnce: "This QR code can be used only once",
             scanToLogin: "Scan to login",
             pleaseWait: "Please wait, this can take a little...",
-              dataUpdated: "Data is updated", 
+            dataUpdated: "Data is updated",
+            loginSuccess: "Login successful. Welcome back!",
+            refresh: "更新",
+            dataCreated: "Data is created",
         },
         ja: {
             create: "作成",
@@ -141,7 +146,10 @@ const i18n = createI18n({
             qrCodeOnce: "このQRコードは一度だけ使用できます",
             scanToLogin: "スキャンしてログイン",
             pleaseWait: "しばらくお待ちください、少し時間がかかります...",
-            dataUpdated: "データが更新されました"
+            dataUpdated: "データが更新されました",
+            loginSuccess: "ログインに成功しました。お帰りなさい！",
+            refresh: "更新",
+            dataCreated: "データが作成されました",
         },
     },
 });

@@ -8,9 +8,9 @@ class CategoryService
 {
     public function __construct(protected Category $category) {}
 
-    public function findAll()
+    public function findAll($filter = [])
     {
-        return $this->category->all();
+        return $this->category->filter($filter)->get();
     }
 
     public function store($data)
