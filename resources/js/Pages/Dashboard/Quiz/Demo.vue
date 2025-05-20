@@ -1,6 +1,8 @@
 <template>
     <DashboardLayout>
-        <h2 class="text-3                                                                                                                                                                                                                                                                                    xl font-bold text-indigo-900 text-center">{{ quiz.title }}</h2>
+        <h2 class="text-3xl font-bold text-indigo-900 text-center">
+            {{ quiz.title }}
+        </h2>
         <form
             :class="['space-y-5', { 'pointer-events-none': results.length }]"
             @submit.prevent="submit"
@@ -13,7 +15,7 @@
                 :question="question"
             />
             <div>
-                <button class="btn-primary">{{ $t('submit') }}</button>
+                <button class="btn-primary">{{ $t("submit") }}</button>
             </div>
         </form>
         <transition name="fade">
@@ -22,16 +24,36 @@
                     Your Results
                 </h2>
                 <div
+                    class="flex justify-between p-5 border border-gray-300 rounded-lg bg-indigo-900 text-orange-500 text-lg"
+                >
+                    <div>
+                        <span class="text-white font-semibold">{{
+                            $t("totalQuestions")
+                        }}</span>
+                        : <span class="font-bold">{{ results.length }}</span>
+                    </div>
+                    <div>
+                        <span class="text-white font-semibold">{{
+                            $t("yourScore")
+                        }}</span>
+                        : <span class="font-bold">{{ score }}</span>
+                    </div>
+                </div>
+                <div
                     v-for="(result, i) in results"
                     :key="i"
                     class="space-y-5 p-5 border-gray-300 border rounded-lg"
                 >
                     <h3 class="font-bold text-2xl text-indigo-900">
-                        <span class="text-orange-500">{{ i + 1 }}.</span> {{ result["question_text"] }}
+                        <span class="text-orange-500">{{ i + 1 }}.</span>
+                        {{ result["question_text"] }}
                     </h3>
                     <div class="grid grid-cols-2 gap-3 text-md">
                         <div>
-                            <span class="font-semibold">{{ $t('yourAnswer') }}</span> :
+                            <span class="font-semibold">{{
+                                $t("yourAnswer")
+                            }}</span>
+                            :
                             <span
                                 :class="[
                                     result.user_answer !== result.correct_answer
@@ -43,25 +65,14 @@
                             >
                         </div>
                         <div>
-                            <span class="font-semibold">{{ $t('correctAnswer') }}</span> :
+                            <span class="font-semibold">{{
+                                $t("correctAnswer")
+                            }}</span>
+                            :
                             <span class="text-green-600 font-bold">{{
                                 result.correct_answer
                             }}</span>
                         </div>
-                    </div>
-                </div>
-                <div
-                    class="flex justify-between p-5 border border-gray-300 rounded-lg bg-indigo-900 text-orange-500 text-md"
-                >
-                    <div>
-                        <span class="text-white font-semibold"
-                            >{{ $t('totalQuestions') }}</span
-                        >
-                        : <span class="font-bold">{{ results.length }}</span>
-                    </div>
-                    <div>
-                        <span class="text-white font-semibold">{{ $t('yourScore') }}</span>
-                        : <span class="font-bold">{{ score }}</span>
                     </div>
                 </div>
             </div>
@@ -94,13 +105,13 @@ const submit = async (e: Event) => {
 
     const formData = new FormData(el);
 
-    props.quiz.questions.forEach((q: any, i:number) => {
+    props.quiz.questions.forEach((q: any, i: number) => {
         const choice = q.choices.find((c: any) => c.is_correct);
         formData.append(`questions[${i}][correct_answer]`, choice.choice_text);
     });
 
     const queryString = new URLSearchParams(formData as any).toString();
-    
+
     results.value = qs.parse(queryString, { arrayLimit: 1000 })
         .questions as any;
     await nextTick();

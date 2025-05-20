@@ -56,7 +56,7 @@ class UserController extends Controller
         return Inertia::render('Dashboard/User/Show', [
             'user' => fn() => $this->userService->find($id),
             'completed_assigns' => function () use ($id) {
-                $assigns = $this->quizAssignmentService->findAll(filter: ['user_id', $id, 'completed_at' => true]);
+                $assigns = $this->quizAssignmentService->findAll(filter: ['user_id' => $id, 'completed_at' => true]);
                 $assigns->load('quiz');
                 return $assigns;
             }
@@ -89,22 +89,28 @@ class UserController extends Controller
     {
         $id = $request->route('id');
         $assignmentId = $request->route('assignment_id');
-        $filter = ['user_id' => $id, 'id' => $assignmentId, 'completed_at' => true];
-        $assignment = $this->quizAssignmentService->findFirst(filter: $filter);
-        $assignment->load([
-            'quiz' => fn($query) =>
-            $query->with([
-                'questions' => fn($query) => $query->addSelect(
-                    [
-                        'user_choice_id' => DB::table('user_answers')
-                            ->select('choice_id')
-                            ->where('assignment_id', $assignment->id)
-                            ->whereColumn('user_answers.question_id', 'questions.id')->limit(1)
-                    ]
-                )
-                    ->with(['choices'])
-            ])
+
+        return Inertia::render('Dashboard/User/Answer',  [
+            'assign' => function () use ($id, $assignmentId) {
+                $filter = ['user_id' => $id, 'id' => $assignmentId, 'completed_at' => true];
+                $assignment = $this->quizAssignmentService->findFirst(filter: $filter);
+                $assignment->load([
+                    'quiz' => fn($query) =>
+                    $query->with([
+                        'questions' => fn($query) => $query->addSelect(
+                            [
+                                'user_choice_id' => DB::table('user_answers')
+                                    ->select('choice_id')
+                                    ->where('assignment_id', $assignment->id)
+                                    ->whereColumn('user_answers.question_id', 'questions.id')->limit(1)
+                            ]
+                        )
+                            ->with(['choices'])
+                    ])
+                ]);
+
+                return $assignment;
+            }
         ]);
-        return $assignment;
     }
 }

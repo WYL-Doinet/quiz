@@ -6,7 +6,7 @@
                     for="name"
                     :class="['block mb-2 text-sm font-medium  dark:text-white']"
                 >
-                    {{ $t('name') }}</label
+                    {{ $t("name") }}</label
                 >
                 <div class="relative">
                     <div
@@ -38,7 +38,6 @@
                         :class="[
                             'bg-gray-50 border-gray-300 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
                         ]"
-
                         required
                     />
                 </div>
@@ -47,7 +46,7 @@
                 <label
                     for="email"
                     :class="['block mb-2 text-sm font-medium  dark:text-white']"
-                    >{{ $t('email') }}</label
+                    >{{ $t("email") }}</label
                 >
                 <div class="relative">
                     <div
@@ -91,7 +90,7 @@
                         form.errors.password ? 'text-red-600' : 'text-gray-900',
                     ]"
                 >
-                    {{ $t('password') }}</label
+                    {{ $t("password") }}</label
                 >
                 <div class="relative">
                     <div
@@ -168,7 +167,9 @@
                 </button>
             </div>
         </form>
-        <h2 class="text-2xl font-bold text-indigo-900">{{ $t('completedAssigns') }}</h2>
+        <h2 class="text-2xl font-bold text-indigo-900">
+            {{ $t("completedAssigns") }}
+        </h2>
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table
                 class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
@@ -177,9 +178,10 @@
                     class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
-         
-                        <th scope="col" class="px-6 py-3">{{ $t('title') }}</th>
-                        <th scope="col" class="px-6 py-3">{{ $t('status') }}</th>
+                        <th scope="col" class="px-6 py-3">{{ $t("title") }}</th>
+                        <th scope="col" class="px-6 py-3">
+                            {{ $t("action") }}
+                        </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -188,18 +190,58 @@
                             colspan="100%"
                             class="text-center py-3 font-bold text-indigo-900"
                         >
-                    {{ $t('noCompletedAssigns') }}
+                            {{ $t("noCompletedAssigns") }}
                         </td>
                     </tr>
-                    <tr v-else v-for="assign in completed_assigns" :key="assign.id">
-                        <th scope="row"
-                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr
+                        v-else
+                        v-for="assign in completed_assigns"
+                        :key="assign.id"
+                    >
+                        <th
+                            scope="row"
+                            class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                        >
                             {{ assign.quiz.title }}
                         </th>
-                        <td class="px-3 py-6">
-                            
+                        <td class="px-6 py-3 flex">
+                            <Link 
+                                as="button"
+                                :href="
+                                    route('user.answer', {
+                                        id: user.id,
+                                        assignment_id: assign.id,
+                                    })
+                                "
+                                :class="[
+                                    'btn-primary flex justify-center items-center gap-2',
+                                    {
+                                        'pointer-events-none': assign.completed_at === null,
+                                    },
+                                ]"
+                            >
+                                <span>{{ $t("detail") }}</span>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 24 24"
+                                    fill="currentColor"
+                                    class="size-5"
+                                >
+                                    <path
+                                        d="M11.625 16.5a1.875 1.875 0 1 0 0-3.75 1.875 1.875 0 0 0 0 3.75Z"
+                                    />
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5.625 1.5H9a3.75 3.75 0 0 1 3.75 3.75v1.875c0 1.036.84 1.875 1.875 1.875H16.5a3.75 3.75 0 0 1 3.75 3.75v7.875c0 1.035-.84 1.875-1.875 1.875H5.625a1.875 1.875 0 0 1-1.875-1.875V3.375c0-1.036.84-1.875 1.875-1.875Zm6 16.5c.66 0 1.277-.19 1.797-.518l1.048 1.048a.75.75 0 0 0 1.06-1.06l-1.047-1.048A3.375 3.375 0 1 0 11.625 18Z"
+                                        clip-rule="evenodd"
+                                    />
+                                    <path
+                                        d="M14.25 5.25a5.23 5.23 0 0 0-1.279-3.434 9.768 9.768 0 0 1 6.963 6.963A5.23 5.23 0 0 0 16.5 7.5h-1.875a.375.375 0 0 1-.375-.375V5.25Z"
+                                    />
+                                </svg>
+                            </Link>
                         </td>
-                    </tr> 
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -208,7 +250,7 @@
 
 <script setup lang="ts">
 import DashboardLayout from "@components/layout/DashboardLayout.vue";
-import { useForm } from "@inertiajs/vue3";
+import { Link, useForm } from "@inertiajs/vue3";
 
 const props = defineProps<PropsType>();
 

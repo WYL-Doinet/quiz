@@ -161,9 +161,10 @@ const i18n = createI18n({
 });
 
 createInertiaApp({
-    resolve: (name) => {
-        const pages = import.meta.glob("./Pages/**/*.vue", { eager: true });
-        return pages[`./Pages/${name}.vue`];
+    resolve: async (name) => {
+        const pages = import.meta.glob("./Pages/**/*.vue", { eager: false });
+        const page = await pages[`./Pages/${name}.vue`](); 
+        return page.default; 
     },
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })

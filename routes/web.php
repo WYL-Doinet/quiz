@@ -43,7 +43,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/users/search', [UserController::class, 'search'])->name('user.search');
         Route::get('/user/{id}/qr-login-code', [UserController::class, 'qrLoginCode'])->name('user.qr.login.code');
         Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
-        Route::get('/users/{id}/assigns/{assignment_id}/answers', [UserController::class, 'answer'])->name('user.answers');
+        Route::get('/users/{id}/assigns/{assignment_id}/answers', [UserController::class, 'answer'])->name('user.answer');
 
 
         Route::patch('/questions/{id}', [QuestionController::class, 'update'])->name('question.update');

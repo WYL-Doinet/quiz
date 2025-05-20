@@ -50,11 +50,14 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    <Link :href="route('category.index')">{{
-                        $t("categories")
-                    }}</Link>
+                    <Link
+                        :only="['categories']"
+                        :href="route('category.index')"
+                        >{{ $t("categories") }}</Link
+                    >
                 </li>
                 <li
+                    :only="['quizzes']"
                     :class="[
                         'text-md flex gap-2 ',
                         route().current('quiz.*')
@@ -82,6 +85,7 @@
                     <Link :href="route('quiz.index')">{{ $t("quizzes") }}</Link>
                 </li>
                 <li
+                    :only="['users']"
                     :class="[
                         'text-md flex gap-2 ',
                         route().current('user.*')
@@ -121,7 +125,7 @@
                     @click="logout"
                     class="btn-danger flex justify-center items-center gap-2"
                 >
-                    <span>{{ $t('logout') }}</span>
+                    <span>{{ $t("logout") }}</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -145,7 +149,7 @@
                         @click="notificationModal.open = true"
                         type="button"
                         class="relative cursor-pointer inline-flex items-center p-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-full hover:bg-indigo-800"
-                    >   
+                    >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"

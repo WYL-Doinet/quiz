@@ -18,10 +18,10 @@
                     >
                         <p class="text-md font-semibold">{{ assign.quiz.title }}</p>
                         <div class="space-x-3">
-                            <span
+                            <!-- <span
                                 class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
                                 >{{ $t('score') }} : {{ assign.score }}</span
-                            >
+                            > -->
                             <span
                                 v-if="assign.completed_at"
                                 class="bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300"

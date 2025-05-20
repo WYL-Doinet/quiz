@@ -86,20 +86,20 @@
                             </td>
 
                             <td class="px-6 py-4 flex gap-2">
-                                <span
+                                <!-- <span
                                     class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-blue-900 dark:text-blue-300"
                                     >Score : {{ assign.score }}</span
-                                >
+                                > -->
                                 <span
                                     v-if="assign.completed_at"
                                     class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
                                 >
-                                    complete
+                                    {{ $t('complete') }}
                                 </span>
                                 <span
                                     v-else
                                     class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
-                                    >Pending</span
+                                    >{{ $t('pending') }}</span
                                 >
                             </td>
                         </tr>
