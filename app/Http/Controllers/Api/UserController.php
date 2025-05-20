@@ -141,7 +141,8 @@ class UserController extends Controller
         }
 
         return response()->json([
-            'message' => 'Success'
+            'message' => 'Success',
+            'score' => $score,
         ]);
     }
 }
