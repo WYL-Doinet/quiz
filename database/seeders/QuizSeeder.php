@@ -494,7 +494,7 @@ class QuizSeeder extends Seeder
             ],
         ];
 
-        foreach (array_slice($$questions, 0, 10) as $q) {
+        foreach (array_slice($questions, 0, 10) as $q) {
             $question = Question::create([
                 'quiz_id' => $quiz->id,
                 'question_text' => $q['question_text'],
