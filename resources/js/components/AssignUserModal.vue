@@ -9,9 +9,9 @@
         <div class="min-w-xl max-w-2xl">
             <div class="rounded-lg p-5 bg-white space-y-4">
                 <h2
-                    class="font-bold text-indigo-900 text-3xl text-center italic"
+                    class="font-bold text-indigo-900 text-3xl text-center"
                 >
-                    Assign User
+                    {{ $t('assign') }}
                 </h2>
                 <transition name="fade">
                     <div
@@ -60,7 +60,6 @@
                         type="text"
                         id="assign-user"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Name or email"
                     />
                 </div>
                 <ul
@@ -81,7 +80,7 @@
                         @click="hideModal()"
                         :disabled="form.processing"
                     >
-                        Close
+                        {{ $t('cancel') }}
                     </button>
                 </div>
             </div>

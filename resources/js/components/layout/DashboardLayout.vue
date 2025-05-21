@@ -1,13 +1,13 @@
 <template>
     <div class="flex h-screen">
         <div class="w-[250px] flex flex-col bg-indigo-950">
-            <h1 class="text-center text-white font-bold text-4xl p-2 italic">
+            <h1 class="text-center text-white font-bold text-4xl p-3 italic">
                 <span class="text-orange-500">Lara</span> Quiz
             </h1>
-            <ul class="px-12 mt-10 space-y-5 flex-1">
+            <ul class="px-12 mt-5 space-y-5 flex-1">
                 <li
                     :class="[
-                        'text-md flex gap-2 ',
+                        'text-md items-center flex gap-2 ',
                         route().current('home.dashboard')
                             ? 'text-orange-500 font-bold'
                             : 'text-white',
@@ -17,7 +17,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="size-5"
+                        class="size-6"
                     >
                         <path
                             d="M11.47 3.841a.75.75 0 0 1 1.06 0l8.69 8.69a.75.75 0 1 0 1.06-1.061l-8.689-8.69a2.25 2.25 0 0 0-3.182 0l-8.69 8.69a.75.75 0 1 0 1.061 1.06l8.69-8.689Z"
@@ -32,7 +32,7 @@
                 </li>
                 <li
                     :class="[
-                        'text-md flex gap-2 ',
+                        'text-md items-center flex gap-2 ',
                         route().current('category.*')
                             ? 'text-orange-500 font-bold'
                             : 'text-white',
@@ -42,7 +42,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="size-5"
+                        class="size-6"
                     >
                         <path
                             fill-rule="evenodd"
@@ -59,7 +59,7 @@
                 <li
                     :only="['quizzes']"
                     :class="[
-                        'text-md flex gap-2 ',
+                        'text-md items-center flex gap-2 ',
                         route().current('quiz.*')
                             ? 'text-orange-500 font-bold'
                             : 'text-white',
@@ -69,7 +69,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="size-5"
+                        class="size-6"
                     >
                         <path
                             fill-rule="evenodd"
@@ -87,7 +87,7 @@
                 <li
                     :only="['users']"
                     :class="[
-                        'text-md flex gap-2 ',
+                        'text-md items-center flex gap-2 ',
                         route().current('user.*')
                             ? 'text-orange-500 font-bold'
                             : 'text-white',
@@ -97,7 +97,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="size-5"
+                        class="size-6"
                     >
                         <path
                             fill-rule="evenodd"
@@ -113,14 +113,14 @@
             </ul>
             <div>
                 <div
-                    class="p-3 font-extrabold text-md text-orange-300 text-center"
+                    class="p-3 font-extrabold text-md text-white text-center"
                 >
-                    <p><span class="italic">Crafted with</span> 💻 + ☕</p>
+                    <p><span class="italic"><span class="text-orange-500">Crafted</span> with</span> 💻 + ☕</p>
                 </div>
             </div>
         </div>
         <div class="flex-1 overflow-hidden flex flex-col">
-            <div class="bg-white px-5 py-3 flex justify-between gap-5">
+            <div class="bg-white px-5 py-2 flex justify-between gap-5">
                 <button
                     @click="logout"
                     class="btn-danger flex justify-center items-center gap-2"
@@ -130,7 +130,7 @@
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="size-5"
+                        class="size-6"
                     >
                         <path
                             fill-rule="evenodd"
@@ -148,13 +148,13 @@
                     <button
                         @click="notificationModal.open = true"
                         type="button"
-                        class="relative cursor-pointer inline-flex items-center p-3 text-sm font-medium text-center text-white bg-indigo-700 rounded-full hover:bg-indigo-800"
+                        class="relative cursor-pointer inline-flex items-center p-2.5 text-sm font-medium text-center text-white bg-indigo-500 rounded-full hover:bg-indigo-800"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="size-5"
+                          
+                            class="size-5 fill-white"
                         >
                             <path
                                 d="M5.85 3.5a.75.75 0 0 0-1.117-1 9.719 9.719 0 0 0-2.348 4.876.75.75 0 0 0 1.479.248A8.219 8.219 0 0 1 5.85 3.5ZM19.267 2.5a.75.75 0 1 0-1.118 1 8.22 8.22 0 0 1 1.987 4.124.75.75 0 0 0 1.48-.248A9.72 9.72 0 0 0 19.266 2.5Z"
