@@ -10,6 +10,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/quiz-assignments', [UserController::class, 'quizAssignment'])->name('api.user.quizAssignment');
     Route::get('/user/quiz-assignments/{id}/questions', [UserController::class, 'quizAssignmentQuestion'])->name('api.user.quiz.assignment.question');
     Route::post('/user/quiz-assignments/{id}/answers', [UserController::class, 'quizAssignmentAnswer'])->name('api.user.quiz.assignment.answer');
+    Route::get('/user/quiz-assignments/{id}/results', [UserController::class, 'quizAssignmentResult'])->name('api.user.quiz.assignment.result');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');

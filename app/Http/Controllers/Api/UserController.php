@@ -144,4 +144,32 @@ class UserController extends Controller
             'score' => $score,
         ]);
     }
+
+    public function quizAssignmentResult(Request $request, $id)
+    {
+        $filter = ['user_id' => $request->user()->id, 'id' => $id];
+
+        $assignment = $this->quizAssignmentService->findFirst(filter: $filter);
+
+        if (!$assignment) {
+            return response()->json(['message' => 'Not Found'], 404);
+        }
+
+        $assignment->load([
+            'quiz' => fn($query) =>
+            $query->with([
+                'questions' => fn($query) => $query->addSelect(
+                    [
+                        'user_choice_id' => DB::table('user_answers')
+                            ->select('choice_id')
+                            ->where('assignment_id', $assignment->id)
+                            ->whereColumn('user_answers.question_id', 'questions.id')->limit(1)
+                    ]
+                )
+                    ->with(['choices'])
+            ])
+        ]);
+
+        return new QuizAssignmentResource($assignment);
+    }
 }

@@ -17,6 +17,7 @@ class ChoiceResource extends JsonResource
         return [
             'id' => $this->id,
             'choice_text' => $this->choice_text,
+            'is_correct' => $this->when($request->routeIs('api.user.quiz.assignment.result'), $this->is_correct),
         ];
     }
 }

@@ -17,6 +17,7 @@ class QuestionResource extends JsonResource
         return [
             'id' => $this->id,
             'question_text' => $this->question_text,
+            'user_choice_id' => $this->when($this->user_choice_id ?? false, $this->user_choice_id),
             'choices' => ChoiceResource::collection($this->whenLoaded('choices'))
         ];
     }
