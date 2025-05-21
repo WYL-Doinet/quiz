@@ -16,6 +16,8 @@ class QuizAssignmentResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'score' => $this->score,
+            'completed_at' => $this->completed_at,
             'quiz' =>  new QuizResource($this->whenLoaded('quiz')),
         ];
     }

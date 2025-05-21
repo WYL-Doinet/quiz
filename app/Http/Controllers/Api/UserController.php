@@ -60,7 +60,6 @@ class UserController extends Controller
             'user_id' => $request->user()->id,
         ];
 
-
         $assignment = $this->quizAssignmentService->find(id: $id, filter: $filter);
 
         if ($assignment->completed !== null) {
