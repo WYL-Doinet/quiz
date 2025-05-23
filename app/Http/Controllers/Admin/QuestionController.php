@@ -19,6 +19,7 @@ class QuestionController extends Controller
         $question = $this->questionService->find($id);
         $choices = $request->input('choices', []);
         $questionText = $request->input('question_text');
+        $explanation = $request->input('explanation', null);
 
         if (!$questionText) {
             return back()->withErrors(['message' => 'Invalid Data']);
@@ -48,7 +49,7 @@ class QuestionController extends Controller
         DB::beginTransaction();
 
         try {
-            $question->update(['question_text' => $questionText]);
+            $question->update(['question_text' => $questionText, 'explanation' => $explanation]);
 
             foreach ($choices as $choice) {
                 $data = [

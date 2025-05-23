@@ -95,6 +95,7 @@ type ResultType = {
 const props = defineProps<{ quiz: any }>();
 
 const results = ref<Array<ResultType>>([]);
+    
 
 const score = computed(
     () => results.value.filter((r) => r.correct_answer === r.user_answer).length

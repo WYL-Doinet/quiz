@@ -58,6 +58,7 @@ class QuizController extends Controller
             foreach ($questions as $question) {
                 $this->questionService->store([
                     'quiz_id' => $quiz->id,
+                    'explanation' => $question['explanation'] ?? null,
                     'question_text' => $question['question_text'],
                 ])->choices()->createMany($question['choices']);
             }
@@ -102,7 +103,7 @@ class QuizController extends Controller
     }
 
     public function show($id)
-    {
+    {   
         return Inertia::render('Dashboard/Quiz/Show', [
             'quiz' => function () use ($id) {
                 $quiz = $this->quizService->find($id);

@@ -6,12 +6,10 @@ use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\UserController;
-use App\Models\Quiz;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $localIp = gethostbyname(gethostname());
-    return "My Laptop IP is: " . $localIp;
+    return  redirect()->route('home.dashboard');
 });
 
 Route::middleware('guest')->group(function () {

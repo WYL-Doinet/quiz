@@ -36,7 +36,7 @@
                 <div v-for="(choice, i) in question.choices" :key="choice.id">
                     <p class="flex items-center gap-2">
                         {{ i + 1 }}.
-                        <span :class="['font-semibold']">
+                        <span :class="['font-semibold', {'text-green-600' : choice['is_correct']}]">
                             {{ choice["choice_text"] }}</span
                         >
                         <span v-if="question['user_choice_id'] === choice.id">

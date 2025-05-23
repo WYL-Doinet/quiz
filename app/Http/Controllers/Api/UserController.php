@@ -40,7 +40,7 @@ class UserController extends Controller
     }
 
 
-    public function quizAssignmentQuestion($id, Request $request)
+    public function quizAssignmentQuestion(Request $request, $id)
     {
         $filter = [
             'user_id' => $request->user()->id,
@@ -92,7 +92,7 @@ class UserController extends Controller
             ->sort()
             ->toArray();
 
-        if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($expectedQuestionIds)) {
+        if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
             return response()->json([
                 'message' => 'Some provided question IDs do not match the expected questions.'
             ], 422);
@@ -172,4 +172,5 @@ class UserController extends Controller
 
         return new QuizAssignmentResource($assignment);
     }
+    
 }

@@ -7,17 +7,20 @@
             <h5
                 class="mb-2 text-2xl font-bold tracking-tight text-indigo-800 dark:text-white"
             >
-                {{ $t("question") }} <span class="text-orange-500 font-extrabold">{{ index + 1 }}</span>
+                {{ $t("question") }}
+                <span class="text-orange-500 font-extrabold">{{
+                    index + 1
+                }}</span>
             </h5>
             <button class="btn-primary">
-                {{ form.processing ? $t("save") + " ☕" : $t("save") }}
+                {{ processing ? $t("save") + " ☕" : $t("save") }}
             </button>
         </div>
-        <div>
+        <div v-once>
             <label
                 for="first_name"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >Question</label
+                >{{ $t("question") }}</label
             >
             <input
                 type="text"
@@ -25,15 +28,27 @@
                 name="question_text"
                 :value="question.question_text"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Question text"
             />
         </div>
-        <div>
+        <div v-once>
+            <label
+                for="first_name"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >{{ $t("explanation") }}</label
+            >
+            <input
+                type="text"
+                name="explanation"
+                :value="question.explanation"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+        </div>
+        <div v-memo="[checkedIndex]">
             <div class="col-span-2">
                 <label
                     for="first_name"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >Answer</label
+                    >{{ $t("answer") }}</label
                 >
             </div>
             <div class="grid grid-cols-2 gap-5">
@@ -78,23 +93,21 @@
 </template>
 
 <script setup lang="ts">
-import { useForm } from "@inertiajs/vue3";
+import { usePage } from "@inertiajs/vue3";
 import qs from "qs";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useToast } from "vue-toastification";
 const props = defineProps<{ question: any; index: any }>();
-
-const initiAlFormProps = {
-    question_text: "",
-    choices: [],
-};
-const form = useForm(initiAlFormProps);
+const page = usePage();
 
 const toast = useToast();
-const {t} = useI18n();
+const { t } = useI18n();
+const processing = ref(false);
 
-const onQuestionSave = (e: Event) => {
+const onQuestionSave = async (e: Event) => {
+    processing.value = true;
+
     const el = e.target as HTMLFormElement;
 
     const formData = new FormData(el);
@@ -102,15 +115,23 @@ const onQuestionSave = (e: Event) => {
     const queryString = new URLSearchParams(formData as any).toString();
 
     const data = qs.parse(queryString);
-    
-    form["question_text"] = data["question_text"] as any;
-    form["choices"] = data["choices"] as any;
 
-    form.patch(route("question.update", props.question.id), {
-        onSuccess: async () => {
-            toast.success(t('dataUpdated'), { timeout: 2000 });
+    const res = await fetch(route("question.update", props.question.id), {
+        headers: {
+            Accept: "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "Content-Type": "application/json",
+            "X-CSRF-TOKEN": page.props["csrf_token"] as string,
         },
+        method: "PATCH",
+        body: JSON.stringify(data),
     });
+    
+    processing.value = false;
+
+    if (res.ok) {
+        toast.success(t("dataUpdated"), { timeout: 2000 });
+    }
 };
 
 const checkedIndex = ref<undefined | number>(

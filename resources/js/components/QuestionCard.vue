@@ -6,7 +6,8 @@
             <h5
                 class="mb-2 text-2xl font-bold tracking-tight text-indigo-800 dark:text-white"
             >
-                {{ $t('question') }} <span class="text-orange-500">{{ index + 1 }}</span>
+                {{ $t("question") }}
+                <span class="text-orange-500">{{ index + 1 }}</span>
             </h5>
             <div class="flex justify-center items-center gap-3">
                 <button
@@ -16,7 +17,7 @@
                     title="Sorry add choice function is currently not  stable"
                     class="btn-primary flex justify-center items-center gap-2"
                 >
-                    <span>{{ $t('addChoice') }}</span>
+                    <span>{{ $t("addChoice") }}</span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
@@ -53,15 +54,27 @@
             <label
                 :for="`question-${index}`"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                >{{ $t('question') }}</label
+                >{{ $t("question") }}</label
             >
             <input
                 :id="`question-${index}`"
                 type="text"
                 :name="`questions[${index}][question_text]`"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-
                 required
+            />
+        </div>
+        <div>
+            <label
+                :for="`question-${index}-explanation`"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >{{ $t("explanation") }}</label
+            >
+            <input
+                :id="`question-${index}-explanation`"
+                type="text"
+                :name="`questions[${index}][explanation]`"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
         </div>
         <div>
@@ -69,7 +82,7 @@
                 <label
                     for="first_name"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    >{{ $t('answer') }}</label
+                    >{{ $t("answer") }}</label
                 >
             </div>
             <div class="grid grid-cols-2 gap-5">

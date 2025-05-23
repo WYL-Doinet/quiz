@@ -83,6 +83,7 @@ const i18n = createI18n({
             score: "Score",
             pending: "Pending",
             complete: "Complete",
+            explanation:'explanation'
         },
         ja: {
             pending: "保留中",
@@ -156,6 +157,7 @@ const i18n = createI18n({
             loginSuccess: "ログインに成功しました。お帰りなさい！",
             refresh: "更新",
             dataCreated: "データが作成されました",
+            explanation:"説明 "
         },
     },
 });
