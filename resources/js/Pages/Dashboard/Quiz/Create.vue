@@ -110,7 +110,7 @@
 
 <script setup lang="ts">
 import DashboardLayout from "@components/layout/DashboardLayout.vue";
-import { ref } from "vue";
+import { nextTick, ref } from "vue";
 import QuestionCard from "@components/QuestionCard.vue";
 import qs from "qs";
 import { useForm } from "@inertiajs/vue3";
@@ -132,8 +132,11 @@ const {t} = useI18n();
 
 const form = useForm(initialFormProps);
 
-const addQuestion = () => {
+const addQuestion = async () => {
     questions.value.push(new Date().getTime());
+    await nextTick();
+    const container = document.querySelector("#scroll-able");
+    container?.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
 };
 
 const removeQuestion = (id: number) => {
