@@ -14,7 +14,7 @@
                 :key="question.id"
                 :question="question"
             />
-            <div>
+            <div class="text-end">
                 <button class="btn-primary">{{ $t("submit") }}</button>
             </div>
         </form>
@@ -95,7 +95,6 @@ type ResultType = {
 const props = defineProps<{ quiz: any }>();
 
 const results = ref<Array<ResultType>>([]);
-    
 
 const score = computed(
     () => results.value.filter((r) => r.correct_answer === r.user_answer).length
@@ -115,9 +114,11 @@ const submit = async (e: Event) => {
 
     results.value = qs.parse(queryString, { arrayLimit: 1000 })
         .questions as any;
-    await nextTick();
     const container = document.querySelector("#scroll-able");
-    container?.scrollTo({ top: container.scrollHeight, behavior: "smooth" });
+    let scrollTo = (container!.scrollHeight as number) - 50 ;
+    await nextTick();
+
+    container?.scrollTo({ top: scrollTo, behavior: "smooth" });
 };
 </script>
 

@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable,  HasRoles;
+    use HasApiTokens, HasFactory, Notifiable,  HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -76,5 +76,7 @@ class User extends Authenticatable
         });
     }
 
-    public function scopeSort($query, $sort) {}
+    public function scopeSort($query, $sort) {
+        $query->orderBy(...$sort);
+    }
 }

@@ -515,6 +515,12 @@ class QuizSeeder extends Seeder
             'password' => bcrypt('password')
         ]);
 
+        User::create([
+            'name' => 'Tashi Bana',
+            'email' => 'mmotashibana@gmail.com',
+            'password' => bcrypt('password')
+        ]);
+
         QuizAssignment::create([
             'quiz_id' => $quiz->id,
             'user_id' => $user->id,

@@ -34,7 +34,7 @@
                     </div>
                 </div>
                 <div>
-                    <button class="btn-blue flex items-center gap-2" @click="onSearch">
+                    <button class="btn-primary flex items-center gap-2" @click="onSearch">
                         <span> {{ $t("search") }} </span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -78,7 +78,7 @@
                     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
                 >
                     <thead
-                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                        class="text-xs text-indigo-900 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                     >
                         <tr>
                             <th scope="col" class="px-6 py-3">

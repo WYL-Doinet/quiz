@@ -31,7 +31,7 @@ class AuthController extends Controller
             $request->session()->regenerate();
             return redirect()->intended('/dashboard');
         }
-
+        
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ]);

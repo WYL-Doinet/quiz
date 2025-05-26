@@ -83,7 +83,10 @@ const i18n = createI18n({
             score: "Score",
             pending: "Pending",
             complete: "Complete",
-            explanation:'explanation'
+            explanation: "explanation",
+            draft: "Draft",
+            published: "Published",
+            exportResult: "Export Results",
         },
         ja: {
             pending: "保留中",
@@ -157,7 +160,10 @@ const i18n = createI18n({
             loginSuccess: "ログインに成功しました。お帰りなさい！",
             refresh: "更新",
             dataCreated: "データが作成されました",
-            explanation:"説明 "
+            explanation: "説明 ",
+            draft: "下書き",
+            published: "公開",
+            exportResult: "エクスポート結果",
         },
     },
 });
@@ -165,8 +171,8 @@ const i18n = createI18n({
 createInertiaApp({
     resolve: async (name) => {
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: false });
-        const page = await pages[`./Pages/${name}.vue`](); 
-        return page.default; 
+        const page = await pages[`./Pages/${name}.vue`]();
+        return page.default;
     },
     setup({ el, App, props, plugin }) {
         createApp({ render: () => h(App, props) })

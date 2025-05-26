@@ -47,4 +47,9 @@ class Quiz extends Model
             $query->where('category_id', $categoryId);
         });
     }
+
+    public function scopeSort($query, $sort)
+    {
+        $query->orderBy(...$sort);
+    }
 }

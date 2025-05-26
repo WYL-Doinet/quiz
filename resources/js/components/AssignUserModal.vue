@@ -8,10 +8,8 @@
     >
         <div class="min-w-xl max-w-2xl">
             <div class="rounded-lg p-5 bg-white space-y-4">
-                <h2
-                    class="font-bold text-indigo-900 text-3xl text-center"
-                >
-                    {{ $t('assign') }}
+                <h2 class="font-bold text-indigo-900 text-3xl text-center">
+                    {{ $t("assign") }}
                 </h2>
                 <transition name="fade">
                     <div
@@ -69,7 +67,7 @@
                         v-for="user in users"
                         :key="user.id"
                         @click="assign(user.id)"
-                        class="hover:bg-gray-100 cursor-pointer text-sm  bg-gray-50 p-3 rounded-md"
+                        class="hover:bg-gray-100 cursor-pointer text-sm bg-gray-50 p-3 rounded-md"
                     >
                         {{ user.name }}
                     </li>
@@ -80,7 +78,7 @@
                         @click="hideModal()"
                         :disabled="form.processing"
                     >
-                        {{ $t('cancel') }}
+                        {{ $t("cancel") }}
                     </button>
                 </div>
             </div>
@@ -91,13 +89,16 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useDebounce } from "@hooks";
-import { router, useForm, usePage } from "@inertiajs/vue3";
+import {  useForm, usePage } from "@inertiajs/vue3";
+import { useI18n } from "vue-i18n";
 
 const page = usePage() as any;
 
 const props = defineProps<{ hideModal: CallableFunction }>();
 
 const debounce = useDebounce();
+
+const { t } = useI18n();
 
 const q = ref("");
 const users = ref<any>([]);
@@ -132,13 +133,11 @@ function assign(id: number) {
         form["user_id"] = id;
         form.post(route("quiz.assign.store", `${page.props.route.id}`), {
             onSuccess() {
-                router.reload({
-                    only: ["assigns"],
-                });
+                t("dataUpdated");
                 props.hideModal();
             },
-            onError() {
-            },
+            onError() {},
+            preserveState: true,
         });
     }
 }

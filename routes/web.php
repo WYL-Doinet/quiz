@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\QuestionController;
+use App\Http\Controllers\Admin\QuizAssignmentController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/quizzes/{id}/demo', [QuizController::class, 'demo'])->name('quiz.demo');
         Route::get('/quizzes/{id}/assigns/create', [QuizController::class, 'createAssign'])->name('quiz.assign.create');
         Route::post('/quizzes/{id}/assigns', [QuizController::class, 'storeAssign'])->name('quiz.assign.store');
+        Route::get('/quizzes/{id}/export-result', [QuizController::class, 'exportResult'])->name('quiz.export.result');
 
         Route::get('/users/create', [UserController::class, 'create'])->name('user.create');
         Route::get('/users', [UserController::class, 'index'])->name('user.index');
@@ -42,7 +44,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/user/{id}/qr-login-code', [UserController::class, 'qrLoginCode'])->name('user.qr.login.code');
         Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
         Route::get('/users/{id}/assigns/{assignment_id}/answers', [UserController::class, 'answer'])->name('user.answer');
-
 
         Route::patch('/questions/{id}', [QuestionController::class, 'update'])->name('question.update');
     });

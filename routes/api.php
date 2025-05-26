@@ -11,6 +11,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/quiz-assignments/{id}/questions', [UserController::class, 'quizAssignmentQuestion'])->name('api.user.quiz.assignment.question');
     Route::post('/user/quiz-assignments/{id}/answers', [UserController::class, 'quizAssignmentAnswer'])->name('api.user.quiz.assignment.answer');
     Route::get('/user/quiz-assignments/{id}/results', [UserController::class, 'quizAssignmentResult'])->name('api.user.quiz.assignment.result');
+    Route::get('/user/unread-notifications', [UserController::class, 'unreadNotification'])->name('api.user.unread.notification');
+    Route::get('/user/read-notifications', [UserController::class, 'readNotification'])->name('api.user.unread.notification');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');

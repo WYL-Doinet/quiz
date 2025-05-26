@@ -11,7 +11,8 @@ class UserService
 
     public function findAll($filter = [])
     {
-        return $this->user->filter($filter)
+        return $this->user->sort(['id', 'desc'])
+            ->filter($filter)
             ->get();
     }
 

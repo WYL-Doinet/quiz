@@ -29,11 +29,32 @@
                     </button> -->
                 </div>
                 <div class="col-span-2 flex justify-end gap-2">
+                    <a 
+                        download
+                        :href="route('quiz.export.result', page.props.route.id)"
+                        class="btn-green flex gap-2"
+                    >
+                        <span>{{ $t("exportResult") }}</span>
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            class="size-5"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M3.375 19.5h17.25m-17.25 0a1.125 1.125 0 0 1-1.125-1.125M3.375 19.5h7.5c.621 0 1.125-.504 1.125-1.125m-9.75 0V5.625m0 12.75v-1.5c0-.621.504-1.125 1.125-1.125m18.375 2.625V5.625m0 12.75c0 .621-.504 1.125-1.125 1.125m1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125m0 3.75h-7.5A1.125 1.125 0 0 1 12 18.375m9.75-12.75c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125m19.5 0v1.5c0 .621-.504 1.125-1.125 1.125M2.25 5.625v1.5c0 .621.504 1.125 1.125 1.125m0 0h17.25m-17.25 0h7.5c.621 0 1.125.504 1.125 1.125M3.375 8.25c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125m17.25-3.75h-7.5c-.621 0-1.125.504-1.125 1.125m8.625-1.125c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125M12 10.875v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 10.875c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125M13.125 12h7.5m-7.5 0c-.621 0-1.125.504-1.125 1.125M20.625 12c.621 0 1.125.504 1.125 1.125v1.5c0 .621-.504 1.125-1.125 1.125m-17.25 0h7.5M12 14.625v-1.5m0 1.5c0 .621-.504 1.125-1.125 1.125M12 14.625c0 .621.504 1.125 1.125 1.125m-2.25 0c.621 0 1.125.504 1.125 1.125m0 1.5v-1.5m0 0c0-.621.504-1.125 1.125-1.125m0 0h7.5"
+                            />
+                        </svg>
+                    </a>
                     <button
                         class="btn-primary flex gap-2"
                         @click="modal.open = true"
                     >
-                        <span>{{ $t('assign') }}</span>
+                        <span>{{ $t("create") }}</span>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -56,14 +77,20 @@
                     class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
                 >
                     <thead
-                        class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                        class="text-xs text-indigo-900 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                     >
                         <tr>
-                            <th scope="col" class="px-6 py-3">{{ $t('name') }}</th>
-                            <th scope="col" class="px-6 py-3">{{ $t('email') }}</th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ $t("name") }}
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ $t("email") }}
+                            </th>
 
-                            <th>{{ $t('assignedAt') }}</th>
-                            <th scope="col" class="px-6 py-3">{{ $t('status') }}</th>
+                            <th>{{ $t("assignedAt") }}</th>
+                            <th scope="col" class="px-6 py-3">
+                                {{ $t("status") }}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,12 +121,12 @@
                                     v-if="assign.completed_at"
                                     class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
                                 >
-                                    {{ $t('complete') }}
+                                    {{ $t("complete") }}
                                 </span>
                                 <span
                                     v-else
                                     class="bg-red-100 text-red-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-red-900 dark:text-red-300"
-                                    >{{ $t('pending') }}</span
+                                    >{{ $t("pending") }}</span
                                 >
                             </td>
                         </tr>
@@ -113,11 +140,13 @@
 <script setup lang="ts">
 import DashboardLayout from "@components/layout/DashboardLayout.vue";
 
-import { router } from "@inertiajs/vue3";
+import { router, usePage } from "@inertiajs/vue3";
 import { ref } from "vue";
 import AssignUserModal from "../../../../components/AssignUserModal.vue";
 
 const modal = ref({ open: false });
 
-defineProps({ assigns: Object });
+const page = usePage<any>() as any;
+
+const props = defineProps({ assigns: Object });
 </script>

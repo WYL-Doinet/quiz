@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\ResultsExport;
 use App\Http\Controllers\Controller;
+use App\Notifications\QuizAssignedNotification;
 use App\Services\CategoryService;
 use App\Services\QuestionService;
 use App\Services\QuizAssignmentService;
 use App\Services\QuizService;
+use App\Services\UserService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuizController extends Controller
 {
@@ -19,6 +23,7 @@ class QuizController extends Controller
         protected CategoryService $categoryService,
         protected QuestionService $questionService,
         protected QuizAssignmentService $quizAssignmentService,
+        protected UserService $userService,
     ) {}
 
     public function index(Request $request)
@@ -77,7 +82,7 @@ class QuizController extends Controller
         return Inertia::render('Dashboard/Quiz/Assign/Create', [
             'assigns' => function () use ($id) {
                 $assigns  =  $this->quizAssignmentService->findAll(['quiz_id' => $id]);
-                $assigns->load('user');
+                $assigns->load('user.notifications');
                 return $assigns;
             }
         ]);
@@ -95,15 +100,17 @@ class QuizController extends Controller
             return redirect()->back()->withErrors(['message' => "You're trying to assign already has an active assignment"]);
         }
 
-        $this->quizAssignmentService->store([
+        $quizAssignment = $this->quizAssignmentService->store([
             'quiz_id' => $quiz->id,
             'user_id' => $userId,
             'assigned_at' => now(),
         ]);
+
+        $this->userService->find($userId)->notify(new QuizAssignedNotification($quiz));
     }
 
     public function show($id)
-    {   
+    {
         return Inertia::render('Dashboard/Quiz/Show', [
             'quiz' => function () use ($id) {
                 $quiz = $this->quizService->find($id);
@@ -115,11 +122,17 @@ class QuizController extends Controller
 
     public function demo($id)
     {
-        $quiz = $this->quizService->find($id);
-        $quiz->load('questions.choices');
-
         return Inertia::render('Dashboard/Quiz/Demo', [
-            'quiz' =>  $quiz
+            'quiz' =>  function () use ($id) {
+                $quiz = $this->quizService->find($id);
+                $quiz->load('questions.choices');
+                return $quiz;
+            }
         ]);
+    }
+
+    public function exportResult($id)
+    {
+        return Excel::download(new ResultsExport($id), "result-" . now()->format('Y-m-d') . "-" . $id . '.xlsx');
     }
 }

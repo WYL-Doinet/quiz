@@ -62,14 +62,6 @@ class UserController extends Controller
 
         $assignment = $this->quizAssignmentService->find(id: $id, filter: $filter);
 
-        if ($assignment->completed !== null) {
-            return response()->json(
-                [
-                    'message' => 'You have already completed this quiz. Submitting answers again is not allowed.'
-                ],
-                409
-            );
-        }
 
         $validated = $request->validate([
             'answers' => 'required|array',
@@ -118,6 +110,13 @@ class UserController extends Controller
             if (isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]['id'] === $answer['choice_id']) {
                 $score++;
             }
+        }
+
+        if ($assignment->completed !== null) {
+            return response()->json([
+                'message' => 'You have already completed this quiz. Your score cannot be changed.',
+                'score' => $score,
+            ], 409);
         }
         DB::beginTransaction();
         try {
@@ -172,5 +171,31 @@ class UserController extends Controller
 
         return new QuizAssignmentResource($assignment);
     }
-    
+
+
+    public function unreadNotification(Request $request)
+    {
+        $user = $request->user();
+
+        $unread = $user->unreadNotifications()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'data' => $unread,
+        ]);
+    }
+
+    public function readNotification(Request $request)
+    {
+        $user = $request->user();
+
+        $read = $user->readNotifications()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return response()->json([
+            'data' => $read,
+        ]);
+    }
 }

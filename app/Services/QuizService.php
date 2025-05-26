@@ -1,18 +1,18 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Quiz;
 
-class QuizService {
-    
-    public function __construct(protected Quiz $quiz)
-    {
-        
-    }
+class QuizService
+{
+
+    public function __construct(protected Quiz $quiz) {}
 
     public  function findAll($filter = [])
     {
-        return $this->quiz->filter($filter)->get();
+        return $this->quiz->sort(['id', 'desc'])
+            ->filter($filter)->get();
     }
 
     public function find($id)
@@ -24,5 +24,4 @@ class QuizService {
     {
         return $this->quiz->create($data);
     }
-
 }

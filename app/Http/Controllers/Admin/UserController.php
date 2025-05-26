@@ -89,10 +89,10 @@ class UserController extends Controller
     {
         $id = $request->route('id');
         $assignmentId = $request->route('assignment_id');
+        $filter = ['user_id' => $id, 'id' => $assignmentId, 'completed_at' => true];
 
         return Inertia::render('Dashboard/User/Answer',  [
-            'assign' => function () use ($id, $assignmentId) {
-                $filter = ['user_id' => $id, 'id' => $assignmentId, 'completed_at' => true];
+            'assign' => function () use ($filter) {
                 $assignment = $this->quizAssignmentService->findFirst(filter: $filter);
                 $assignment->load([
                     'quiz' => fn($query) =>
@@ -101,14 +101,13 @@ class UserController extends Controller
                             [
                                 'user_choice_id' => DB::table('user_answers')
                                     ->select('choice_id')
-                                    ->where('assignment_id', $assignment->id)
+                                    ->whereColumn('assignment_id', 'assignments.id')
                                     ->whereColumn('user_answers.question_id', 'questions.id')->limit(1)
                             ]
                         )
                             ->with(['choices'])
                     ])
                 ]);
-
                 return $assignment;
             }
         ]);
