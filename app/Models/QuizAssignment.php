@@ -5,9 +5,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\Notifiable;
 
 class QuizAssignment extends Model
-{
+{   
+    use Notifiable;
+
     protected $fillable = [
         'quiz_id',
         'user_id',
@@ -58,4 +62,5 @@ class QuizAssignment extends Model
     }
 
     public function scopeFilterNull($query, $fillable) {}
+
 }

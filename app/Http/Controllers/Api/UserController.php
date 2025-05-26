@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuizAssignmentResource;
+use App\Notifications\QuizAssignmentCompletedNotification;
 use App\Services\QuestionService;
 use App\Services\QuizAssignmentService;
 use App\Services\QuizService;
@@ -122,10 +123,12 @@ class UserController extends Controller
         try {
             $this->userAnswerService->bulkStore($userAnswers);
 
-            $assignment->update([
+            $completedAssignment = $assignment->update([
                 'completed_at' => now(),
                 'score' => $score,
             ]);
+
+            $completedAssignment->notify(new QuizAssignmentCompletedNotification($request->user()));
 
             DB::commit();
         } catch (Exception $e) {
