@@ -1,175 +1,170 @@
 <template>
-    <DashboardLayout>
-        <form class="space-y-5 w-lg" @submit.prevent="submit">
-            <div>
-                <label
-                    for="name"
-                    :class="[
-                        'block mb-2 text-sm font-medium  dark:text-white',
-                        form.errors.name ? 'text-red-600' : 'text-gray-900',
-                    ]"
+    <form class="space-y-5 w-lg" @submit.prevent="submit">
+        <div>
+            <label
+                for="name"
+                :class="[
+                    'block mb-2 text-sm font-medium  dark:text-white',
+                    form.errors.name ? 'text-red-600' : 'text-gray-900',
+                ]"
+            >
+                {{ $t("password") }}</label
+            >
+            <div class="relative">
+                <div
+                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
                 >
-                    {{ $t("password") }}</label
-                >
-                <div class="relative">
-                    <div
-                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
-                    >
-                        <svg
-                            :class="[
-                                'w-4 h-4  dark:text-gray-400',
-                                form.errors.name
-                                    ? 'text-red-600'
-                                    : 'text-gray-500',
-                            ]"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="size-5"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </div>
-                    <input
-                        type="text"
-                        id="name"
-                        v-model="form.name"
+                    <svg
                         :class="[
-                            'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                            form.errors.name
-                                ? 'border-red-600'
-                                : 'border-gray-300',
+                            'w-4 h-4  dark:text-gray-400',
+                            form.errors.name ? 'text-red-600' : 'text-gray-500',
                         ]"
-                        placeholder="name@flowbite.com"
-                        required
-                    />
-                </div>
-                <p v-if="form.errors.name" class="p-1 text-red-600">
-                    {{ form.errors.name }}
-                </p>
-            </div>
-            <div>
-                <label
-                    for="email"
-                    :class="[
-                        'block mb-2 text-sm font-medium  dark:text-white',
-                        form.errors.email ? 'text-red-600' : 'text-gray-900',
-                    ]"
-                    >{{ $t("email") }}</label
-                >
-                <div class="relative">
-                    <div
-                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-5"
                     >
-                        <svg
-                            :class="[
-                                'w-4 h-4  dark:text-gray-400',
-                                form.errors.email
-                                    ? 'text-red-600'
-                                    : 'text-gray-500',
-                            ]"
-                            aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="currentColor"
-                            viewBox="0 0 20 16"
-                        >
-                            <path
-                                d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
-                            />
-                            <path
-                                d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
-                            />
-                        </svg>
-                    </div>
-                    <input
-                        type="text"
-                        id="email"
-                        v-model="form.email"
-                        :class="[
-                            'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                            form.errors.email
-                                ? 'border-red-600'
-                                : 'border-gray-300',
-                        ]"
-                        placeholder="name@flowbite.com"
-                        required
-                    />
+                        <path
+                            fill-rule="evenodd"
+                            d="M7.5 6a4.5 4.5 0 1 1 9 0 4.5 4.5 0 0 1-9 0ZM3.751 20.105a8.25 8.25 0 0 1 16.498 0 .75.75 0 0 1-.437.695A18.683 18.683 0 0 1 12 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 0 1-.437-.695Z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
                 </div>
-                <p v-if="form.errors.email" class="p-1 text-red-600">
-                    {{ form.errors.email }}
-                </p>
-            </div>
-            <div>
-                <label
-                    for="password"
-                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                    :class="[
-                        'block mb-2 text-sm font-medium  dark:text-white',
-                        form.errors.password ? 'text-red-600' : 'text-gray-900',
-                    ]"
-                >
-                    {{ $t("password") }}</label
-                >
-                <div class="relative">
-                    <div
-                        class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
-                    >
-                        <svg
-                            :class="[
-                                'w-4 h-4  dark:text-gray-400',
-                                form.errors.password
-                                    ? 'text-red-600'
-                                    : 'text-gray-500',
-                            ]"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            class="size-4"
-                        >
-                            <path
-                                fill-rule="evenodd"
-                                d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
-                                clip-rule="evenodd"
-                            />
-                        </svg>
-                    </div>
-                    <input
-                        v-model="form.password"
-                        type="password"
-                        id="password"
-                        required
-                        :class="[
-                            'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                            form.errors.email
-                                ? 'border-red-600'
-                                : 'border-gray-300',
-                        ]"
-                    />
-                </div>
-                <p v-if="form.errors.password" class="p-1 text-red-600">
-                    {{ form.errors.password }}
-                </p>
-            </div>
-            <div class="flex items-center">
                 <input
-                    id="checked-checkbox"
-                    type="checkbox"
-                    v-model="form.is_admin"
-                    class="w-4 h-4 accent-indigo-800 focus:border-0 focus:outline-none focus:right-0 bg-gray-100 border-gray-300 rounded-sm"
+                    type="text"
+                    id="name"
+                    v-model="form.name"
+                    :class="[
+                        'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                        form.errors.name ? 'border-red-600' : 'border-gray-300',
+                    ]"
+                    placeholder="name@flowbite.com"
+                    required
                 />
-                <label
-                    for="checked-checkbox"
-                    class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    >Admin</label
-                >
             </div>
-            <div>
-                <button class="btn-primary">
-                    <!-- <svg
+            <p v-if="form.errors.name" class="p-1 text-red-600">
+                {{ form.errors.name }}
+            </p>
+        </div>
+        <div>
+            <label
+                for="email"
+                :class="[
+                    'block mb-2 text-sm font-medium  dark:text-white',
+                    form.errors.email ? 'text-red-600' : 'text-gray-900',
+                ]"
+                >{{ $t("email") }}</label
+            >
+            <div class="relative">
+                <div
+                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                >
+                    <svg
+                        :class="[
+                            'w-4 h-4  dark:text-gray-400',
+                            form.errors.email
+                                ? 'text-red-600'
+                                : 'text-gray-500',
+                        ]"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="currentColor"
+                        viewBox="0 0 20 16"
+                    >
+                        <path
+                            d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"
+                        />
+                        <path
+                            d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"
+                        />
+                    </svg>
+                </div>
+                <input
+                    type="text"
+                    id="email"
+                    v-model="form.email"
+                    :class="[
+                        'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                        form.errors.email
+                            ? 'border-red-600'
+                            : 'border-gray-300',
+                    ]"
+                    placeholder="name@flowbite.com"
+                    required
+                />
+            </div>
+            <p v-if="form.errors.email" class="p-1 text-red-600">
+                {{ form.errors.email }}
+            </p>
+        </div>
+        <div>
+            <label
+                for="password"
+                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                :class="[
+                    'block mb-2 text-sm font-medium  dark:text-white',
+                    form.errors.password ? 'text-red-600' : 'text-gray-900',
+                ]"
+            >
+                {{ $t("password") }}</label
+            >
+            <div class="relative">
+                <div
+                    class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none"
+                >
+                    <svg
+                        :class="[
+                            'w-4 h-4  dark:text-gray-400',
+                            form.errors.password
+                                ? 'text-red-600'
+                                : 'text-gray-500',
+                        ]"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="size-4"
+                    >
+                        <path
+                            fill-rule="evenodd"
+                            d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z"
+                            clip-rule="evenodd"
+                        />
+                    </svg>
+                </div>
+                <input
+                    v-model="form.password"
+                    type="password"
+                    id="password"
+                    required
+                    :class="[
+                        'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                        form.errors.email
+                            ? 'border-red-600'
+                            : 'border-gray-300',
+                    ]"
+                />
+            </div>
+            <p v-if="form.errors.password" class="p-1 text-red-600">
+                {{ form.errors.password }}
+            </p>
+        </div>
+        <div class="flex items-center">
+            <input
+                id="checked-checkbox"
+                type="checkbox"
+                v-model="form.is_admin"
+                class="w-4 h-4 accent-indigo-800 focus:border-0 focus:outline-none focus:right-0 bg-gray-100 border-gray-300 rounded-sm"
+            />
+            <label
+                for="checked-checkbox"
+                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                >Admin</label
+            >
+        </div>
+        <div>
+            <button class="btn-primary">
+                <!-- <svg
                         v-if="form.processing"
                         aria-hidden="true"
                         role="status"
@@ -187,12 +182,11 @@
                             fill="currentColor"
                         />
                     </svg> -->
-                    <span v-if="form.processing"> {{ $t("submit") }} ☕ </span>
-                    <span v-else> {{ $t("submit") }} </span>
-                </button>
-            </div>
-        </form>
-    </DashboardLayout>
+                <span v-if="form.processing"> {{ $t("submit") }} ☕ </span>
+                <span v-else> {{ $t("submit") }} </span>
+            </button>
+        </div>
+    </form>
 </template>
 
 <script setup lang="ts">
@@ -209,11 +203,13 @@ const form = useForm({
 });
 
 const toast = useToast();
-const {t} = useI18n();
+const { t } = useI18n();
 
 const submit = () => {
-    form.post(route("user.store"),{onSuccess:() => {
-            toast.success(t('dataCreated'), {timeout:2000})
-    }});
+    form.post(route("user.store"), {
+        onSuccess: () => {
+            toast.success(t("dataCreated"), { timeout: 2000 });
+        },
+    });
 };
 </script>

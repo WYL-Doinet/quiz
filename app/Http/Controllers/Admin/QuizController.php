@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\QuizAssignedCompletedEvent;
 use App\Exports\ResultsExport;
 use App\Http\Controllers\Controller;
 use App\Notifications\QuizAssignedNotification;
@@ -68,6 +69,7 @@ class QuizController extends Controller
                 ])->choices()->createMany($question['choices']);
             }
             DB::commit();
+         
             return redirect()->route('quiz.index');
         } catch (Exception $e) {
             DB::rollBack();

@@ -1,6 +1,5 @@
 <template>
-    <DashboardLayout>
-        <h2 class="text-3xl font-bold text-center text-indigo-900">
+       <h2 class="text-3xl font-bold text-center text-indigo-900">
             {{ assign.quiz.title }}
         </h2>
         <div
@@ -71,7 +70,6 @@
                 </div>
             </div>
         </div>
-    </DashboardLayout>
 </template>
 
 <script setup lang="ts">

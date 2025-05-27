@@ -3,6 +3,7 @@ import { AxiosInstance } from "axios";
 import ziggyRoute, { Config as ZiggyConfig } from "ziggy-js";
 import { ComponentCustomProperties } from 'vue';
 import { I18n } from 'vue-i18n';
+import Echo from 'laravel-echo';
 
 
 
@@ -11,6 +12,7 @@ export {};
 declare global {
     interface Window {
         axios: AxiosInstance;
+          Echo: Echo;
     }
 
     var route: typeof ziggyRoute;

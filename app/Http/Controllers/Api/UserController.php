@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\QuizAssignedCompletedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\QuizAssignmentResource;
 use App\Notifications\QuizAssignmentCompletedNotification;
@@ -118,7 +119,10 @@ class UserController extends Controller
                 'message' => 'You have already completed this quiz. Your score cannot be changed.',
                 'score' => $score,
             ]);
+
+    
         }
+
         DB::beginTransaction();
         try {
             $this->userAnswerService->bulkStore($userAnswers);
@@ -129,15 +133,16 @@ class UserController extends Controller
             ]);
 
             $completedAssignment->notify(new QuizAssignmentCompletedNotification($request->user()));
-
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
-            
+
             return response()->json([
                 'message' => $e->getMessage()
             ], 500);
         }
+
+        event(new QuizAssignedCompletedEvent($request->user()));
 
         return response()->json([
             'message' => 'Success',

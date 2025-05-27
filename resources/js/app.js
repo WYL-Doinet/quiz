@@ -6,6 +6,9 @@ import { createInertiaApp } from "@inertiajs/vue3";
 import { ZiggyVue } from "ziggy-js";
 import Toast from "vue-toastification";
 import { createI18n } from "vue-i18n";
+import "./echo.js";
+
+import DashboardLayout from "./components/layout/DashboardLayout.vue";
 
 const i18n = createI18n({
     locale: "ja",
@@ -87,7 +90,7 @@ const i18n = createI18n({
             draft: "Draft",
             published: "Published",
             exportResult: "Export Results",
-            dataEmpty: 'Data is empty',
+            dataEmpty: "Data is empty",
             notifications: "Notifications",
         },
         ja: {
@@ -166,7 +169,7 @@ const i18n = createI18n({
             draft: "下書き",
             published: "公開",
             exportResult: "エクスポート結果",
-            dataEmpty: 'データがありません',
+            dataEmpty: "データがありません",
             notifications: "通知",
         },
     },
@@ -176,6 +179,11 @@ createInertiaApp({
     resolve: async (name) => {
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: false });
         const page = await pages[`./Pages/${name}.vue`]();
+
+        if (!["Auth/Login", "Auth/Register"].includes(name)) {
+            page.default.layout ??= DashboardLayout;
+        }
+
         return page.default;
     },
     setup({ el, App, props, plugin }) {

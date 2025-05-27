@@ -1,6 +1,5 @@
 <template>
-    <DashboardLayout>
-        <form class="space-y-5 w-lg" @submit.prevent="submit">
+  <form class="space-y-5 w-lg" @submit.prevent="submit">
             <div>
                 <label
                     for="name"
@@ -245,7 +244,6 @@
                 </tbody>
             </table>
         </div>
-    </DashboardLayout>
 </template>
 
 <script setup lang="ts">

@@ -1,6 +1,5 @@
 <template>
-    <DashboardLayout>
-        <div class="space-y-5">
+       <div class="space-y-5">
             <div class="grid grid-cols-4 items-end gap-3">
                 <div>
                     <label
@@ -132,7 +131,6 @@
                 </table>
             </div>
         </div>
-    </DashboardLayout>
 </template>
 
 <script lang="ts" setup>
