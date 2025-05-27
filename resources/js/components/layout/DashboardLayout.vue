@@ -202,7 +202,7 @@
 <script setup lang="ts">
 import { Link, router, usePage } from "@inertiajs/vue3";
 import NotificationModal from "../NotificationModal.vue";
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref } from "vue";
 const logout = () => router.post(route("auth.logout"));
 
 const notificationModal = ref({
@@ -217,11 +217,15 @@ onMounted(() => {
     window.Echo.channel("quiz-assigned-completed").listen(
         ".assign.finished",
         (e: any) => {
-            alert();
             router.reload({ only: ["notifications"] });
         }
     );
 });
+
+onUnmounted(() => {
+    window.Echo.leave("quiz-assigned-completed");
+});
+
 </script>
 
 <style scoped>
