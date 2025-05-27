@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Notifications\QuizAssignmentCompletedNotification;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -42,6 +43,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn() => $request->session()->get('message')
             ],
+            'notifications' => QuizAssignmentCompletedNotification::unreadNotifications()
         ];
     }
 }

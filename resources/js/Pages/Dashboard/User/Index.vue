@@ -140,7 +140,7 @@
                 </thead>
                 <tbody>
                     <tr
-                        v-for="user in users"
+                        v-for="user in users.data"
                         :key="user.id"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
                     >
@@ -229,6 +229,11 @@
                 </tbody>
             </table>
         </div>
+        <Pagination
+            :links="users.links"
+            :prevPageUrl="users['prev_page_url']"
+            :nextPageUrl="users['next_page_url']"
+        />
     </DashboardLayout>
 </template>
 
@@ -239,8 +244,9 @@ import { ref } from "vue";
 import AssignedQuizModal from "../../../components/AssignedQuizModal.vue";
 import QrLoginModal from "../../../components/QrLoginModal.vue";
 import { cleanObj } from "../../../lib/utility";
+import Pagination from "../../../components/Pagination.vue";
 
-defineProps({ users: Object });
+defineProps<{ users: any }>();
 
 const assignedModal = ref<{ open: boolean; assigns: Array<any> }>({
     open: false,

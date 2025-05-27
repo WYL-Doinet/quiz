@@ -102,7 +102,7 @@
                 class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400"
             >
                 <thead
-                    class="text-xs text-indigo-900  uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
+                    class="text-xs text-indigo-900 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400"
                 >
                     <tr>
                         <th scope="col" class="px-6 py-3 min-w-[200px]">
@@ -121,7 +121,7 @@
                 </thead>
                 <tbody>
                     <tr
-                        v-for="quiz in quizzes"
+                        v-for="quiz in quizzes.data"
                         :key="quiz.id"
                         class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200"
                     >
@@ -209,6 +209,11 @@
                 </tbody>
             </table>
         </div>
+        <Pagination
+            :links="quizzes.links"
+            :prevPageUrl="quizzes['prev_page_url']"
+            :nextPageUrl="quizzes['next_page_url']"
+        />
     </DashboardLayout>
 </template>
 
@@ -217,6 +222,7 @@ import DashboardLayout from "@components/layout/DashboardLayout.vue";
 import { Link, router } from "@inertiajs/vue3";
 import { ref } from "vue";
 import { cleanObj } from "../../../lib/utility";
+import Pagination from "../../../components/Pagination.vue";
 
 const searchParams = new URLSearchParams(window.location.search);
 
@@ -239,5 +245,7 @@ const onSearch = () => {
     });
 };
 
-defineProps({ quizzes: Object, categories: Object });
+const props =defineProps<{ quizzes: any; categories: any }>();
+console.log(props.quizzes.links)
+
 </script>

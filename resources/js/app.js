@@ -87,6 +87,8 @@ const i18n = createI18n({
             draft: "Draft",
             published: "Published",
             exportResult: "Export Results",
+            dataEmpty: 'Data is empty',
+            notifications: "Notifications",
         },
         ja: {
             pending: "保留中",
@@ -164,6 +166,8 @@ const i18n = createI18n({
             draft: "下書き",
             published: "公開",
             exportResult: "エクスポート結果",
+            dataEmpty: 'データがありません',
+            notifications: "通知",
         },
     },
 });

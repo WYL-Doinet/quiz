@@ -133,9 +133,7 @@ class UserController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
-
-            info($e->getMessage());
-
+            
             return response()->json([
                 'message' => $e->getMessage()
             ], 500);

@@ -130,6 +130,9 @@
                                 >
                             </td>
                         </tr>
+                        <tr v-if="assigns!.length === 0" >
+                            <td colspan="100%" class="text-indigo-900 font-bold py-3 text-center">{{ $t('dataEmpty') }}</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>

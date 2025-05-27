@@ -1,10 +1,10 @@
 <template>
     <div
-        class="w-md absolute right-2.5 flex flex-col shadow-md
-         top-1 h-[95%]  z-50 max-w-2xl rounded-2xl p-5 bg-white space-y-5"
+        class="w-md fixed right-6 flex flex-col shadow-md overflow-y-scroll
+         top-18 h-[80%] r z-50 max-w-2xl rounded-2xl p-5 bg-white space-y-5"
     >
         <div class="flex justify-between">
-            <h2 class=" text-3xl text-indigo-900 font-bold">Notifications</h2>
+            <h2 class=" text-2xl text-indigo-900 font-bold">{{ $t('notifications') }}</h2>
             <button class="btn-light" @click="hideModal()">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -21,16 +21,8 @@
             </button>
         </div>
         <div class="flex-1 space-y-4">
-            <div class="p-4 rounded-lg border border-gray-300">
-                <h3 class="text-md font-bold text-indigo-900">Title</h3>
-                <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Dolorum blanditiis distinctio accusantium debitis odio nihil
-               
-                </p>
-            </div>
-            <div class="p-4 rounded-lg border border-gray-300">
-                <h3 class="text-md font-bold text-indigo-900">Title</h3>
+            <div class="p-4 rounded-lg border border-gray-300 text-sm">
+                <h3 class="font-bold text-indigo-900">Title</h3>
                 <p>
                     Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                     Dolorum blanditiis distinctio accusantium debitis odio nihil
@@ -43,5 +35,5 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ hideModal: CallableFunction }>();
+defineProps<{ hideModal: CallableFunction}>();
 </script>

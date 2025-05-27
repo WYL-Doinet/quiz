@@ -16,8 +16,6 @@ class Quiz extends Model
     ];
 
 
-    // protected $withCount = ['questions'];
-
     public function createdBy(): BelongsTo
     {
         return $this->belongsTo(User::class, 'created_by');

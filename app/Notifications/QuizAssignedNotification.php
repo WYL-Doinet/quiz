@@ -58,7 +58,7 @@ class QuizAssignedNotification extends Notification implements ShouldQueue
 
     public function toDatabase(object $notifiable)
     {
-        return ['quiz_id' => $this->quiz->id];
+       return ['message' => 'You have a new quiz assignment: ' . $this->quiz->title];
     }
 
     /**

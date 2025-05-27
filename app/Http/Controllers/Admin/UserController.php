@@ -39,7 +39,7 @@ class UserController extends Controller
     {
         if ($request->wantsJson()) {
             $q = $request->query('q');
-            return $q ? $this->userService->findAll(filter: ['q' => $q]) : [];
+            return $q ? $this->userService->search(filter: ['q' => $q]) : [];
         }
 
         return [];

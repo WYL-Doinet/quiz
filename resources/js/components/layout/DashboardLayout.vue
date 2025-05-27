@@ -26,7 +26,7 @@
                             d="m12 5.432 8.159 8.159c.03.03.06.058.091.086v6.198c0 1.035-.84 1.875-1.875 1.875H15a.75.75 0 0 1-.75-.75v-4.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75V21a.75.75 0 0 1-.75.75H5.625a1.875 1.875 0 0 1-1.875-1.875v-6.198a2.29 2.29 0 0 0 .091-.086L12 5.432Z"
                         />
                     </svg>
-                    <Link :href="route('home.dashboard')">{{
+                    <Link  :href="route('home.dashboard')">{{
                         $t("dashboard")
                     }}</Link>
                 </li>
@@ -112,10 +112,14 @@
                 </li>
             </ul>
             <div>
-                <div
-                    class="p-3 font-extrabold text-md text-white text-center"
-                >
-                    <p><span class="italic"><span class="text-orange-500">Crafted</span> with</span> 💻 + ☕</p>
+                <div class="p-3 font-extrabold text-md text-white text-center">
+                    <p>
+                        <span class="italic"
+                            ><span class="text-orange-500">Crafted</span>
+                            with</span
+                        >
+                        💻 + ☕
+                    </p>
                 </div>
             </div>
         </div>
@@ -146,14 +150,13 @@
                         ></span>
                     </div>
                     <button
-                        @click="notificationModal.open = true"
+                        @click="notificationModal.open = !notificationModal.open"
                         type="button"
                         class="relative cursor-pointer inline-flex items-center p-2.5 text-sm font-medium text-center text-white bg-indigo-500 rounded-full hover:bg-indigo-800"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
-                          
                             class="size-5 fill-white"
                         >
                             <path
@@ -167,10 +170,10 @@
                         </svg>
 
                         <span class="sr-only">Notifications</span>
-                        <div
+                        <div 
                             class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900"
                         >
-                            20
+                            {{ notifications.length }}
                         </div>
                     </button>
                 </div>
@@ -179,8 +182,8 @@
                 class="bg-gray-100 flex-1 p-5 relative flex flex-col overflow-y-scroll"
                 id="scroll-able"
             >
-                <transition name="fade">
-                    <NotificationModal
+                <transition name="fade" >
+                    <NotificationModal 
                         :hideModal="() => (notificationModal.open = false)"
                         v-if="notificationModal.open"
                     />
@@ -195,14 +198,18 @@
 </template>
 
 <script setup lang="ts">
-import { Link, router } from "@inertiajs/vue3";
+import { Link, router, usePage } from "@inertiajs/vue3";
 import NotificationModal from "../NotificationModal.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
 const logout = () => router.post(route("auth.logout"));
 
 const notificationModal = ref({
     open: false,
 });
+
+const page = usePage() as any;
+
+const notifications = computed(() => page.props.notifications || []);
 </script>
 
 <style scoped>

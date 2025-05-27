@@ -20,4 +20,14 @@ trait FetchNotification
     {
         return DatabaseNotification::where('type', static::class)->whereNotNull('is_read')->get();
     }
+
+    public static function unReadNotificationCount()
+    {
+        return DatabaseNotification::where('type', static::class)->whereNull('is_read')->count();
+    }
+
+    public static function readNotificationCount()
+    {
+        return DatabaseNotification::where('type', static::class)->whereNotNull('is_read')->count();
+    }
 }

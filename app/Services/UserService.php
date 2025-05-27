@@ -13,7 +13,14 @@ class UserService
     {
         return $this->user->sort(['id', 'desc'])
             ->filter($filter)
-            ->get();
+            ->paginate(10);
+    }
+
+    public function  search($filter = [])
+    {
+        return $this->user->sort(['id', 'desc'])
+            ->filter($filter)
+            ->get(10);
     }
 
     public function store($data)
