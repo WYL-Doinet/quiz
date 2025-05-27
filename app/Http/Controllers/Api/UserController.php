@@ -117,7 +117,7 @@ class UserController extends Controller
             return response()->json([
                 'message' => 'You have already completed this quiz. Your score cannot be changed.',
                 'score' => $score,
-            ], 409);
+            ]);
         }
         DB::beginTransaction();
         try {
