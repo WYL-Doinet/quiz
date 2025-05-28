@@ -119,20 +119,18 @@ class UserController extends Controller
                 'message' => 'You have already completed this quiz. Your score cannot be changed.',
                 'score' => $score,
             ]);
-
-    
         }
 
         DB::beginTransaction();
         try {
             $this->userAnswerService->bulkStore($userAnswers);
 
-            $completedAssignment = $assignment->update([
+            $assignment->update([
                 'completed_at' => now(),
                 'score' => $score,
             ]);
 
-            $completedAssignment->notify(new QuizAssignmentCompletedNotification($request->user()));
+            $assignment->notify(new QuizAssignmentCompletedNotification($request->user()));
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();
