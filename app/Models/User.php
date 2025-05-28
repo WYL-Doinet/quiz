@@ -50,8 +50,6 @@ class User extends Authenticatable
         ];
     }
 
-
-
     public function assigns()
     {
         return $this->hasMany(QuizAssignment::class);

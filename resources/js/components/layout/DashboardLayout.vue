@@ -213,7 +213,14 @@ const page = usePage() as any;
 
 const notifications = computed(() => page.props.notifications || []);
 
+function onBackButtonClick(event: PopStateEvent) {
+    if (event.state.page.url === "/login") {
+        router.replace({ url: "/dashboard" });
+    }
+}
+
 onMounted(() => {
+    window.addEventListener("popstate", onBackButtonClick);
     window.Echo.channel("quiz-assigned-completed").listen(
         ".assign.finished",
         (e: any) => {
@@ -223,9 +230,9 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+    window.removeEventListener("popstate", onBackButtonClick);
     window.Echo.leave("quiz-assigned-completed");
 });
-
 </script>
 
 <style scoped>
