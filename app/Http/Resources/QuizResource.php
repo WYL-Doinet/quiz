@@ -21,6 +21,7 @@ class QuizResource extends JsonResource
             'description' => $this->description,
             'questions' =>  QuestionResource::collection($this->whenLoaded('questions')),
             'questions_count' => $this->when($this->questions_count ?? false, $this->questions_count),
+            'category' => new CategoryResource($this->whenLoaded('category')),
         ];
     }
 }

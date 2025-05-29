@@ -36,7 +36,7 @@ class UserController extends Controller
 
         $assignments = $this->quizAssignmentService->findAll(filter: $filters);
 
-        $assignments->load(['quiz' => fn($query) => $query->withCount('questions')]);
+        $assignments->load(['quiz' => fn($query) => $query->withCount('questions')->with('category')]);
 
         return QuizAssignmentResource::collection($assignments);
     }
