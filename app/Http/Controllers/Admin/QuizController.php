@@ -96,7 +96,9 @@ class QuizController extends Controller
 
         $userId = $request->input('user_id');
 
-        $quizAssignment =  $this->quizAssignmentService->findFirst(filter: ['quiz_id' => $id, 'user_id' =>  $userId]);
+        $user = $this->userService->find($userId);
+
+        $quizAssignment =  $this->quizAssignmentService->findFirst(filter: ['quiz_id' => $user->id, 'user_id' =>  $userId]);
 
         if ($quizAssignment) {
             return redirect()->back()->withErrors(['message' => "You're trying to assign already has an active assignment"]);
@@ -108,7 +110,7 @@ class QuizController extends Controller
             'assigned_at' => now(),
         ]);
 
-        $this->userService->find($userId)->notify(new QuizAssignedNotification($quiz));
+        $user->notify(new QuizAssignedNotification($quiz));
     }
 
     public function show($id)

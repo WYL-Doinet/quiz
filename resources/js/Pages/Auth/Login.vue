@@ -148,7 +148,10 @@ const form = useForm({
 const submit = () => {
     form.post(route("login"), {
         onSuccess: () => {
-            toast.success(t("loginSuccess"), { timeout: 2000 });
+            toast.success(t("loginSuccess"), {
+                timeout: 2000,
+                icon: "fa-solid fa-bell",
+            });
         },
     });
 };

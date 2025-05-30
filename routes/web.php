@@ -4,17 +4,19 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\QuestionController;
-use App\Http\Controllers\Admin\QuizAssignmentController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return  redirect()->route('home.dashboard');
 });
+Route::get('/app',  [AppController::class, 'index'])->name('app.index');
+Route::get('/app/download',  [AppController::class, 'download'])->name('app.download');
 
 Route::middleware('guest')->group(function () {
-    // Route::get('/register', [AuthController::class, 'register'])->name('register');
+
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name('login');
 });
 

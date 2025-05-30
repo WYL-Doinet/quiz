@@ -203,6 +203,7 @@
 import { Link, router, usePage } from "@inertiajs/vue3";
 import NotificationModal from "../NotificationModal.vue";
 import { computed, onMounted, onUnmounted, ref } from "vue";
+import { POSITION, useToast } from "vue-toastification";
 const logout = () => router.post(route("auth.logout"));
 
 const notificationModal = ref({
@@ -219,12 +220,22 @@ function onBackButtonClick(event: PopStateEvent) {
     }
 }
 
+const toast = useToast();
+
 onMounted(() => {
     window.addEventListener("popstate", onBackButtonClick);
     window.Echo.channel("quiz-assigned-completed").listen(
         ".assign.finished",
         (e: any) => {
-            router.reload({ only: ["notifications"] });
+            router.reload({
+                only: ["notifications"],
+                onSuccess() {
+                    toast.success(e.message, {
+                        position: POSITION["BOTTOM_RIGHT"],
+                        pauseOnFocusLoss: true,
+                    });
+                },
+            });
         }
     );
 });

@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('quiz_id')->constrained()->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->enum('status', ['not_started', 'in_progress', 'completed'])->default('not_started');
+            $table->string('note')->nullable();
+            $table->dateTime('deadline')->nullable();
             $table->dateTime('assigned_at')->default(now());
             $table->dateTime('started_at')->nullable();
             $table->dateTime('completed_at')->nullable();

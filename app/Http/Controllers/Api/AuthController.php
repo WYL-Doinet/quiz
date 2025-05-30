@@ -35,13 +35,15 @@ class AuthController extends Controller
 
         $credentials  = $request->validated();
 
-        $user = User::where('email', $credentials['email'])->first();
+        $user = User::firstWhere('email', $credentials['email']);
 
         if (!$user || !Hash::check($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['Invalid credentials.'],
             ]);
         }
+
+        $user->update(['qr_login_code' =>  null]);
 
         return response()->json([
             'user'  => $user,

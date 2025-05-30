@@ -20,7 +20,7 @@ class UserService
     {
         return $this->user->sort(['id', 'desc'])
             ->filter($filter)
-            ->get(10);
+            ->get();
     }
 
     public function store($data)

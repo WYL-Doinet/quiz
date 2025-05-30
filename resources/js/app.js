@@ -180,7 +180,7 @@ createInertiaApp({
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: false });
         const page = await pages[`./Pages/${name}.vue`]();
 
-        if (!["Auth/Login", "Auth/Register"].includes(name)) {
+        if (!["Auth/Login", "Auth/Register", 'App/Download', 'App/Index'].includes(name)) {
             page.default.layout ??= DashboardLayout;
         }
 

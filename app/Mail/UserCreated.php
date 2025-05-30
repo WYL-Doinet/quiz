@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -9,20 +10,16 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class QuizAssigned extends Mailable implements ShouldQueue
+class UserCreated extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
-
-    public $user;
-    public $quiz;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($user, $quiz)
+    public function __construct(protected User $user, protected $password)
     {
-        $this->user = $user;
-        $this->quiz =  $quiz;
+        //
     }
 
     /**
@@ -31,7 +28,7 @@ class QuizAssigned extends Mailable implements ShouldQueue
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Quiz Assigned',
+            subject: 'User Created',
         );
     }
 
@@ -41,10 +38,10 @@ class QuizAssigned extends Mailable implements ShouldQueue
     public function content(): Content
     {
         return new Content(
-            view: 'quiz-assigned',
+            view: 'mail.user-created',
         )->with([
             'user' => $this->user,
-            'quiz' => $this->quiz
+            'password' => $this->password,
         ]);
     }
 

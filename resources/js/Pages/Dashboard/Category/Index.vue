@@ -134,7 +134,6 @@
 </template>
 
 <script lang="ts" setup>
-import DashboardLayout from "@components/layout/DashboardLayout.vue";
 import { Link, router } from "@inertiajs/vue3";
 import { ref } from "vue";
 import { cleanObj } from "../../../lib/utility";
