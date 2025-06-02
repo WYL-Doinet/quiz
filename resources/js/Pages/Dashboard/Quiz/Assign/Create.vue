@@ -1,11 +1,13 @@
 <template>
-    <div class="space-y-5">
+    <Teleport to="modal-body">
         <transition name="fade">
             <AssignUserModal
                 v-if="modal.open"
                 :hideModal="() => (modal.open = false)"
             />
         </transition>
+    </Teleport>
+    <div class="space-y-5">
         <div class="grid grid-cols-3 gap-3 items-end">
             <div>
                 <!-- <button

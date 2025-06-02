@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
             'flash' => [
                 'message' => fn() => $request->session()->get('message')
             ],
-            'notifications' => QuizAssignmentCompletedNotification::unreadNotifications()
+            'quiz_complete_notifications' => QuizAssignmentCompletedNotification::unreadNotifications()
         ];
     }
 }

@@ -104,7 +104,7 @@
                             <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
                                 <tr>
                                     <td align="center" style="border-radius: 5px; background-color: #2196F3;" class="button-a">
-                                        <a href="https://example.com/download-app" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 5px; display: inline-block; border: 1px solid #2196F3;">
+                                        <a href="http://127.0.0.1:8000/app" target="_blank" style="font-family: Arial, sans-serif; font-size: 16px; font-weight: bold; color: #ffffff; text-decoration: none; padding: 12px 25px; border-radius: 5px; display: inline-block; border: 1px solid #2196F3;">
                                             Download App
                                         </a>
                                     </td>

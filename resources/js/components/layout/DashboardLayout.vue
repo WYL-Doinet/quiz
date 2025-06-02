@@ -114,7 +114,7 @@
                     :only="['users']"
                     :class="[
                         'text-md items-center flex gap-2 ',
-                        route().current('user.*')
+                        route().current('notification.*')
                             ? 'text-orange-500 font-bold'
                             : 'text-white',
                     ]"
@@ -131,7 +131,7 @@
                             clip-rule="evenodd"
                         />
                     </svg>
-                    <Link :href="route('user.index')">{{
+                    <Link :href="route('notification.index')">{{
                         $t("notifications")
                     }}</Link>
                 </li>
@@ -213,6 +213,7 @@
                     <NotificationModal
                         :hideModal="() => (notificationModal.open = false)"
                         v-if="notificationModal.open"
+                        :notifications="notifications"
                     />
                 </transition>
 
@@ -237,7 +238,9 @@ const notificationModal = ref({
 
 const page = usePage() as any;
 
-const notifications = computed(() => page.props.notifications || []);
+const notifications = computed(() => page.props.quiz_complete_notifications || []);
+
+console.log(notifications)
 
 function onBackButtonClick(event: PopStateEvent) {
     if (event.state.page.url === "/login") {

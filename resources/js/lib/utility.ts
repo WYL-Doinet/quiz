@@ -33,3 +33,33 @@ export const objMap = <T extends Record<string, any>, R>(
 
     return result;
 };
+
+export const createPassword = ({
+    len,
+    upper,
+    num,
+    special,
+}: {
+    len: number;
+    upper?: boolean;
+    num?: boolean;
+    special?: boolean;
+}) => {
+    const lower = "abcdefghijklmnopqrstuvwxyz";
+    const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const numChars = "0123456789";
+    const specialChars = "!@#$%^&*()-_=+[]{}|;:,.<>?";
+    let chars = lower;
+
+    if (upper) chars += upperChars;
+    if (num) chars += numChars;
+    if (special) chars += specialChars;
+
+    let pass = "";
+    for (let i = 0; i < len; i++) {
+        const randIdx = Math.floor(Math.random() * chars.length);
+        pass += chars[randIdx];
+    }
+
+    return pass;
+};

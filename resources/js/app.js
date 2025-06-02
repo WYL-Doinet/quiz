@@ -92,8 +92,12 @@ const i18n = createI18n({
             exportResult: "Export Results",
             dataEmpty: "Data is empty",
             notifications: "Notifications",
+            confirmPassword: "confirm Password",
+            confirmEmail: 'confirm Email',
+            message: 'message'
         },
         ja: {
+              message: 'メッセージ',
             pending: "保留中",
             complete: "完了",
             score: "スコア",
@@ -149,6 +153,7 @@ const i18n = createI18n({
             answer: "答え",
             registeredAt: "登録日",
             email: "メール",
+            confirmEmail : 'メール確認',
             appLogin: "アプリログイン",
             assignedAt: "割り当て日時",
             yourScore: "あなたのスコア",
@@ -171,6 +176,7 @@ const i18n = createI18n({
             exportResult: "エクスポート結果",
             dataEmpty: "データがありません",
             notifications: "通知",
+            confirmPassword: "パスワード確認",
         },
     },
 });
@@ -180,7 +186,14 @@ createInertiaApp({
         const pages = import.meta.glob("./Pages/**/*.vue", { eager: false });
         const page = await pages[`./Pages/${name}.vue`]();
 
-        if (!["Auth/Login", "Auth/Register", 'App/Download', 'App/Index'].includes(name)) {
+        if (
+            ![
+                "Auth/Login",
+                "Auth/Register",
+                "App/Download",
+                "App/Index",
+            ].includes(name)
+        ) {
             page.default.layout ??= DashboardLayout;
         }
 

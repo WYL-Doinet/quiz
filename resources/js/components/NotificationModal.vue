@@ -22,10 +22,18 @@
             </button>
         </div>
         <div class="flex-1 space-y-4">
-            <div class="flex items-center gap-x-2">
+            <div
+                class="flex items-center gap-x-2"
+                v-for="notification in notifications"
+                :key="notification"
+            >
                 <div class="h-2.5 w-2.5 rounded-full bg-indigo-400"></div>
-                <div class="p-4 hover:border-indigo-400  cursor-pointer rounded-lg border border-gray-300 text-sm flex-1">
-                    <p class="text-md">Lorem ipsum, dolor sit amet consectetur adipisicing</p>
+                <div
+                    class="p-4 hover:border-indigo-400 cursor-pointer rounded-lg border border-gray-300 text-sm flex-1"
+                >
+                    <p class="text-md">
+                        {{ notification.data.message }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -33,5 +41,7 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ hideModal: CallableFunction }>();
+ defineProps<{ hideModal: CallableFunction; notifications: any }>();
+
+
 </script>

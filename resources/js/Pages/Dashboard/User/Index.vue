@@ -1,18 +1,22 @@
 <template>
-    <transition name="fade">
-        <AssignedQuizModal
-            v-if="assignedModal.open"
-            :hideModal="hideAssignedModal"
-            :assigns="assignedModal.assigns"
-        />
-    </transition>
-    <transition name="fade">
+    <Teleport to="#modal-container">
+        <transition name="fade">
+            <AssignedQuizModal
+                v-if="assignedModal.open"
+                :hideModal="hideAssignedModal"
+                :assigns="assignedModal.assigns"
+            />
+        </transition>
+    </Teleport>
+    <Teleport to="#modal-container">
+        <transition name="fade">
         <QrLoginModal
             v-if="qrCodeModal.open && qrCodeModal.userId"
             :userId="qrCodeModal.userId"
             :hideModal="hideQrCodeModal"
         />
     </transition>
+    </Teleport>
     <div class="grid grid-cols-4 gap-3 items-end">
         <div>
             <label

@@ -13,6 +13,7 @@
 </head>
 
 <body>
+    <div id="modal-container"></div>
     @inertia
 </body>
 

@@ -89,7 +89,6 @@
 </template>
 
 <script setup lang="ts">
-import DashboardLayout from "@components/layout/DashboardLayout.vue";
 import { nextTick, ref } from "vue";
 import QuestionCard from "@components/QuestionCard.vue";
 import qs from "qs";

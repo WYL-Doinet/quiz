@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
+use App\Http\Controllers\Admin\NotificationController;
 use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\UserController;
@@ -47,7 +48,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
         Route::get('/users/{id}/assigns/{assignment_id}/answers', [UserController::class, 'answer'])->name('user.answer');
 
+
+
         Route::patch('/questions/{id}', [QuestionController::class, 'update'])->name('question.update');
+
+
+        Route::get('/notifications', [NotificationController::class, 'index'])->name('notification.index');
+        Route::get('/notifications/{id}', [NotificationController::class, 'show'])->name('notification.show');
     });
     Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 });
