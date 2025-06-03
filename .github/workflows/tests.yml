@@ -66,3 +66,11 @@ jobs:
 
     - name: Run tests
       run: php artisan test
+
+    - name: Show README.md in job summary
+      if: success()
+      run: |
+        echo "## 📘 README.md" >> $GITHUB_STEP_SUMMARY
+        echo '```markdown' >> $GITHUB_STEP_SUMMARY
+        cat README.md >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
