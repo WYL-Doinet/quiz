@@ -19,9 +19,9 @@ class UserTest extends TestCase
         $response = $this->actingAs($user, 'sanctum')->getJson('/api/user');
 
         $response->assertStatus(200)
-            ->assertJsonStructure([
-                'data'
-            ]);
+                                ->assertJsonStructure([
+                                    'data'
+                                ]);
     }
 
 
