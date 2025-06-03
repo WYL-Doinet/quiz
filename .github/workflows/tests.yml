@@ -65,7 +65,7 @@ jobs:
       run: npm ci
 
     - name: Migrate test DB
-      run: php artisan migrate --force
+      run: php artisan migrate
 
     - name: Generate application key
       run: php artisan key:generate
