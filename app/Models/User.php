@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable,  HasRoles;
+    use HasApiTokens, HasFactory, HasRoles,  Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -23,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'qr_login_code'
+        'qr_login_code',
     ];
 
     /**
@@ -34,7 +34,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
-        'qr_login_code'
+        'qr_login_code',
     ];
 
     /**
@@ -58,7 +58,7 @@ class User extends Authenticatable
     public function scopeFilter($query, $filter)
     {
         $query->when($filter['q'] ?? false, function ($query, $q) {
-            $query->where('name', 'LIKE', '%' . $q . '%')->orWhere('email', 'LIKE', '%' . $q . '%');
+            $query->where('name', 'LIKE', '%'.$q.'%')->orWhere('email', 'LIKE', '%'.$q.'%');
         });
 
         $query->when($filter['id'] ?? false, function ($query, $id) {
@@ -74,7 +74,8 @@ class User extends Authenticatable
         });
     }
 
-    public function scopeSort($query, $sort) {
+    public function scopeSort($query, $sort)
+    {
         $query->orderBy(...$sort);
     }
 }

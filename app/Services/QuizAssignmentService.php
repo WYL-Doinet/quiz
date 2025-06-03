@@ -25,6 +25,6 @@ class QuizAssignmentService
 
     public function findFirst($filter = [])
     {
-         return $this->quizAssignment->filter($filter)->first();
+        return $this->quizAssignment->filter($filter)->first();
     }
 }

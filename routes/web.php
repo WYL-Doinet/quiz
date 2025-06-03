@@ -11,10 +11,10 @@ use App\Http\Controllers\AppController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return  redirect()->route('home.dashboard');
+    return redirect()->route('home.dashboard');
 });
-Route::get('/app',  [AppController::class, 'index'])->name('app.index');
-Route::get('/app/download',  [AppController::class, 'download'])->name('app.download');
+Route::get('/app', [AppController::class, 'index'])->name('app.index');
+Route::get('/app/download', [AppController::class, 'download'])->name('app.download');
 
 Route::middleware('guest')->group(function () {
 
@@ -48,10 +48,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/users/{id}', [UserController::class, 'show'])->name('user.show');
         Route::get('/users/{id}/assigns/{assignment_id}/answers', [UserController::class, 'answer'])->name('user.answer');
 
-
-
         Route::patch('/questions/{id}', [QuestionController::class, 'update'])->name('question.update');
-
 
         Route::get('/notifications', [NotificationController::class, 'index'])->name('notification.index');
         Route::get('/notifications/{id}', [NotificationController::class, 'show'])->name('notification.show');

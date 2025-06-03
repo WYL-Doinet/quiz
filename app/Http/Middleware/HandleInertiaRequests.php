@@ -39,11 +39,11 @@ class HandleInertiaRequests extends Middleware
         return [
             ...parent::share($request),
             'csrf_token' => csrf_token(),
-            'route' =>  $request->route()->parameters(),
+            'route' => $request->route()->parameters(),
             'flash' => [
-                'message' => fn() => $request->session()->get('message')
+                'message' => fn () => $request->session()->get('message'),
             ],
-            'quiz_complete_notifications' => QuizAssignmentCompletedNotification::unreadNotifications()
+            'quiz_complete_notifications' => QuizAssignmentCompletedNotification::unreadNotifications(),
         ];
     }
 }

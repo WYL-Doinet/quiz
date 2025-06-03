@@ -1,4 +1,5 @@
 <?php
+
 namespace Tests\Traits;
 
 use App\Models\Category;
@@ -22,7 +23,6 @@ trait TestHelper
         return $user;
     }
 
-
     protected function createUsers(int $count)
     {
         return User::factory()->count($count)->create()->toArray();
@@ -35,7 +35,7 @@ trait TestHelper
 
     protected function getQuizzes(int $count)
     {
-        return  Quiz::limit($count)->get()->toArray();
+        return Quiz::limit($count)->get()->toArray();
     }
 
     protected function firstQuiz()

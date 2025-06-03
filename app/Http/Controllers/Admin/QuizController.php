@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Events\QuizAssignedCompletedEvent;
 use App\Exports\ResultsExport;
 use App\Http\Controllers\Controller;
 use App\Notifications\QuizAssignedNotification;
@@ -31,26 +30,29 @@ class QuizController extends Controller
     {
         $filter = [
             'title' => $request->query('title'),
-            'category_id' => $request->query('category_id')
+            'category_id' => $request->query('category_id'),
         ];
+
         return Inertia::render('Dashboard/Quiz/Index', [
             'quizzes' => function () use ($filter) {
                 $quizzes = $this->quizService->findAll(filter: $filter);
                 $quizzes->load('createdBy');
                 $quizzes->loadCount('questions');
+
                 return $quizzes;
             },
             'categories' => function () {
                 return $this->categoryService->findAll();
-            }
+            },
         ]);
     }
 
     public function create()
     {
-        $categories =  $this->categoryService->findAll();
+        $categories = $this->categoryService->findAll();
+
         return Inertia::render('Dashboard/Quiz/Create', [
-            'categories' => $categories
+            'categories' => $categories,
         ]);
     }
 
@@ -69,12 +71,13 @@ class QuizController extends Controller
                 ])->choices()->createMany($question['choices']);
             }
             DB::commit();
-         
+
             return redirect()->route('quiz.index');
         } catch (Exception $e) {
             DB::rollBack();
+
             return redirect()->back()->withErrors([
-                'message' => 'Quiz creating failed'
+                'message' => 'Quiz creating failed',
             ]);
         }
     }
@@ -83,10 +86,11 @@ class QuizController extends Controller
     {
         return Inertia::render('Dashboard/Quiz/Assign/Create', [
             'assigns' => function () use ($id) {
-                $assigns  =  $this->quizAssignmentService->findAll(['quiz_id' => $id]);
+                $assigns = $this->quizAssignmentService->findAll(['quiz_id' => $id]);
                 $assigns->load('user.notifications');
+
                 return $assigns;
-            }
+            },
         ]);
     }
 
@@ -98,7 +102,7 @@ class QuizController extends Controller
 
         $user = $this->userService->find($userId);
 
-        $quizAssignment =  $this->quizAssignmentService->findFirst(filter: ['quiz_id' => $user->id, 'user_id' =>  $userId]);
+        $quizAssignment = $this->quizAssignmentService->findFirst(filter: ['quiz_id' => $user->id, 'user_id' => $userId]);
 
         if ($quizAssignment) {
             return redirect()->back()->withErrors(['message' => "You're trying to assign already has an active assignment"]);
@@ -119,24 +123,26 @@ class QuizController extends Controller
             'quiz' => function () use ($id) {
                 $quiz = $this->quizService->find($id);
                 $quiz->load('questions.choices');
+
                 return $quiz;
-            }
+            },
         ]);
     }
 
     public function demo($id)
     {
         return Inertia::render('Dashboard/Quiz/Demo', [
-            'quiz' =>  function () use ($id) {
+            'quiz' => function () use ($id) {
                 $quiz = $this->quizService->find($id);
                 $quiz->load('questions.choices');
+
                 return $quiz;
-            }
+            },
         ]);
     }
 
     public function exportResult($id)
     {
-        return Excel::download(new ResultsExport($id), "result-" . now()->format('Y-m-d') . "-" . $id . '.xlsx');
+        return Excel::download(new ResultsExport($id), 'result-'.now()->format('Y-m-d').'-'.$id.'.xlsx');
     }
 }

@@ -10,7 +10,7 @@ class Question extends Model
     protected $fillable = [
         'question_text',
         'quiz_id',
-        'explanation'
+        'explanation',
 
     ];
 

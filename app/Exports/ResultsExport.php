@@ -11,18 +11,18 @@ use Maatwebsite\Excel\Concerns\WithMapping;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class ResultsExport implements FromCollection, WithHeadings, WithMapping, WithColumnWidths, WithStyles
+class ResultsExport implements FromCollection, WithColumnWidths, WithHeadings, WithMapping, WithStyles
 {
-
     public function __construct(public $quizId) {}
+
     /**
      * @return \Illuminate\Support\Collection
      */
     public function collection()
     {
         return QuizAssignment::with([
-            'quiz' => fn($query) => $query->select('id', 'title'),
-            'user' => fn($query) => $query->select('id', 'name')
+            'quiz' => fn ($query) => $query->select('id', 'title'),
+            'user' => fn ($query) => $query->select('id', 'name'),
         ])->where('quiz_id', $this->quizId)->get();
     }
 
@@ -34,7 +34,7 @@ class ResultsExport implements FromCollection, WithHeadings, WithMapping, WithCo
             1 => [
                 'alignment' => [
                     'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
-                    'vertical'   => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
                 ],
                 'font' => [
                     'bold' => true,
@@ -57,10 +57,9 @@ class ResultsExport implements FromCollection, WithHeadings, WithMapping, WithCo
             'ユーザー名',
             'スコア',
             '割り当て日時',
-            '完了済み'
+            '完了済み',
         ];
     }
-
 
     public function map($row): array
     {
@@ -71,7 +70,7 @@ class ResultsExport implements FromCollection, WithHeadings, WithMapping, WithCo
             $row->user->name,
             $row->score,
             Carbon::parse($row->assigned_at)->format('Y-m-d'),
-            $row->completed_at
+            $row->completed_at,
         ];
     }
 

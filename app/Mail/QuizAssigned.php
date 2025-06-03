@@ -14,6 +14,7 @@ class QuizAssigned extends Mailable implements ShouldQueue
     use Queueable, SerializesModels;
 
     public $user;
+
     public $quiz;
 
     /**
@@ -22,7 +23,7 @@ class QuizAssigned extends Mailable implements ShouldQueue
     public function __construct($user, $quiz)
     {
         $this->user = $user;
-        $this->quiz =  $quiz;
+        $this->quiz = $quiz;
     }
 
     /**
@@ -44,7 +45,7 @@ class QuizAssigned extends Mailable implements ShouldQueue
             view: 'quiz-assigned',
         )->with([
             'user' => $this->user,
-            'quiz' => $this->quiz
+            'quiz' => $this->quiz,
         ]);
     }
 

@@ -13,7 +13,7 @@ class CategoryTest extends TestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_returns_all_categories_and_includes_categories_data(): void
     {
-        $user =  $this->createAdminUser();
+        $user = $this->createAdminUser();
 
         $this->actingAs($user);
 
@@ -22,23 +22,22 @@ class CategoryTest extends TestCase
         $response = $this->get(route('category.index'));
 
         $response->assertInertia(
-            fn($page) =>
-            $page->component('Dashboard/Category/Index')
+            fn ($page) => $page->component('Dashboard/Category/Index')
                 ->has('categories.data', 5)
-                ->where('categories.data.0.name',  $categories[0]['name'])
+                ->where('categories.data.0.name', $categories[0]['name'])
                 ->where('categories.data.1.name', $categories[1]['name'])
         );
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function  it_return_created_categories(): void
+    public function it_return_created_categories(): void
     {
-        $user =  $this->createAdminUser();
+        $user = $this->createAdminUser();
 
         $this->actingAs($user);
 
         $categoryData = [
-            'name' =>  fake()->name(),
+            'name' => fake()->name(),
         ];
 
         $response = $this->post(route('category.store'), $categoryData);
@@ -48,10 +47,9 @@ class CategoryTest extends TestCase
         $indexResponse = $this->get(route('category.index'));
 
         $indexResponse->assertInertia(
-            fn($page) =>
-            $page->component('Dashboard/Category/Index')
+            fn ($page) => $page->component('Dashboard/Category/Index')
                 ->has('categories.data', 1)
-                ->where('categories.data.0.name',  $categoryData['name'])
+                ->where('categories.data.0.name', $categoryData['name'])
         );
 
         $this->assertDatabaseHas('categories', [
@@ -59,11 +57,10 @@ class CategoryTest extends TestCase
         ]);
     }
 
-
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_return_category_detail()
     {
-        $user =  $this->createAdminUser();
+        $user = $this->createAdminUser();
 
         $this->actingAs($user);
 
@@ -72,9 +69,8 @@ class CategoryTest extends TestCase
         $response = $this->get(route('category.show', ['id' => $categories[0]['id']]));
 
         $response->assertInertia(
-            fn($page) =>
-            $page->component('Dashboard/Category/Show')
-                ->where('category.name',  $categories[0]['name'])
+            fn ($page) => $page->component('Dashboard/Category/Show')
+                ->where('category.name', $categories[0]['name'])
         );
     }
 }

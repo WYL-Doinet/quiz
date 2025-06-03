@@ -19,13 +19,13 @@ class AuthController extends Controller
         $validated = $request->validated();
 
         $user = User::create([
-            'name'     => $validated['name'],
-            'email'    => $validated['email'],
+            'name' => $validated['name'],
+            'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
 
         return response()->json([
-            'user'  => $user,
+            'user' => $user,
             'token' => $user->createToken('auth_token')->plainTextToken,
         ]);
     }
@@ -33,20 +33,20 @@ class AuthController extends Controller
     public function login(AuthUserRequest $request)
     {
 
-        $credentials  = $request->validated();
+        $credentials = $request->validated();
 
         $user = User::firstWhere('email', $credentials['email']);
 
-        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+        if (! $user || ! Hash::check($credentials['password'], $user->password)) {
             throw ValidationException::withMessages([
                 'email' => ['Invalid credentials.'],
             ]);
         }
 
-        $user->update(['qr_login_code' =>  null]);
+        $user->update(['qr_login_code' => null]);
 
         return response()->json([
-            'user'  => $user,
+            'user' => $user,
             'token' => $user->createToken('auth_token')->plainTextToken,
         ]);
     }
@@ -75,7 +75,7 @@ class AuthController extends Controller
             $user->update(['qr_login_code' => null]);
 
             return response()->json([
-                'user'  => $user,
+                'user' => $user,
                 'token' => $user->createToken('auth_token')->plainTextToken,
             ]);
         }

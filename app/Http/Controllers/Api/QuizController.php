@@ -6,13 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\QuestionResource;
 use App\Services\QuestionService;
 
-
 class QuizController extends Controller
-{   
-    public function __construct(protected QuestionService $questionService)
-    {
-        
-    }
+{
+    public function __construct(protected QuestionService $questionService) {}
 
     public function question($id)
     {

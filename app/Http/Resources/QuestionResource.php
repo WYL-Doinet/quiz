@@ -15,13 +15,13 @@ class QuestionResource extends JsonResource
     public function toArray(Request $request): array
     {
         $isResult = $request->routeIs('api.user.quiz.assignment.result');
-        
+
         return [
             'id' => $this->id,
             'question_text' => $this->question_text,
             'user_choice_id' => $this->when($this->user_choice_id ?? false, $this->user_choice_id),
             'explanation' => $this->when($isResult, $this->explanation),
-            'choices' => ChoiceResource::collection($this->whenLoaded('choices'))
+            'choices' => ChoiceResource::collection($this->whenLoaded('choices')),
         ];
     }
 }

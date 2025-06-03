@@ -16,11 +16,11 @@ class CategoryController extends Controller
     ) {}
 
     public function index(Request $request)
-    {   
+    {
         $filter = ['q' => $request->query('q')];
 
         return Inertia::render('Dashboard/Category/Index', [
-            'categories' => fn() => $this->categoryService->findAll(filter:$filter),
+            'categories' => fn () => $this->categoryService->findAll(filter: $filter),
 
         ]);
     }
@@ -46,8 +46,8 @@ class CategoryController extends Controller
     public function show($id)
     {
         return Inertia::render('Dashboard/Category/Show', [
-            'category' => fn() => $this->categoryService->find($id),
-            'quizzes' => fn() =>  $this->quizService->findAll(filter: ['category_id' => $id])
+            'category' => fn () => $this->categoryService->find($id),
+            'quizzes' => fn () => $this->quizService->findAll(filter: ['category_id' => $id]),
         ]);
     }
 }

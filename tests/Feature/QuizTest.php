@@ -5,7 +5,6 @@ namespace Tests\Feature;
 use App\Models\User;
 use Database\Seeders\QuizSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use Tests\Traits\TestHelper;
 
@@ -19,7 +18,7 @@ class QuizTest extends TestCase
 
         $this->seed(QuizSeeder::class);
 
-        $user =   User::first();
+        $user = User::first();
 
         $this->actingAs($user);
 
@@ -28,22 +27,20 @@ class QuizTest extends TestCase
         $response = $this->get(route('quiz.index'));
 
         $response->assertInertia(
-            fn($page) =>
-            $page->component('Dashboard/Quiz/Index')
+            fn ($page) => $page->component('Dashboard/Quiz/Index')
                 ->has('quizzes.data', 1)
-                ->where('quizzes.data.0.title',  $quizzes[0]['title'])
+                ->where('quizzes.data.0.title', $quizzes[0]['title'])
         );
 
         $response->assertStatus(200);
     }
-
 
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_return_quiz_detail(): void
     {
         $this->seed(QuizSeeder::class);
 
-        $user =  User::first();
+        $user = User::first();
 
         $this->actingAs($user);
 
@@ -52,12 +49,11 @@ class QuizTest extends TestCase
         $response = $this->get(route('quiz.show', ['id' => $quiz['id']]));
 
         $response->assertInertia(
-            fn($page) =>
-            $page->component('Dashboard/Quiz/Show')
+            fn ($page) => $page->component('Dashboard/Quiz/Show')
                 ->has('quiz.questions', 10)
                 ->has('quiz.questions.0.choices', 4)
-                ->where('quiz.title',  $quiz['title'])
-                ->where('quiz.description',  $quiz['description'])
+                ->where('quiz.title', $quiz['title'])
+                ->where('quiz.description', $quiz['description'])
                 ->where('quiz.questions.0.question_text', $quiz['questions'][0]['question_text'])
 
         );
@@ -65,13 +61,12 @@ class QuizTest extends TestCase
         $response->assertStatus(200);
     }
 
-
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_return_quiz_demo(): void
     {
         $this->seed(QuizSeeder::class);
 
-        $user =  User::first();
+        $user = User::first();
 
         $this->actingAs($user);
 
@@ -80,12 +75,11 @@ class QuizTest extends TestCase
         $response = $this->get(route('quiz.demo', ['id' => $quiz['id']]));
 
         $response->assertInertia(
-            fn($page) =>
-            $page->component('Dashboard/Quiz/Demo')
+            fn ($page) => $page->component('Dashboard/Quiz/Demo')
                 ->has('quiz.questions', 10)
                 ->has('quiz.questions.0.choices', 4)
-                ->where('quiz.title',  $quiz['title'])
-                ->where('quiz.description',  $quiz['description'])
+                ->where('quiz.title', $quiz['title'])
+                ->where('quiz.description', $quiz['description'])
                 ->where('quiz.questions.0.question_text', $quiz['questions'][0]['question_text'])
 
         );

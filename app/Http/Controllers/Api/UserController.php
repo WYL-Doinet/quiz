@@ -26,9 +26,8 @@ class UserController extends Controller
 
     public function user(Request $request)
     {
-        return  ['data' => $request->user()];
+        return ['data' => $request->user()];
     }
-
 
     public function quizAssignment(Request $request)
     {
@@ -36,17 +35,16 @@ class UserController extends Controller
 
         $assignments = $this->quizAssignmentService->findAll(filter: $filters);
 
-        $assignments->load(['quiz' => fn($query) => $query->withCount('questions')->with('category')]);
+        $assignments->load(['quiz' => fn ($query) => $query->withCount('questions')->with('category')]);
 
         return QuizAssignmentResource::collection($assignments);
     }
-
 
     public function quizAssignmentQuestion(Request $request, $id)
     {
         $filter = [
             'user_id' => $request->user()->id,
-            'id' => $id
+            'id' => $id,
         ];
 
         $assignments = $this->quizAssignmentService->findAll(filter: $filter);
@@ -58,12 +56,11 @@ class UserController extends Controller
 
     public function quizAssignmentAnswer(Request $request, $id)
     {
-        $filter =  [
+        $filter = [
             'user_id' => $request->user()->id,
         ];
 
         $assignment = $this->quizAssignmentService->find(id: $id, filter: $filter);
-
 
         $validated = $request->validate([
             'answers' => 'required|array',
@@ -71,7 +68,7 @@ class UserController extends Controller
             'answers.*.choice_id' => 'nullable|exists:choices,id',
         ]);
 
-        $answers  =  $validated['answers'];
+        $answers = $validated['answers'];
 
         $receivedQuestionIds = collect($answers)
             ->pluck('question_id')
@@ -83,21 +80,20 @@ class UserController extends Controller
 
         $expectedQuestionIds =
             $questions->pluck('id')
-            ->sort()
-            ->toArray();
+                ->sort()
+                ->toArray();
 
         if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
             return response()->json([
-                'message' => 'Some provided question IDs do not match the expected questions.'
+                'message' => 'Some provided question IDs do not match the expected questions.',
             ], 422);
         }
 
         $correctAnswers = $questions
-            ->flatMap(fn($q) => $q->choices)
+            ->flatMap(fn ($q) => $q->choices)
             ->where('is_correct', true)
             ->select(['id', 'question_id'])
             ->keyBy('question_id');
-
 
         $score = 0;
 
@@ -107,7 +103,7 @@ class UserController extends Controller
             $userAnswers[] = [
                 'assignment_id' => $assignment->id,
                 'question_id' => $answer['question_id'],
-                'choice_id' => $answer['choice_id'] ?? null
+                'choice_id' => $answer['choice_id'] ?? null,
             ];
             if (isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]['id'] === $answer['choice_id']) {
                 $score++;
@@ -130,14 +126,13 @@ class UserController extends Controller
                 'score' => $score,
             ]);
 
-
             DB::commit();
             $assignment->notify(new QuizAssignmentCompletedNotification($request->user()));
         } catch (Exception $e) {
             DB::rollback();
 
             return response()->json([
-                'message' => $e->getMessage()
+                'message' => $e->getMessage(),
             ], 500);
         }
 
@@ -155,28 +150,26 @@ class UserController extends Controller
 
         $assignment = $this->quizAssignmentService->findFirst(filter: $filter);
 
-        if (!$assignment) {
+        if (! $assignment) {
             return response()->json(['message' => 'Not Found'], 404);
         }
 
         $assignment->load([
-            'quiz' => fn($query) =>
-            $query->with([
-                'questions' => fn($query) => $query->addSelect(
+            'quiz' => fn ($query) => $query->with([
+                'questions' => fn ($query) => $query->addSelect(
                     [
                         'user_choice_id' => DB::table('user_answers')
                             ->select('choice_id')
                             ->where('assignment_id', $assignment->id)
-                            ->whereColumn('user_answers.question_id', 'questions.id')->limit(1)
+                            ->whereColumn('user_answers.question_id', 'questions.id')->limit(1),
                     ]
                 )
-                    ->with(['choices'])
-            ])
+                    ->with(['choices']),
+            ]),
         ]);
 
         return new QuizAssignmentResource($assignment);
     }
-
 
     public function unreadNotification(Request $request)
     {
