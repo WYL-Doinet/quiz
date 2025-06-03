@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
-
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'user'])->name('api.user');
     Route::get('/user/quiz-assignments', [UserController::class, 'quizAssignment'])->name('api.user.quiz.assignment');

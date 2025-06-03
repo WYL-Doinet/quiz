@@ -2,12 +2,10 @@
 
 namespace Tests\Feature;
 
-
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
 use Tests\Traits\TestHelper;
-
 
 class UserTest extends TestCase
 {
@@ -16,51 +14,48 @@ class UserTest extends TestCase
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_returns_all_users_and_includes_user_data(): void
     {
-        $user =  $this->createAdminUser();
+        $user = $this->createAdminUser();
 
         $this->actingAs($user);
 
         $response = $this->get(route('user.index'));
 
         $response->assertInertia(
-            fn(Assert $page) =>
-            $page->component('Dashboard/User/Index')
+            fn (Assert $page) => $page->component('Dashboard/User/Index')
                 ->has('users.data', 1)
-                ->where('users.data.0.name',  $user->name)
+                ->where('users.data.0.name', $user->name)
                 ->where('users.data.0.email', $user->email)
         );
     }
 
     #[\PHPUnit\Framework\Attributes\Test]
-    public function  it_returns_all_users_by_filter(): void
+    public function it_returns_all_users_by_filter(): void
     {
-        $user =  $this->createAdminUser();
+        $user = $this->createAdminUser();
 
         $this->actingAs($user);
 
-        $users =  $this->createUsers(5);
+        $users = $this->createUsers(5);
 
-        $response = $this->getJson(route('user.search', ['q' =>  $users[0]['email']]));
+        $response = $this->getJson(route('user.search', ['q' => $users[0]['email']]));
 
         $response->assertJsonCount(1);
     }
 
-
     #[\PHPUnit\Framework\Attributes\Test]
-    public function  it_return_created_user(): void
+    public function it_return_created_user(): void
     {
-        $user =  $this->createAdminUser();
+        $user = $this->createAdminUser();
 
         $this->actingAs($user);
 
         $userData = [
             'name' => 'Jane Smith',
             'email' => 'jane@example.com',
-            'email_confirmation' =>  'jane@example.com',
+            'email_confirmation' => 'jane@example.com',
             'password' => 'password',
             'password_confirmation' => 'password',
         ];
-
 
         $response = $this->post(route('user.store'), $userData);
 
@@ -71,7 +66,6 @@ class UserTest extends TestCase
             'email' => 'jane@example.com',
         ]);
     }
-
 
     public function get_qr_login_code(): void
     {

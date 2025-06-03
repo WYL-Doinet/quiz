@@ -17,7 +17,6 @@ class Choice extends Model
         'is_correct' => 'boolean',
     ];
 
-
     public function question(): BelongsTo
     {
         return $this->belongsTo(Quiz::class);

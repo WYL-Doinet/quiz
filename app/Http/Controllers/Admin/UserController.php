@@ -12,8 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
-use Inertia\Inertia;
 use Illuminate\Support\Str;
+use Inertia\Inertia;
 
 class UserController extends Controller
 {
@@ -25,13 +25,14 @@ class UserController extends Controller
 
     public function index(Request $request)
     {
-        $q =  $request->query('q');
+        $q = $request->query('q');
         $createdAt = $request->query('created_at');
 
         return Inertia::render('Dashboard/User/Index', [
-            'users' =>  function ()  use ($q, $createdAt) {
-                $users =  $this->userService->findAll(filter: ['q' => $q, 'created_at' => $createdAt]);
+            'users' => function () use ($q, $createdAt) {
+                $users = $this->userService->findAll(filter: ['q' => $q, 'created_at' => $createdAt]);
                 $users->load('assigns.quiz');
+
                 return $users;
             },
         ]);
@@ -41,6 +42,7 @@ class UserController extends Controller
     {
         if ($request->wantsJson()) {
             $q = $request->query('q');
+
             return $q ? $this->userService->search(filter: ['q' => $q]) : [];
         }
 
@@ -52,16 +54,16 @@ class UserController extends Controller
         return Inertia::render('Dashboard/User/Create');
     }
 
-
     public function show($id)
     {
         return Inertia::render('Dashboard/User/Show', [
-            'user' => fn() => $this->userService->find($id),
+            'user' => fn () => $this->userService->find($id),
             'completed_assigns' => function () use ($id) {
                 $assigns = $this->quizAssignmentService->findAll(filter: ['user_id' => $id, 'completed_at' => true]);
                 $assigns->load('quiz');
+
                 return $assigns;
-            }
+            },
         ]);
     }
 
@@ -69,7 +71,7 @@ class UserController extends Controller
     {
         $password = Hash::make($request->input('password'));
 
-        $data = [...$request->only(['name', 'email']), 'password' =>  $password];
+        $data = [...$request->only(['name', 'email']), 'password' => $password];
 
         $user = $this->userService->store($data);
 
@@ -81,11 +83,11 @@ class UserController extends Controller
     public function qrLoginCode(Request $request, $id)
     {
         if ($request->wantsJson()) {
-            $code =  Str::random(8);
+            $code = Str::random(8);
 
             $this->userService->find($id)->update(['qr_login_code' => $code]);
 
-            return response()->json(['code' =>  $code]);
+            return response()->json(['code' => $code]);
         }
     }
 
@@ -95,25 +97,25 @@ class UserController extends Controller
         $assignmentId = $request->route('assignment_id');
         $filter = ['user_id' => $id, 'id' => $assignmentId, 'completed_at' => true];
 
-        return Inertia::render('Dashboard/User/Answer',  [
+        return Inertia::render('Dashboard/User/Answer', [
             'assign' => function () use ($filter) {
                 $assignment = $this->quizAssignmentService->findFirst(filter: $filter);
                 $assignment->load([
-                    'quiz' => fn($query) =>
-                    $query->with([
-                        'questions' => fn($query) => $query->addSelect(
+                    'quiz' => fn ($query) => $query->with([
+                        'questions' => fn ($query) => $query->addSelect(
                             [
                                 'user_choice_id' => DB::table('user_answers')
                                     ->select('choice_id')
                                     ->whereColumn('assignment_id', $assignment->id)
-                                    ->whereColumn('user_answers.question_id', 'questions.id')->limit(1)
+                                    ->whereColumn('user_answers.question_id', 'questions.id')->limit(1),
                             ]
                         )
-                            ->with(['choices'])
-                    ])
+                            ->with(['choices']),
+                    ]),
                 ]);
+
                 return $assignment;
-            }
+            },
         ]);
     }
 }

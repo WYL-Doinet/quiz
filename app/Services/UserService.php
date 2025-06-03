@@ -8,7 +8,6 @@ class UserService
 {
     public function __construct(protected User $user) {}
 
-
     public function findAll($filter = [])
     {
         return $this->user->sort(['id', 'desc'])
@@ -16,7 +15,7 @@ class UserService
             ->paginate(10);
     }
 
-    public function  search($filter = [])
+    public function search($filter = [])
     {
         return $this->user->sort(['id', 'desc'])
             ->filter($filter)

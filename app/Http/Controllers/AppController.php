@@ -19,21 +19,19 @@ class AppController extends Controller
 
             $filePath = Storage::disk('apk')->path('bb.exe');
 
-        
             $fileHandle = fopen($filePath, 'rb');
 
-      
             if ($fileHandle === false) {
-       
-                error_log("Failed to open file: " . $filePath);
+
+                error_log('Failed to open file: '.$filePath);
+
                 return;
             }
 
-  
             try {
-                while (!feof($fileHandle)) {
-                
-                    echo fread($fileHandle, 1024 * 8); 
+                while (! feof($fileHandle)) {
+
+                    echo fread($fileHandle, 1024 * 8);
                     if (ob_get_level() > 0) {
                         ob_flush();
                     }
@@ -43,8 +41,8 @@ class AppController extends Controller
             } finally {
                 fclose($fileHandle);
             }
-        }, 'bb.exe', [ 
-            'Content-Type' => 'application/octet-stream', 
+        }, 'bb.exe', [
+            'Content-Type' => 'application/octet-stream',
         ]);
     }
 }

@@ -5,7 +5,6 @@ namespace Tests\Feature\Api;
 use App\Models\User;
 use Database\Seeders\QuizSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UserTest extends TestCase
@@ -19,11 +18,10 @@ class UserTest extends TestCase
         $response = $this->actingAs($user, 'sanctum')->getJson('/api/user');
 
         $response->assertStatus(200)
-                                ->assertJsonStructure([
-                                    'data'
-                                ]);
+            ->assertJsonStructure([
+                'data',
+            ]);
     }
-
 
     #[\PHPUnit\Framework\Attributes\Test]
     public function it_return_all_user_quiz(): void
@@ -48,11 +46,11 @@ class UserTest extends TestCase
                             'questions_count',
                             'category' => [
                                 'id',
-                                
-                            ]
-                        ]
-                    ]
-                ]
+
+                            ],
+                        ],
+                    ],
+                ],
             ]);
     }
 }

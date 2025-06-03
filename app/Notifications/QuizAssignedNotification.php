@@ -48,17 +48,18 @@ class QuizAssignedNotification extends Notification implements ShouldQueue
      */
     public function toMail(object $notifiable): MailMessage
     {
-        $name  = $notifiable->name;
+        $name = $notifiable->name;
         $title = $this->quiz->title;
+
         return (new MailMessage)->view('mail.quiz-assigned', [
             'name' => $name,
-            'title' => $title
+            'title' => $title,
         ]);
     }
 
     public function toDatabase(object $notifiable)
     {
-       return ['message' => 'You have a new quiz assignment: ' . $this->quiz->title];
+        return ['message' => 'You have a new quiz assignment: '.$this->quiz->title];
     }
 
     /**

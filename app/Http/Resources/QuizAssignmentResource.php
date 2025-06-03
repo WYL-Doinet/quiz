@@ -18,7 +18,7 @@ class QuizAssignmentResource extends JsonResource
             'id' => $this->id,
             'score' => $this->score,
             'completed_at' => $this->completed_at,
-            'quiz' =>  new QuizResource($this->whenLoaded('quiz')),
+            'quiz' => new QuizResource($this->whenLoaded('quiz')),
         ];
     }
 }

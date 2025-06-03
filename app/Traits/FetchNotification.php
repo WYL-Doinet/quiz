@@ -12,7 +12,7 @@ trait FetchNotification
     }
 
     public static function unreadNotifications()
-    {   
+    {
         return DatabaseNotification::where('type', static::class)->whereNull('is_read')->get();
     }
 

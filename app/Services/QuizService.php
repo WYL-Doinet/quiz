@@ -6,10 +6,9 @@ use App\Models\Quiz;
 
 class QuizService
 {
-
     public function __construct(protected Quiz $quiz) {}
 
-    public  function findAll($filter = [])
+    public function findAll($filter = [])
     {
         return $this->quiz->sort(['id', 'desc'])
             ->filter($filter)

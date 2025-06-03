@@ -10,7 +10,7 @@ use Illuminate\Notifications\Notification;
 
 class QuizAssignmentCompletedNotification extends Notification
 {
-    use Queueable, FetchNotification;
+    use FetchNotification, Queueable;
 
     /**
      * Create a new notification instance.
@@ -49,7 +49,7 @@ class QuizAssignmentCompletedNotification extends Notification
     public function toArray(object $notifiable): array
     {
         return [
-            'message' => 'The quiz has been completed by ' . $this->user->name . '.',
+            'message' => 'The quiz has been completed by '.$this->user->name.'.',
         ];
     }
 }

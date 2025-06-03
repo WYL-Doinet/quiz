@@ -8,7 +8,6 @@ use App\Models\Question;
 use App\Models\Quiz;
 use App\Models\QuizAssignment;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -33,7 +32,6 @@ class QuizSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-
         $quiz = Quiz::create([
             'title' => 'Basic PHP Quiz',
             'category_id' => $category->id,
@@ -49,7 +47,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Private Hypertext Processor'],
                     ['choice_text' => 'Professional Home Program'],
                     ['choice_text' => 'Programmer Hosted Platform'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which of the following is a valid PHP variable?',
@@ -58,7 +56,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$name', 'is_correct' => true],
                     ['choice_text' => '&name'],
                     ['choice_text' => '#name'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to output text in PHP?',
@@ -67,7 +65,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'printf()'],
                     ['choice_text' => 'printText()'],
                     ['choice_text' => 'display()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you write a single-line comment in PHP?',
@@ -76,7 +74,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<!-- This is a comment -->'],
                     ['choice_text' => '/* This is a comment */'],
                     ['choice_text' => '-- This is a comment'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What is the correct way to start a PHP block?',
@@ -85,7 +83,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<php>'],
                     ['choice_text' => '<?'],
                     ['choice_text' => '<script php>'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to get the length of a string in PHP?',
@@ -94,7 +92,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'count()'],
                     ['choice_text' => 'size()'],
                     ['choice_text' => 'length()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to include the contents of one PHP file into another?',
@@ -103,7 +101,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'import()'],
                     ['choice_text' => 'require_once()'],
                     ['choice_text' => 'load()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does the `isset()` function do?',
@@ -112,7 +110,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Checks if a variable is empty'],
                     ['choice_text' => 'Checks the variable type'],
                     ['choice_text' => 'Declares a new variable'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you declare a constant in PHP?',
@@ -121,7 +119,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => "const NAME = 'value'();"],
                     ['choice_text' => "NAME := 'value'"],
                     ['choice_text' => "let NAME = 'value'"],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which superglobal array holds form data submitted with the POST method?',
@@ -130,7 +128,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$_GET'],
                     ['choice_text' => '$_REQUEST'],
                     ['choice_text' => '$_FORM'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does PHP stand for? ()',
@@ -139,7 +137,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Private Hypertext Processor'],
                     ['choice_text' => 'Professional Home Program'],
                     ['choice_text' => 'Programmer Hosted Platform'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which of the following is a valid PHP variable? ',
@@ -148,7 +146,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$name', 'is_correct' => true],
                     ['choice_text' => '&name'],
                     ['choice_text' => '#name'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to output text in PHP? ',
@@ -157,7 +155,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'printf()'],
                     ['choice_text' => 'printText()'],
                     ['choice_text' => 'display()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you write a single-line comment in PHP? ',
@@ -166,7 +164,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<!-- This is a comment -->'],
                     ['choice_text' => '/* This is a comment */'],
                     ['choice_text' => '-- This is a comment'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What is the correct way to start a PHP block? ',
@@ -175,7 +173,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<php>'],
                     ['choice_text' => '<?'],
                     ['choice_text' => '<script php>'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to get the length of a string in PHP? ',
@@ -184,7 +182,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'count()'],
                     ['choice_text' => 'size()'],
                     ['choice_text' => 'length()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to include the contents of one PHP file into another? ',
@@ -193,7 +191,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'import()'],
                     ['choice_text' => 'require_once()'],
                     ['choice_text' => 'load()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does the `isset()` function do? ',
@@ -202,7 +200,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Checks if a variable is empty'],
                     ['choice_text' => 'Checks the variable type'],
                     ['choice_text' => 'Declares a new variable'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you declare a constant in PHP? ',
@@ -211,7 +209,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => "const NAME = 'value'();"],
                     ['choice_text' => "NAME := 'value'"],
                     ['choice_text' => "let NAME = 'value'"],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which superglobal array holds form data submitted with the POST method? ',
@@ -220,7 +218,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$_GET'],
                     ['choice_text' => '$_REQUEST'],
                     ['choice_text' => '$_FORM'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does PHP stand for? ',
@@ -229,7 +227,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Private Hypertext Processor'],
                     ['choice_text' => 'Professional Home Program'],
                     ['choice_text' => 'Programmer Hosted Platform'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which of the following is a valid PHP variable? ',
@@ -238,7 +236,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$name', 'is_correct' => true],
                     ['choice_text' => '&name'],
                     ['choice_text' => '#name'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to output text in PHP? ',
@@ -247,7 +245,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'printf()'],
                     ['choice_text' => 'printText()'],
                     ['choice_text' => 'display()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you write a single-line comment in PHP? ',
@@ -256,7 +254,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<!-- This is a comment -->'],
                     ['choice_text' => '/* This is a comment */'],
                     ['choice_text' => '-- This is a comment'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What is the correct way to start a PHP block? ',
@@ -265,7 +263,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<php>'],
                     ['choice_text' => '<?'],
                     ['choice_text' => '<script php>'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to get the length of a string in PHP? ',
@@ -274,7 +272,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'count()'],
                     ['choice_text' => 'size()'],
                     ['choice_text' => 'length()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to include the contents of one PHP file into another? ',
@@ -283,7 +281,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'import()'],
                     ['choice_text' => 'require_once()'],
                     ['choice_text' => 'load()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does the `isset()` function do? ',
@@ -292,7 +290,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Checks if a variable is empty'],
                     ['choice_text' => 'Checks the variable type'],
                     ['choice_text' => 'Declares a new variable'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you declare a constant in PHP? ',
@@ -301,7 +299,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => "const NAME = 'value'();"],
                     ['choice_text' => "NAME := 'value'"],
                     ['choice_text' => "let NAME = 'value'"],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which superglobal array holds form data submitted with the POST method? ',
@@ -310,7 +308,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$_GET'],
                     ['choice_text' => '$_REQUEST'],
                     ['choice_text' => '$_FORM'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does PHP stand for? ',
@@ -319,7 +317,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Private Hypertext Processor'],
                     ['choice_text' => 'Professional Home Program'],
                     ['choice_text' => 'Programmer Hosted Platform'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which of the following is a valid PHP variable? ',
@@ -328,7 +326,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$name', 'is_correct' => true],
                     ['choice_text' => '&name'],
                     ['choice_text' => '#name'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to output text in PHP? ',
@@ -337,7 +335,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'printf()'],
                     ['choice_text' => 'printText()'],
                     ['choice_text' => 'display()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you write a single-line comment in PHP? ',
@@ -346,7 +344,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<!-- This is a comment -->'],
                     ['choice_text' => '/* This is a comment */'],
                     ['choice_text' => '-- This is a comment'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What is the correct way to start a PHP block? ',
@@ -355,7 +353,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<php>'],
                     ['choice_text' => '<?'],
                     ['choice_text' => '<script php>'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to get the length of a string in PHP? ',
@@ -364,7 +362,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'count()'],
                     ['choice_text' => 'size()'],
                     ['choice_text' => 'length()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to include the contents of one PHP file into another? ',
@@ -373,7 +371,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'import()'],
                     ['choice_text' => 'require_once()'],
                     ['choice_text' => 'load()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does the `isset()` function do? ',
@@ -382,7 +380,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Checks if a variable is empty'],
                     ['choice_text' => 'Checks the variable type'],
                     ['choice_text' => 'Declares a new variable'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you declare a constant in PHP? ',
@@ -391,7 +389,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => "const NAME = 'value'();"],
                     ['choice_text' => "NAME := 'value'"],
                     ['choice_text' => "let NAME = 'value'"],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which superglobal array holds form data submitted with the POST method? ',
@@ -400,7 +398,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$_GET'],
                     ['choice_text' => '$_REQUEST'],
                     ['choice_text' => '$_FORM'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does PHP stand for? ',
@@ -409,7 +407,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Private Hypertext Processor'],
                     ['choice_text' => 'Professional Home Program'],
                     ['choice_text' => 'Programmer Hosted Platform'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which of the following is a valid PHP variable? ',
@@ -418,7 +416,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$name', 'is_correct' => true],
                     ['choice_text' => '&name'],
                     ['choice_text' => '#name'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to output text in PHP? ',
@@ -427,7 +425,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'printf()'],
                     ['choice_text' => 'printText()'],
                     ['choice_text' => 'display()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you write a single-line comment in PHP? ',
@@ -436,7 +434,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<!-- This is a comment -->'],
                     ['choice_text' => '/* This is a comment */'],
                     ['choice_text' => '-- This is a comment'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What is the correct way to start a PHP block? ',
@@ -445,7 +443,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '<php>'],
                     ['choice_text' => '<?'],
                     ['choice_text' => '<script php>'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to get the length of a string in PHP? ',
@@ -454,7 +452,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'count()'],
                     ['choice_text' => 'size()'],
                     ['choice_text' => 'length()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which function is used to include the contents of one PHP file into another? ',
@@ -463,7 +461,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'import()'],
                     ['choice_text' => 'require_once()'],
                     ['choice_text' => 'load()'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'What does the `isset()` function do? ',
@@ -472,7 +470,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => 'Checks if a variable is empty'],
                     ['choice_text' => 'Checks the variable type'],
                     ['choice_text' => 'Declares a new variable'],
-                ]
+                ],
             ],
             [
                 'question_text' => 'How do you declare a constant in PHP? ',
@@ -481,7 +479,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => "const NAME = 'value'();"],
                     ['choice_text' => "NAME := 'value'"],
                     ['choice_text' => "let NAME = 'value'"],
-                ]
+                ],
             ],
             [
                 'question_text' => 'Which superglobal array holds form data submitted with the POST method? ',
@@ -490,7 +488,7 @@ class QuizSeeder extends Seeder
                     ['choice_text' => '$_GET'],
                     ['choice_text' => '$_REQUEST'],
                     ['choice_text' => '$_FORM'],
-                ]
+                ],
             ],
         ];
 
@@ -512,19 +510,19 @@ class QuizSeeder extends Seeder
         $user = User::create([
             'name' => 'example user',
             'email' => 'user@example.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
         ]);
 
         User::create([
             'name' => 'Tashi Bana',
             'email' => 'mmotashibana@gmail.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
         ]);
 
         QuizAssignment::create([
             'quiz_id' => $quiz->id,
             'user_id' => $user->id,
-            'assigned_at' =>  now(),
+            'assigned_at' => now(),
         ]);
     }
 }

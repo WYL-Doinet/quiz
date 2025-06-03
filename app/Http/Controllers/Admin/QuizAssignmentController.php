@@ -13,6 +13,6 @@ class QuizAssignmentController extends Controller
     {
         $assignmentId = $request->route('assignment_id');
 
-        return Excel::download(new ResultsExport($assignmentId), "result-" . now()->format('Y/m/d') . "-" . $assignmentId . '.csv');
+        return Excel::download(new ResultsExport($assignmentId), 'result-'.now()->format('Y/m/d').'-'.$assignmentId.'.csv');
     }
 }

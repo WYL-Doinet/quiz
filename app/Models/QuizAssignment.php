@@ -2,14 +2,12 @@
 
 namespace App\Models;
 
-
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 
 class QuizAssignment extends Model
-{   
+{
     use Notifiable;
 
     protected $fillable = [
@@ -18,7 +16,7 @@ class QuizAssignment extends Model
         'assign_at',
         'completed_at',
         'status',
-        'score'
+        'score',
     ];
 
     public function quiz(): BelongsTo
@@ -47,7 +45,7 @@ class QuizAssignment extends Model
 
         $query->when($filter['completed_at'] ?? null, function ($query, $completedAt) {
             switch ($completedAt) {
-                case  true:
+                case true:
                     $query->whereNotNull('completed_at');
                     break;
 
@@ -62,5 +60,4 @@ class QuizAssignment extends Model
     }
 
     public function scopeFilterNull($query, $fillable) {}
-
 }

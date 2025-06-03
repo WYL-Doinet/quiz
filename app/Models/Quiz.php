@@ -12,9 +12,8 @@ class Quiz extends Model
         'title',
         'description',
         'category_id',
-        'created_by'
+        'created_by',
     ];
-
 
     public function createdBy(): BelongsTo
     {
@@ -34,7 +33,7 @@ class Quiz extends Model
     public function scopeFilter($query, $filter)
     {
         $query->when($filter['title'] ?? false, function ($query, $title) {
-            $query->where('title', 'like', '%' . $title . '%');
+            $query->where('title', 'like', '%'.$title.'%');
         });
 
         $query->when($filter['user_id'] ?? false, function ($query, $userId) {

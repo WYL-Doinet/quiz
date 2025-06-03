@@ -1,13 +1,12 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\UserAnswer;
 
-class UserAnswerService {
-    public function __construct(protected UserAnswer $userAnswer)
-    {
-        
-    }
+class UserAnswerService
+{
+    public function __construct(protected UserAnswer $userAnswer) {}
 
     public function bulkStore($data)
     {

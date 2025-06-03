@@ -27,13 +27,13 @@ class QuizAssignedCompletedEvent implements ShouldBroadcast
 
     public function broadcastAs(): string
     {
-        return 'assign.finished'; 
+        return 'assign.finished';
     }
 
     public function broadcastWith()
     {
         return [
-            'message' =>  $this->user->name. ' have completed the quiz'
+            'message' => $this->user->name.' have completed the quiz',
         ];
     }
 }

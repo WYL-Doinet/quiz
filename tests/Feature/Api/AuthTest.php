@@ -4,7 +4,6 @@ namespace Tests\Feature\Api;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AuthTest extends TestCase
@@ -17,21 +16,21 @@ class AuthTest extends TestCase
         $password = fake()->password();
 
         $user = User::create([
-            'name' =>   fake()->name(),
+            'name' => fake()->name(),
             'email' => fake()->email(),
-            'password' => bcrypt($password)
+            'password' => bcrypt($password),
         ]);
 
         $response = $this->postJson(route('api.auth.login'), [
             'email' => $user->email,
-            'password' => $password
+            'password' => $password,
         ]);
 
         $response
             ->assertOk()
             ->assertJsonStructure([
                 'user',
-                'token'
+                'token',
             ]);
 
         $response->assertStatus(200);

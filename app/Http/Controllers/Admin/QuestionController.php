@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
-
     public function __construct(protected QuestionService $questionService, protected ChoiceService $choiceService) {}
 
     public function update($id, Request $request)
@@ -21,7 +20,7 @@ class QuestionController extends Controller
         $questionText = $request->input('question_text');
         $explanation = $request->input('explanation', null);
 
-        if (!$questionText) {
+        if (! $questionText) {
             return back()->withErrors(['message' => 'Invalid Data']);
         }
 
@@ -31,7 +30,7 @@ class QuestionController extends Controller
 
         $receivedChoiceIds = collect($choices)
             ->pluck('id')
-            ->map(fn($val) => (int)$val)
+            ->map(fn ($val) => (int) $val)
             ->toArray();
 
         $correctAnswerCount = collect($choices)
@@ -42,7 +41,7 @@ class QuestionController extends Controller
             return back()->withErrors(['message' => 'There must be exactly one correct answer.']);
         }
 
-        if (count(array_intersect($expectedChoiceIds, $receivedChoiceIds)) !==  count($expectedChoiceIds)) {
+        if (count(array_intersect($expectedChoiceIds, $receivedChoiceIds)) !== count($expectedChoiceIds)) {
             return back()->withErrors(['message' => 'Mismatched choice IDs.']);
         }
 
@@ -54,7 +53,7 @@ class QuestionController extends Controller
             foreach ($choices as $choice) {
                 $data = [
                     'choice_text' => $choice['choice_text'],
-                    'is_correct' => $choice['is_correct']
+                    'is_correct' => $choice['is_correct'],
                 ];
                 $this->choiceService->update($choice['id'], $data);
             }
@@ -62,6 +61,7 @@ class QuestionController extends Controller
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
+
             return back()->withErrors(['message' => 'An error occurred while updating.']);
         }
     }

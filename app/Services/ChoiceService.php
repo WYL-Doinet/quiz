@@ -1,14 +1,12 @@
 <?php
+
 namespace App\Services;
 
 use App\Models\Choice;
 
-class ChoiceService {
-
-    public function __construct(protected Choice $choice)
-    {
-    
-    }
+class ChoiceService
+{
+    public function __construct(protected Choice $choice) {}
 
     public function findAll($filter)
     {
