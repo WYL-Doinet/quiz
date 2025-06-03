@@ -105,7 +105,7 @@ class UserController extends Controller
                             [
                                 'user_choice_id' => DB::table('user_answers')
                                     ->select('choice_id')
-                                    ->whereColumn('assignment_id', 'assignments.id')
+                                    ->whereColumn('assignment_id', $assignment->id)
                                     ->whereColumn('user_answers.question_id', 'questions.id')->limit(1)
                             ]
                         )

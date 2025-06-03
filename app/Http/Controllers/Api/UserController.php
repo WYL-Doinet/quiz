@@ -130,8 +130,9 @@ class UserController extends Controller
                 'score' => $score,
             ]);
 
-            $assignment->notify(new QuizAssignmentCompletedNotification($request->user()));
+
             DB::commit();
+            $assignment->notify(new QuizAssignmentCompletedNotification($request->user()));
         } catch (Exception $e) {
             DB::rollback();
 
