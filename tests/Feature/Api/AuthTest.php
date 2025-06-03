@@ -35,4 +35,30 @@ class AuthTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_return_invalid_validation(): void
+    {
+        $password = fake()->password();
+
+        $user = User::create([
+            'name' => fake()->name(),
+            'email' => fake()->email(),
+            'password' => bcrypt($password),
+        ]);
+
+        $response = $this->postJson(route('api.auth.login'), [
+            'email' => $user->email,
+            'password' => 'password',
+        ]);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonStructure([
+                'message',
+                'errors' => [
+                    'email'
+                ]
+            ]);
+    }
 }
