@@ -10,7 +10,9 @@ class CategoryService
 
     public function findAll($filter = [])
     {
-        return $this->category->filter($filter)->get();
+        return $this->category->filter($filter)
+            ->latest()
+            ->paginate(10);
     }
 
     public function store($data)

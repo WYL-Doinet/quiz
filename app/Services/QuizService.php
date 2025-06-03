@@ -12,7 +12,9 @@ class QuizService
     public  function findAll($filter = [])
     {
         return $this->quiz->sort(['id', 'desc'])
-            ->filter($filter)->paginate(10);
+            ->filter($filter)
+            ->latest()
+            ->paginate(10);
     }
 
     public function find($id)
