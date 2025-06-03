@@ -58,4 +58,23 @@ class CategoryTest extends TestCase
             'name' => $categoryData['name'],
         ]);
     }
+
+
+    #[\PHPUnit\Framework\Attributes\Test]
+    public function it_return_category_detail()
+    {
+        $user =  $this->createAdminUser();
+
+        $this->actingAs($user);
+
+        $categories = $this->createCategories(5);
+
+        $response = $this->get(route('category.show', ['id' => $categories[0]['id']]));
+
+        $response->assertInertia(
+            fn($page) =>
+            $page->component('Dashboard/Category/Show')
+                ->where('category.name',  $categories[0]['name'])
+        );
+    }
 }
