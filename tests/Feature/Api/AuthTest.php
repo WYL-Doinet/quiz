@@ -57,8 +57,8 @@ class AuthTest extends TestCase
             ->assertJsonStructure([
                 'message',
                 'errors' => [
-                    'email'
-                ]
+                    'email',
+                ],
             ]);
     }
 }

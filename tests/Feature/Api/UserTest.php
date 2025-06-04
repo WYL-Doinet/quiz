@@ -87,10 +87,10 @@ class UserTest extends TestCase
                                 '*' => [
                                     'id',
                                     'choice_text',
-                                ]
-                            ]
-                        ]
-                    ]
+                                ],
+                            ],
+                        ],
+                    ],
                 ],
             ],
         ]]);
@@ -110,7 +110,7 @@ class UserTest extends TestCase
         $quiz->load('questions.choices');
 
         $data = [
-            'answers' => []
+            'answers' => [],
         ];
 
         foreach ($quiz->questions->toArray() as $question) {
@@ -122,7 +122,7 @@ class UserTest extends TestCase
 
             $answer['choice_id'] = $random['id'];
 
-            $data['answers'][]  = $answer;
+            $data['answers'][] = $answer;
         }
 
         $response = $this->actingAs($user, 'sanctum')
@@ -160,7 +160,7 @@ class UserTest extends TestCase
             $answer['choice_id'] = $random['id'];
             $answer['assignment_id'] = $assign->id;
 
-            $data[]  = $answer;
+            $data[] = $answer;
         }
         UserAnswer::insert($answer);
 
@@ -180,11 +180,11 @@ class UserTest extends TestCase
                             '*' => [
                                 'id',
                                 'choice_text',
-                            ]
-                        ]
-                    ]
-                ]
+                            ],
+                        ],
+                    ],
+                ],
             ],
-        ]]);;
+        ]]);
     }
 }
