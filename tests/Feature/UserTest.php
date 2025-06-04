@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Inertia\Testing\AssertableInertia as Assert;
 use Tests\TestCase;
@@ -35,7 +36,7 @@ class UserTest extends TestCase
 
         $this->actingAs($user);
 
-        $users = $this->createUsers(5);
+        $users = User::factory()->count(5)->create()->toArray();
 
         $response = $this->getJson(route('user.search', ['q' => $users[0]['email']]));
 

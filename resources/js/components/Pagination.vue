@@ -30,7 +30,7 @@
                     :href="link.url || '#'"
                     :class="[
                         link.active
-                            ? 'border-indigo-500 bg-blue-900 hover:bg-indigo-800 text-white'
+                            ? 'border-indigo-500 bg-indigo-900 hover:bg-indigo-800 text-white'
                             : 'bg-white border border-gray-300 hover:bg-gray-100', {'pointer-events-none': link.url === null }
                     ]"
                     class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 border dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"

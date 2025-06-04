@@ -240,8 +240,6 @@ const page = usePage() as any;
 
 const notifications = computed(() => page.props.quiz_complete_notifications || []);
 
-console.log(notifications)
-
 function onBackButtonClick(event: PopStateEvent) {
     if (event.state.page.url === "/login") {
         router.replace({ url: "/dashboard" });

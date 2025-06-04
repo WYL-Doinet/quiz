@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Quiz;
 use App\Models\User;
 use Database\Seeders\QuizSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -22,7 +23,7 @@ class QuizTest extends TestCase
 
         $this->actingAs($user);
 
-        $quizzes = $this->getQuizzes(10);
+        $quizzes = Quiz::limit(10)->get()->toArray();
 
         $response = $this->get(route('quiz.index'));
 
@@ -44,7 +45,7 @@ class QuizTest extends TestCase
 
         $this->actingAs($user);
 
-        $quiz = $this->firstQuiz();
+        $quiz = Quiz::with('questions.choices')->first()->toArray();
 
         $response = $this->get(route('quiz.show', ['id' => $quiz['id']]));
 
@@ -70,7 +71,7 @@ class QuizTest extends TestCase
 
         $this->actingAs($user);
 
-        $quiz = $this->firstQuiz();
+        $quiz = Quiz::with('questions.choices')->first()->toArray();
 
         $response = $this->get(route('quiz.demo', ['id' => $quiz['id']]));
 

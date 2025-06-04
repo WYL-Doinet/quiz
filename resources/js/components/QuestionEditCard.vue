@@ -13,7 +13,8 @@
                 }}</span>
             </h5>
             <button class="btn-primary">
-                {{ processing ? $t("save") + " ☕" : $t("save") }}
+                <Loader v-if="processing"/>
+                {{  $t("save") }}
             </button>
         </div>
         <div v-once>
@@ -98,6 +99,7 @@ import qs from "qs";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { useToast } from "vue-toastification";
+import Loader from "./Loader.vue";
 const props = defineProps<{ question: any; index: any }>();
 const page = usePage();
 

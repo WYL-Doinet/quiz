@@ -1,9 +1,11 @@
 <template>
-    <div class="bg-gray-50 h-screen flex justify-center items-center">
+    <div class="bg-indigo-950 h-screen flex justify-center items-center">
         <div
-            class="max-w-2xl flex w-full gap-5 rounded-lg bg-white shadow-md overflow-hidden"
+            class="max-w-2xl flex w-full gap-5 rounded-lg p-0.5 bg-white border border-white overflow-hidden"
         >
-            <div class="bg-indigo-950 flex justify-center items-center py-20">
+            <div
+                class="bg-indigo-950 flex justify-center items-center py-20 rounded-md overflow-hidden"
+            >
                 <img :src="logo" alt="logo" class="size-54" />
             </div>
             <form class="flex-1 space-y-3 p-5" @submit.prevent="submit">
@@ -15,7 +17,7 @@
                         for="email"
                         :class="[
                             'block mb-2 text-sm font-medium  dark:text-white',
-                            form.errors.email
+                            form.errors.email !== undefined
                                 ? 'text-red-600'
                                 : 'text-gray-900',
                         ]"
@@ -29,7 +31,7 @@
                             <svg
                                 :class="[
                                     'w-4 h-4  dark:text-gray-400',
-                                    form.errors.email
+                                    form.errors.email !== undefined
                                         ? 'text-red-600'
                                         : 'text-gray-500',
                                 ]"
@@ -47,18 +49,22 @@
                             </svg>
                         </div>
                         <input
+                            required
                             type="text"
                             id="email"
                             v-model="form.email"
                             :class="[
                                 'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                form.errors.email
+                                form.errors.email !== undefined
                                     ? 'border-red-600'
                                     : 'border-gray-300',
                             ]"
                         />
                     </div>
-                    <p v-if="form.errors.email" class="p-1 text-red-600">
+                    <p
+                        v-if="form.errors.email !== undefined"
+                        class="p-1 text-red-600"
+                    >
                         {{ form.errors.email }}
                     </p>
                 </div>
@@ -68,7 +74,7 @@
                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         :class="[
                             'block mb-2 text-sm font-medium  dark:text-white',
-                            form.errors.password
+                            form.errors.password !== undefined
                                 ? 'text-red-600'
                                 : 'text-gray-900',
                         ]"
@@ -82,7 +88,7 @@
                             <svg
                                 :class="[
                                     'w-4 h-4  dark:text-gray-400',
-                                    form.errors.password
+                                    form.errors.password !== undefined
                                         ? 'text-red-600'
                                         : 'text-gray-500',
                                 ]"
@@ -99,29 +105,32 @@
                             </svg>
                         </div>
                         <input
+                            required
                             v-model="form.password"
                             type="password"
                             id="password"
                             :class="[
                                 'bg-gray-50 border  text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
-                                form.errors.email
+                                form.errors.password !== undefined
                                     ? 'border-red-600'
                                     : 'border-gray-300',
                             ]"
                         />
                     </div>
-                    <p v-if="form.errors.password" class="p-1 text-red-600">
+                    <p
+                        v-if="form.errors.password !== undefined"
+                        class="p-1 text-red-600"
+                    >
                         {{ form.errors.password }}
                     </p>
                 </div>
                 <div>
-                    <button class="btn-primary w-full">
-                        <span v-if="form.processing">
-                            {{ $t("login") }} ☕
-                        </span>
-                        <span v-else>
-                            {{ $t("login") }}
-                        </span>
+                    <button
+                        class="btn-primary w-full"
+                        :disabled="form.processing"
+                    >
+                        <Loader v-if="form.processing" />
+                        {{ $t("login") }}
                     </button>
                 </div>
             </form>
@@ -134,6 +143,7 @@ import logo from "@images/lara-quiz.svg";
 import { useForm, usePage } from "@inertiajs/vue3";
 import { useI18n } from "vue-i18n";
 import { useToast } from "vue-toastification";
+import Loader from "../../components/Loader.vue";
 
 const page = usePage() as any;
 const toast = useToast();
@@ -147,7 +157,7 @@ const form = useForm({
 
 const submit = () => {
     form.post(route("login"), {
-        onSuccess: () => {
+        onSuccess: async () => {
             toast.success(t("loginSuccess"), {
                 timeout: 2000,
                 icon: "fa-solid fa-bell",

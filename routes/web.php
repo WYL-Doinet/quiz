@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('home.dashboard');
 });
+
 Route::get('/app', [AppController::class, 'index'])->name('app.index');
 Route::get('/app/download', [AppController::class, 'download'])->name('app.download');
 
 Route::middleware('guest')->group(function () {
-
     Route::match(['get', 'post'], '/login', [AuthController::class, 'login'])->name('login');
 });
 

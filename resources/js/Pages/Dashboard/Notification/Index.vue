@@ -19,6 +19,14 @@
                 </tr>
             </thead>
             <tbody>
+                  <tr v-if="notifications.length === 0">
+                    <td
+                        colspan="100%"
+                        class="text-center py-3 font-bold text-indigo-900"
+                    >
+                        {{ $t("dataEmpty") }}
+                    </td>
+                </tr>
                 <tr
                     v-for="notification in notifications"
                     :key="notification.id"

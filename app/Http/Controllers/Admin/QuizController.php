@@ -42,7 +42,7 @@ class QuizController extends Controller
                 return $quizzes;
             },
             'categories' => function () {
-                return $this->categoryService->findAll();
+                return $this->categoryService->all();
             },
         ]);
     }
