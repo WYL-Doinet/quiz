@@ -2,8 +2,6 @@
 
 namespace Tests\Traits;
 
-use App\Models\Category;
-use App\Models\Quiz;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 
@@ -22,5 +20,4 @@ trait TestHelper
 
         return $user;
     }
-
 }

@@ -23,7 +23,7 @@ class CategoryTest extends TestCase
         $response = $this->get(route('category.index'));
 
         $response->assertInertia(
-            fn($page) => $page->component('Dashboard/Category/Index')
+            fn ($page) => $page->component('Dashboard/Category/Index')
                 ->has('categories.data', 5)
                 ->where('categories.data.0.name', $categories[0]['name'])
                 ->where('categories.data.1.name', $categories[1]['name'])
@@ -48,7 +48,7 @@ class CategoryTest extends TestCase
         $indexResponse = $this->get(route('category.index'));
 
         $indexResponse->assertInertia(
-            fn($page) => $page->component('Dashboard/Category/Index')
+            fn ($page) => $page->component('Dashboard/Category/Index')
                 ->has('categories.data', 1)
                 ->where('categories.data.0.name', $categoryData['name'])
         );
@@ -70,7 +70,7 @@ class CategoryTest extends TestCase
         $response = $this->get(route('category.show', ['id' => $categories[0]['id']]));
 
         $response->assertInertia(
-            fn($page) => $page->component('Dashboard/Category/Show')
+            fn ($page) => $page->component('Dashboard/Category/Show')
                 ->where('category.name', $categories[0]['name'])
         );
     }
