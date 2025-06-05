@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 Route::get('/languages/{locale}', function (string $locale) {
-    if (!in_array($locale, config('app.locales'))) {
+    if (! in_array($locale, config('app.locales'))) {
         abort(404);
     }
 

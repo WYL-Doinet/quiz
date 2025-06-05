@@ -36,7 +36,7 @@ class UserController extends Controller
 
         $assignments = $this->quizAssignmentService->findAll(filter: $filters);
 
-        $assignments->load(['quiz' => fn($query) => $query->withCount('questions')->with('category')]);
+        $assignments->load(['quiz' => fn ($query) => $query->withCount('questions')->with('category')]);
 
         return QuizAssignmentResource::collection($assignments);
     }
@@ -83,8 +83,8 @@ class UserController extends Controller
 
             $expectedQuestionIds =
                 $questions->pluck('id')
-                ->sort()
-                ->toArray();
+                    ->sort()
+                    ->toArray();
 
             if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
                 return response()->json([
@@ -93,7 +93,7 @@ class UserController extends Controller
             }
 
             $correctAnswers = $questions
-                ->flatMap(fn($q) => $q->choices)
+                ->flatMap(fn ($q) => $q->choices)
                 ->where('is_correct', true)
                 ->select(['id', 'question_id'])
                 ->keyBy('question_id');
@@ -142,6 +142,7 @@ class UserController extends Controller
         } catch (Exception $e) {
             DB::rollback();
             Log::error($e->getMessage());
+
             return response()->json([
                 'message' => $e->getMessage(),
             ], 500);
@@ -159,8 +160,8 @@ class UserController extends Controller
         }
 
         $assignment->load([
-            'quiz' => fn($query) => $query->with([
-                'questions' => fn($query) => $query->addSelect(
+            'quiz' => fn ($query) => $query->with([
+                'questions' => fn ($query) => $query->addSelect(
                     [
                         'user_choice_id' => DB::table('user_answers')
                             ->select('choice_id')
