@@ -172,7 +172,7 @@
                     <div class="relative">
                         <div
                             data-locale
-                            class="flex items-center gap-x-1 text-indigo-800  cursor-default"
+                            class="flex items-center gap-x-1 text-indigo-800 cursor-default"
                             @click="
                                 $event.stopPropagation();
                                 localeDropdown = !localeDropdown;
@@ -192,7 +192,9 @@
                                     d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"
                                 />
                             </svg>
-                            <span class="font-semibold pointer-events-none">{{ language }}</span>
+                            <span class="font-semibold pointer-events-none">{{
+                                language
+                            }}</span>
                         </div>
                         <Transition name="fade">
                             <div
@@ -279,7 +281,7 @@
 <script setup lang="ts">
 import { Link, router, usePage } from "@inertiajs/vue3";
 import NotificationModal from "../NotificationModal.vue";
-import { computed, onMounted, onUnmounted, ref } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch } from "vue";
 import { POSITION, useToast } from "vue-toastification";
 import { useI18n } from "vue-i18n";
 const { locale } = useI18n();
@@ -338,10 +340,18 @@ function hideLocalDropdown(e: Event) {
     }
 }
 
+watch(localeDropdown, (value) => {
+    if (value) {
+        document.body.addEventListener("click", hideLocalDropdown);
+    } else {
+        document.body.removeEventListener("click", hideLocalDropdown);
+    }
+});
+
 const toast = useToast();
 
 onMounted(() => {
-    document.body.addEventListener("click", hideLocalDropdown);
+
     window.addEventListener("popstate", onBackButtonClick);
     window.Echo.channel("quiz-assigned-completed").listen(
         ".assign.finished",

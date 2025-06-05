@@ -15,5 +15,5 @@ Route::middleware('auth:sanctum')->group(function () {
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
-Route::post('/register', [AuthController::class, 'register'])->name('api.auth.register');
+// Route::post('/register', [AuthController::class, 'register'])->name('api.auth.register');
 Route::post('/qr-login', [AuthController::class, 'qrLogin'])->name('api.auth.qr.login');
