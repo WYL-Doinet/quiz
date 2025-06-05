@@ -6,7 +6,7 @@
             <div
                 class="bg-indigo-950 flex justify-center items-center py-20 rounded-md overflow-hidden"
             >
-                <img src="/images/lara-quiz.svg" alt="logo" class="size-54" loading="lazy" />
+                <img src="/images/lara-quiz.svg" alt="logo" class="size-54"  />
             </div>
             <form class="flex-1 space-y-3 p-5" @submit.prevent="submit">
                 <h1 class="font-bold text-4xl text-indigo-800">

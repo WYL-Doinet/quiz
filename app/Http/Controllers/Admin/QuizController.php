@@ -49,10 +49,8 @@ class QuizController extends Controller
 
     public function create()
     {
-        $categories = $this->categoryService->findAll();
-
         return Inertia::render('Dashboard/Quiz/Create', [
-            'categories' => $categories,
+            'categories' => $this->categoryService->all()
         ]);
     }
 
