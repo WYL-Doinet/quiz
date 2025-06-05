@@ -8,11 +8,22 @@ use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AppController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect()->route('home.dashboard');
 });
+
+Route::get('/languages/{locale}', function (string $locale) {
+    if (!in_array($locale, config('app.locales'))) {
+        abort(404);
+    }
+
+    App::setLocale($locale);
+
+    return back();
+})->name('app.locale');
 
 Route::get('/app', [AppController::class, 'index'])->name('app.index');
 Route::get('/app/download', [AppController::class, 'download'])->name('app.download');

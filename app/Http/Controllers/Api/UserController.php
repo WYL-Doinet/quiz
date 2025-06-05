@@ -13,6 +13,7 @@ use App\Services\UserAnswerService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -35,7 +36,7 @@ class UserController extends Controller
 
         $assignments = $this->quizAssignmentService->findAll(filter: $filters);
 
-        $assignments->load(['quiz' => fn ($query) => $query->withCount('questions')->with('category')]);
+        $assignments->load(['quiz' => fn($query) => $query->withCount('questions')->with('category')]);
 
         return QuizAssignmentResource::collection($assignments);
     }
@@ -56,69 +57,71 @@ class UserController extends Controller
 
     public function quizAssignmentAnswer(Request $request, $id)
     {
-        $filter = [
-            'user_id' => $request->user()->id,
-        ];
+        try {
 
-        $assignment = $this->quizAssignmentService->find(id: $id, filter: $filter);
+            $filter = [
+                'user_id' => $request->user()->id,
+            ];
 
-        $validated = $request->validate([
-            'answers' => 'required|array',
-            'answers.*.question_id' => 'required|exists:questions,id',
-            'answers.*.choice_id' => 'nullable|exists:choices,id',
-        ]);
+            $assignment = $this->quizAssignmentService->find(id: $id, filter: $filter);
 
-        $answers = $validated['answers'];
+            $validated = $request->validate([
+                'answers' => 'required|array',
+                'answers.*.question_id' => 'required|exists:questions,id',
+                'answers.*.choice_id' => 'nullable|exists:choices,id',
+            ]);
 
-        $receivedQuestionIds = collect($answers)
-            ->pluck('question_id')
-            ->sort()
-            ->toArray();
+            $answers = $validated['answers'];
 
-        $questions = $this->questionService
-            ->findAll(filter: ['quiz_id' => $assignment->quiz_id]);
-
-        $expectedQuestionIds =
-            $questions->pluck('id')
+            $receivedQuestionIds = collect($answers)
+                ->pluck('question_id')
                 ->sort()
                 ->toArray();
 
-        if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
-            return response()->json([
-                'message' => 'Some provided question IDs do not match the expected questions.',
-            ], 422);
-        }
+            $questions = $this->questionService
+                ->findAll(filter: ['quiz_id' => $assignment->quiz_id]);
 
-        $correctAnswers = $questions
-            ->flatMap(fn ($q) => $q->choices)
-            ->where('is_correct', true)
-            ->select(['id', 'question_id'])
-            ->keyBy('question_id');
+            $expectedQuestionIds =
+                $questions->pluck('id')
+                ->sort()
+                ->toArray();
 
-        $score = 0;
-
-        $userAnswers = [];
-
-        foreach ($answers as $answer) {
-            $userAnswers[] = [
-                'assignment_id' => $assignment->id,
-                'question_id' => $answer['question_id'],
-                'choice_id' => $answer['choice_id'] ?? null,
-            ];
-            if (isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]['id'] === $answer['choice_id']) {
-                $score++;
+            if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
+                return response()->json([
+                    'message' => 'Some provided question IDs do not match the expected questions.',
+                ], 422);
             }
-        }
 
-        if ($assignment->completed !== null) {
-            return response()->json([
-                'message' => 'You have already completed this quiz. Your score cannot be changed.',
-                'score' => $score,
-            ]);
-        }
+            $correctAnswers = $questions
+                ->flatMap(fn($q) => $q->choices)
+                ->where('is_correct', true)
+                ->select(['id', 'question_id'])
+                ->keyBy('question_id');
 
-        DB::beginTransaction();
-        try {
+            $score = 0;
+
+            $userAnswers = [];
+
+            foreach ($answers as $answer) {
+                $userAnswers[] = [
+                    'assignment_id' => $assignment->id,
+                    'question_id' => $answer['question_id'],
+                    'choice_id' => $answer['choice_id'] ?? null,
+                ];
+                if (isset($correctAnswers[$answer['question_id']]) && $correctAnswers[$answer['question_id']]['id'] === $answer['choice_id']) {
+                    $score++;
+                }
+            }
+
+            if ($assignment->completed !== null) {
+                return response()->json([
+                    'message' => 'You have already completed this quiz. Your score cannot be changed.',
+                    'score' => $score,
+                ]);
+            }
+
+            DB::beginTransaction();
+
             $this->userAnswerService->bulkStore($userAnswers);
 
             $assignment->update([
@@ -136,10 +139,9 @@ class UserController extends Controller
                 'message' => 'Success',
                 'score' => $score,
             ]);
-
         } catch (Exception $e) {
             DB::rollback();
-
+            Log::error($e->getMessage());
             return response()->json([
                 'message' => $e->getMessage(),
             ], 500);
@@ -157,8 +159,8 @@ class UserController extends Controller
         }
 
         $assignment->load([
-            'quiz' => fn ($query) => $query->with([
-                'questions' => fn ($query) => $query->addSelect(
+            'quiz' => fn($query) => $query->with([
+                'questions' => fn($query) => $query->addSelect(
                     [
                         'user_choice_id' => DB::table('user_answers')
                             ->select('choice_id')

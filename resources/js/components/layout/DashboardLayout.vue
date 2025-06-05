@@ -169,10 +169,42 @@
                     </svg>
                 </button>
                 <div class="flex items-center gap-5">
-                    <div class="flex items-center gap-3">
+                    <div class="relative">
                         <span
-                            class="fi fi-jp text-4xl border border-gray-300 rounded-md"
+                            data-locale
+                            @click="localeDropdown = !localeDropdown"
+                            :class="flagRef"
+                            class="text-[2rem] border border-gray-300 rounded-md"
                         ></span>
+                        <Transition name="fade">
+                            <div
+                                v-if="localeDropdown"
+                                class="w-[150px] absolute bg-white z-50 right-3.5 mt-1 border-gray-300 border rounded-sm"
+                            >
+                                <div
+                                    v-for="locale in locales"
+                                    :key="locale.value"
+                                    @click="
+                                        onLocaleChange(
+                                            locale.flag,
+                                            locale.value
+                                        )
+                                    "
+                                    data-locale
+                                    class="flex items-center gap-2 border-b border-b-gray-300 p-1.5 cursor-pointer"
+                                >
+                                    <span
+                                        :class="locale.flag"
+                                        class="text-xl border border-gray-300 rounded-md pointer-events-none"
+                                    ></span>
+                                    <p
+                                        class="text-sm text-indigo-900 font-semibold pointer-events-none"
+                                    >
+                                        {{ locale.label }}
+                                    </p>
+                                </div>
+                            </div>
+                        </Transition>
                     </div>
                     <button
                         @click="
@@ -236,9 +268,31 @@ const notificationModal = ref({
     open: false,
 });
 
+const localeDropdown = ref(false);
+
+const locales = [
+    { flag: "fi fi-gb", value: "en", label: "English" },
+    { flag: "fi fi-jp", value: "ja", label: "日本語" },
+];
+
+const onLocaleChange = (flag: string, value: string) => {
+    localeDropdown.value = false;
+    router.visit(route("app.locale", { locale: value }), {
+        preserveScroll: true,
+        preserveState: true,
+        onSuccess() {
+            flagRef.value = flag;
+        },
+    });
+};
+
+const flagRef = ref("fi fi-jp");
+
 const page = usePage() as any;
 
-const notifications = computed(() => page.props.quiz_complete_notifications || []);
+const notifications = computed(
+    () => page.props.quiz_complete_notifications || []
+);
 
 function onBackButtonClick(event: PopStateEvent) {
     if (event.state.page.url === "/login") {
@@ -246,9 +300,17 @@ function onBackButtonClick(event: PopStateEvent) {
     }
 }
 
+function hideLocalDropdown(e: Event) {
+    const target = e.target as HTMLElement;
+    if (!target.hasAttribute("data-locale")) {
+        localeDropdown.value = false;
+    }
+}
+
 const toast = useToast();
 
 onMounted(() => {
+    document.body.addEventListener("click", hideLocalDropdown);
     window.addEventListener("popstate", onBackButtonClick);
     window.Echo.channel("quiz-assigned-completed").listen(
         ".assign.finished",
@@ -267,6 +329,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
+    document.body.removeEventListener("click", hideLocalDropdown);
     window.removeEventListener("popstate", onBackButtonClick);
     window.Echo.leave("quiz-assigned-completed");
 });

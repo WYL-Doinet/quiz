@@ -9,7 +9,7 @@
                 class="flex-shrink-0 w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 bg-gray-100 rounded-3xl shadow-xl flex items-center justify-center overflow-hidden"
             >
                 <img
-                    :src="AppIcon"
+                    src="/images/quiz-app.png"
                     alt="Your App Icon"
                     class="w-full h-full object-cover rounded-3xl"
                     onerror="this.onerror=null;this.src='https://placehold.co/300x300/E0E0E0/666666?text=Image+Error';"
@@ -36,7 +36,3 @@
     </div>
 </template>
 
-
-<script setup lang="ts">
-import AppIcon from '@images/quiz-app.png'
-</script>
