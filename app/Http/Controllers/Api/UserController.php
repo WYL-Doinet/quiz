@@ -58,7 +58,6 @@ class UserController extends Controller
     public function quizAssignmentAnswer(Request $request, $id)
     {
         try {
-
             $filter = [
                 'user_id' => $request->user()->id,
             ];
@@ -113,7 +112,7 @@ class UserController extends Controller
                 }
             }
 
-            if ($assignment->completed !== null) {
+            if ($assignment->completed_at !== null) {
                 return response()->json([
                     'message' => 'You have already completed this quiz. Your score cannot be changed.',
                     'score' => $score,
