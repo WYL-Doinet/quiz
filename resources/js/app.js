@@ -7,11 +7,11 @@ import { ZiggyVue } from "ziggy-js";
 import Toast from "vue-toastification";
 import { createI18n } from "vue-i18n";
 import "./echo.js";
-
 import DashboardLayout from "./components/layout/DashboardLayout.vue";
 
+
 const i18n = createI18n({
-    locale: "ja",
+    locale: window.locale,
     fallbackLocale: "en",
     legacy: false,
     messages: {

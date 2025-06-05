@@ -41,9 +41,10 @@ class HandleInertiaRequests extends Middleware
             'csrf_token' => csrf_token(),
             'route' => $request->route()->parameters(),
             'flash' => [
-                'message' => fn () => $request->session()->get('message'),
+                'message' => fn() => $request->session()->get('message'),
             ],
             'quiz_complete_notifications' => QuizAssignmentCompletedNotification::unreadNotifications(),
+            'locale' => session('locale', config('app.fallback_locale'))
         ];
     }
 }

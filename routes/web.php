@@ -8,19 +8,20 @@ use App\Http\Controllers\Admin\QuestionController;
 use App\Http\Controllers\Admin\QuizController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AppController;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return redirect()->route('home.dashboard');
 });
 
 Route::get('/languages/{locale}', function (string $locale) {
+
     if (!in_array($locale, config('app.locales'))) {
         abort(404);
     }
 
-    App::setLocale($locale);
+    Session::put('locale', $locale);
 
     return back();
 })->name('app.locale');

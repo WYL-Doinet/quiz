@@ -170,12 +170,30 @@
                 </button>
                 <div class="flex items-center gap-5">
                     <div class="relative">
-                        <span
+                        <div
                             data-locale
-                            @click="localeDropdown = !localeDropdown"
-                            :class="flagRef"
-                            class="text-[2rem] border border-gray-300 rounded-md"
-                        ></span>
+                            class="flex items-center gap-x-1 text-indigo-800  cursor-default"
+                            @click="
+                                $event.stopPropagation();
+                                localeDropdown = !localeDropdown;
+                            "
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="size-6 pointer-events-none"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="m10.5 21 5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 0 1 6-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 0 1-3.827-5.802"
+                                />
+                            </svg>
+                            <span class="font-semibold pointer-events-none">{{ language }}</span>
+                        </div>
                         <Transition name="fade">
                             <div
                                 v-if="localeDropdown"
@@ -185,10 +203,11 @@
                                     v-for="locale in locales"
                                     :key="locale.value"
                                     @click="
+                                        $event.stopPropagation();
                                         onLocaleChange(
                                             locale.flag,
                                             locale.value
-                                        )
+                                        );
                                     "
                                     data-locale
                                     class="flex items-center gap-2 border-b border-b-gray-300 p-1.5 cursor-pointer"
@@ -262,6 +281,9 @@ import { Link, router, usePage } from "@inertiajs/vue3";
 import NotificationModal from "../NotificationModal.vue";
 import { computed, onMounted, onUnmounted, ref } from "vue";
 import { POSITION, useToast } from "vue-toastification";
+import { useI18n } from "vue-i18n";
+const { locale } = useI18n();
+
 const logout = () => router.post(route("auth.logout"));
 
 const notificationModal = ref({
@@ -270,9 +292,12 @@ const notificationModal = ref({
 
 const localeDropdown = ref(false);
 
+const flagRef = ref("fi fi-jp");
+
 const locales = [
+    { flag: "fi fi-jp", value: "ja", label: "Japanese" },
     { flag: "fi fi-gb", value: "en", label: "English" },
-    { flag: "fi fi-jp", value: "ja", label: "日本語" },
+    { flag: "fi fi-mm", value: "mm", label: "Myanmar" },
 ];
 
 const onLocaleChange = (flag: string, value: string) => {
@@ -282,16 +307,22 @@ const onLocaleChange = (flag: string, value: string) => {
         preserveState: true,
         onSuccess() {
             flagRef.value = flag;
+            locale.value = value;
         },
     });
 };
-
-const flagRef = ref("fi fi-jp");
 
 const page = usePage() as any;
 
 const notifications = computed(
     () => page.props.quiz_complete_notifications || []
+);
+
+const language = computed(
+    () =>
+        locales.find((l) => {
+            return l.value === page.props.locale;
+        })?.label
 );
 
 function onBackButtonClick(event: PopStateEvent) {

@@ -63,7 +63,7 @@
                     </div>
                     <p
                         v-if="form.errors.email !== undefined"
-                        class="p-1 text-red-600"
+                        class="p-1 text-red-600 text-sm"
                     >
                         {{ form.errors.email }}
                     </p>
@@ -119,7 +119,7 @@
                     </div>
                     <p
                         v-if="form.errors.password !== undefined"
-                        class="p-1 text-red-600"
+                        class="p-1 text-red-600 text-sm"
                     >
                         {{ form.errors.password }}
                     </p>
