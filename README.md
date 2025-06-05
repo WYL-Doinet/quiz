@@ -24,3 +24,12 @@ Lara Quiz uses **GitHub Actions** to automate testing and code formatting. On ev
 - Run Laravel Pint to check and fix code style issues
 
 You can find the workflow file under `.github/workflows/laravel.yml`.
+
+#### 🌐 多言語ドキュメント対応（日本語・英語）
+
+このプロジェクトでは、日本語と英語の両方でドキュメントを提供しています。用途や言語に応じて、以下のリンクからご覧いただけます。
+
+- 🇬🇧 英語版: [https://wyl-doinet.github.io/quiz-doc](https://wyl-doinet.github.io/quiz-doc)
+- 🇯🇵 日本語版: [https://wyl-doinet.github.io/quiz-doc-jp](https://wyl-doinet.github.io/quiz-doc-jp)
+
+
