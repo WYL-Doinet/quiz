@@ -24,3 +24,6 @@ Lara Quiz uses **GitHub Actions** to automate testing and code formatting. On ev
 - Run Laravel Pint to check and fix code style issues
 
 You can find the workflow file under `.github/workflows/laravel.yml`.
+
+#### Full documentation for this project 
+***https://wyl-doinet.github.io/quiz-doc***
