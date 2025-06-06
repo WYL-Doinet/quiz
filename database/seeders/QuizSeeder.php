@@ -21,7 +21,6 @@ class QuizSeeder extends Seeder
 
         Role::create(['name' => 'admin']);
 
-
         $user = User::create([
             'name' => 'example user',
             'email' => 'user@example.com',
@@ -42,7 +41,6 @@ class QuizSeeder extends Seeder
 
         $admin->assignRole('admin');
 
-
         $categories = Category::insert([
             [
                 'name' => 'Programming',
@@ -51,11 +49,11 @@ class QuizSeeder extends Seeder
                 'name' => 'Maths',
             ],
             [
-                'name' => 'Science'
+                'name' => 'Science',
             ],
             [
-                'name' => 'Language'
-            ]
+                'name' => 'Language',
+            ],
         ]);
 
         $categories = Category::all();
@@ -513,7 +511,7 @@ class QuizSeeder extends Seeder
                     ],
                 ],
             ],
-            'Science' =>  [
+            'Science' => [
                 [
                     'question_text' => 'What is the chemical symbol for water?',
                     'choices' => [
@@ -605,7 +603,7 @@ class QuizSeeder extends Seeder
                     ],
                 ],
             ],
-            'Language' =>  [
+            'Language' => [
                 [
                     'question_text' => 'Which of the following is a synonym for "happy"?',
                     'choices' => [
@@ -790,7 +788,7 @@ class QuizSeeder extends Seeder
                     ],
                 ],
 
-            ]
+            ],
         ];
 
         $quizzes = [
@@ -816,8 +814,7 @@ class QuizSeeder extends Seeder
             ],
         ];
 
-
-        foreach ($categories as  $category) {
+        foreach ($categories as $category) {
             $quiz = Quiz::create([...$quizzes[$category->name], 'category_id' => $category->id]);
 
             QuizAssignment::create([
