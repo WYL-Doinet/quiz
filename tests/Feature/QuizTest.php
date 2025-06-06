@@ -19,7 +19,7 @@ class QuizTest extends TestCase
 
         $this->seed(QuizSeeder::class);
 
-        $user = User::first();
+        $user = User::where('email', 'admin@example.com')->first();
 
         $this->actingAs($user);
 
@@ -28,9 +28,9 @@ class QuizTest extends TestCase
         $response = $this->get(route('quiz.index'));
 
         $response->assertInertia(
-            fn ($page) => $page->component('Dashboard/Quiz/Index')
-                ->has('quizzes.data', 1)
-                ->where('quizzes.data.0.title', $quizzes[0]['title'])
+            fn($page) => $page->component('Dashboard/Quiz/Index')
+                ->has('quizzes.data', count($quizzes))
+                ->where('quizzes.data.0.title', $quizzes[count($quizzes) - 1]['title'])
         );
 
         $response->assertStatus(200);
@@ -41,7 +41,7 @@ class QuizTest extends TestCase
     {
         $this->seed(QuizSeeder::class);
 
-        $user = User::first();
+        $user = User::where('email', 'admin@example.com')->first();
 
         $this->actingAs($user);
 
@@ -50,7 +50,7 @@ class QuizTest extends TestCase
         $response = $this->get(route('quiz.show', ['id' => $quiz['id']]));
 
         $response->assertInertia(
-            fn ($page) => $page->component('Dashboard/Quiz/Show')
+            fn($page) => $page->component('Dashboard/Quiz/Show')
                 ->has('quiz.questions', 10)
                 ->has('quiz.questions.0.choices', 4)
                 ->where('quiz.title', $quiz['title'])
@@ -67,7 +67,8 @@ class QuizTest extends TestCase
     {
         $this->seed(QuizSeeder::class);
 
-        $user = User::first();
+        $user = User::where('email', 'admin@example.com')->first();
+
 
         $this->actingAs($user);
 
@@ -76,7 +77,7 @@ class QuizTest extends TestCase
         $response = $this->get(route('quiz.demo', ['id' => $quiz['id']]));
 
         $response->assertInertia(
-            fn ($page) => $page->component('Dashboard/Quiz/Demo')
+            fn($page) => $page->component('Dashboard/Quiz/Demo')
                 ->has('quiz.questions', 10)
                 ->has('quiz.questions.0.choices', 4)
                 ->where('quiz.title', $quiz['title'])

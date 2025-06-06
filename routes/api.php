@@ -14,7 +14,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/unread-notifications', [UserController::class, 'unreadNotification'])->name('api.user.unread.notification');
     Route::get('/user/read-notifications', [UserController::class, 'readNotification'])->name('api.user.read.notification');
 
-    Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
+    Route::get('/categories', [CategoryController::class, 'index'])->name('api.category.index');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
