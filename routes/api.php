@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,6 +13,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user/quiz-assignments/{id}/results', [UserController::class, 'quizAssignmentResult'])->name('api.user.quiz.assignment.result');
     Route::get('/user/unread-notifications', [UserController::class, 'unreadNotification'])->name('api.user.unread.notification');
     Route::get('/user/read-notifications', [UserController::class, 'readNotification'])->name('api.user.read.notification');
+
+    Route::get('/categories', [CategoryController::class, 'index'])->name('category.index');
 });
 
 Route::post('/login', [AuthController::class, 'login'])->name('api.auth.login');
