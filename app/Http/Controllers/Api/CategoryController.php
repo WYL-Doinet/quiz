@@ -6,13 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CategoryResource;
 use App\Services\CategoryService;
 
-
 class CategoryController extends Controller
 {
-    public function __construct(protected CategoryService $categoryService)
-    {
-        
-    }
+    public function __construct(protected CategoryService $categoryService) {}
 
     public function all()
     {
