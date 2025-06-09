@@ -57,5 +57,4 @@ class QuizAssignment extends Model
             }
         });
     }
-
 }
