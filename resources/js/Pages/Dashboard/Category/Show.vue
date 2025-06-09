@@ -81,7 +81,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="quiz in quizzes" :key="quiz.id">
+                    <tr v-for="quiz in quizzes.data" :key="quiz.id">
                         <th scope="row"
                             class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                             {{ quiz.title }}
@@ -101,7 +101,7 @@
 </template>
 
 <script setup lang="ts">
-import DashboardLayout from "@components/layout/DashboardLayout.vue";
+
 import { useForm } from "@inertiajs/vue3";
 
 const props = defineProps<PropsType>();
@@ -122,7 +122,7 @@ type Category = {
 
 type PropsType = {
     category: Category;
-    quizzes: Array<Quiz>;
+    quizzes: any;
 };
 
 const submit = () => {

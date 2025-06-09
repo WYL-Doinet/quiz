@@ -193,7 +193,7 @@
                                 />
                             </svg>
                             <span class="font-semibold pointer-events-none">{{
-                                language
+                              $t(language)
                             }}</span>
                         </div>
                         <Transition name="fade">
@@ -221,7 +221,7 @@
                                     <p
                                         class="text-sm text-indigo-900 font-semibold pointer-events-none"
                                     >
-                                        {{ locale.label }}
+                                        {{ $t(locale.label) }}
                                     </p>
                                 </div>
                             </div>
@@ -299,7 +299,7 @@ const flagRef = ref("fi fi-jp");
 const locales = [
     { flag: "fi fi-jp", value: "ja", label: "Japanese" },
     { flag: "fi fi-gb", value: "en", label: "English" },
-    { flag: "fi fi-mm", value: "mm", label: "Myanmar" },
+    { flag: "fi fi-mm", value: "my", label: "Myanmar" },
 ];
 
 const onLocaleChange = (flag: string, value: string) => {
@@ -324,7 +324,7 @@ const language = computed(
     () =>
         locales.find((l) => {
             return l.value === page.props.locale;
-        })?.label
+        })!.label
 );
 
 function onBackButtonClick(event: PopStateEvent) {
@@ -351,7 +351,6 @@ watch(localeDropdown, (value) => {
 const toast = useToast();
 
 onMounted(() => {
-
     window.addEventListener("popstate", onBackButtonClick);
     window.Echo.channel("quiz-assigned-completed").listen(
         ".assign.finished",

@@ -162,7 +162,7 @@
                             :href="route('quiz.show', quiz.id)"
                             class="btn-primary flex justify-center items-center gap-2"
                         >
-                            <span>{{ $t("review") }}</span>
+                            <span>{{ $t("detail") }}</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 24 24"

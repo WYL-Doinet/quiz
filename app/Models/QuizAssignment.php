@@ -48,7 +48,6 @@ class QuizAssignment extends Model
                 case true:
                     $query->whereNotNull('completed_at');
                     break;
-
                 case false:
                     $query->whereNull('completed_at');
                     break;
@@ -59,5 +58,4 @@ class QuizAssignment extends Model
         });
     }
 
-    public function scopeFilterNull($query, $fillable) {}
 }
