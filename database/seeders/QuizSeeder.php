@@ -25,21 +25,21 @@ class QuizSeeder extends Seeder
             'name' => 'example user',
             'email' => 'user@example.com',
             'password' => bcrypt('password'),
-            'avatar' => '406.png'
+            'avatar' => '406.png',
         ]);
 
         $userTwo = User::create([
             'name' => 'waiyanlin',
             'email' => 'waiyanlin2991998@gmail.com',
             'password' => bcrypt('password'),
-            'avatar' => '406.png'
+            'avatar' => '406.png',
         ]);
 
         $admin = User::create([
             'name' => 'example admin',
             'email' => 'admin@example.com',
             'password' => bcrypt('password'),
-            'avatar' => '406.png'
+            'avatar' => '406.png',
         ]);
 
         $admin->assignRole('admin');
