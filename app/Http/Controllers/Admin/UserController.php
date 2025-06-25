@@ -57,7 +57,7 @@ class UserController extends Controller
     public function show($id)
     {
         return Inertia::render('Dashboard/User/Show', [
-            'user' => fn() => $this->userService->find($id),
+            'user' => fn () => $this->userService->find($id),
             'completed_assigns' => function () use ($id) {
                 $assigns = $this->quizAssignmentService->findAll(filter: ['user_id' => $id, 'completed_at' => true]);
                 $assigns->load('quiz');
@@ -101,8 +101,8 @@ class UserController extends Controller
             'assign' => function () use ($filter) {
                 $assignment = $this->quizAssignmentService->findFirst(filter: $filter);
                 $assignment->load([
-                    'quiz' => fn($query) => $query->with([
-                        'questions' => fn($query) => $query->addSelect(
+                    'quiz' => fn ($query) => $query->with([
+                        'questions' => fn ($query) => $query->addSelect(
                             [
                                 'user_choice_id' => DB::table('user_answers')
                                     ->select('choice_id')

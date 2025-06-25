@@ -22,7 +22,7 @@ class UpdateUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'avatar' => ['nullable', 'string', 'max:100']
+            'avatar' => ['nullable', 'string', 'max:100'],
         ];
     }
 }

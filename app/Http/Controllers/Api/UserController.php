@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Events\QuizAssignedCompletedEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\QuizAssignmentResource;
 use App\Notifications\QuizAssignmentCompletedNotification;
 use App\Services\QuestionService;
@@ -40,7 +39,7 @@ class UserController extends Controller
 
         $assignments = $this->quizAssignmentService->findAll(filter: $filters);
 
-        $assignments->load(['quiz' => fn($query) => $query->withCount('questions')->with('category')]);
+        $assignments->load(['quiz' => fn ($query) => $query->withCount('questions')->with('category')]);
 
         return QuizAssignmentResource::collection($assignments);
     }
@@ -86,8 +85,8 @@ class UserController extends Controller
 
             $expectedQuestionIds =
                 $questions->pluck('id')
-                ->sort()
-                ->toArray();
+                    ->sort()
+                    ->toArray();
 
             if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
                 return response()->json([
@@ -96,7 +95,7 @@ class UserController extends Controller
             }
 
             $correctAnswers = $questions
-                ->flatMap(fn($q) => $q->choices)
+                ->flatMap(fn ($q) => $q->choices)
                 ->where('is_correct', true)
                 ->select(['id', 'question_id'])
                 ->keyBy('question_id');
@@ -163,8 +162,8 @@ class UserController extends Controller
         }
 
         $assignment->load([
-            'quiz' => fn($query) => $query->with([
-                'questions' => fn($query) => $query->addSelect(
+            'quiz' => fn ($query) => $query->with([
+                'questions' => fn ($query) => $query->addSelect(
                     [
                         'user_choice_id' => DB::table('user_answers')
                             ->select('choice_id')
@@ -210,6 +209,7 @@ class UserController extends Controller
         $id = $request->user()->id;
         $data = $request->validated();
         $user = $this->userService->update($id, $data);
+
         return response()->json(['data' => $user]);
     }
 }
