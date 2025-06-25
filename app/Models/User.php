@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'qr_login_code',
+        'avatar'
     ];
 
     /**
@@ -58,7 +59,7 @@ class User extends Authenticatable
     public function scopeFilter($query, $filter)
     {
         $query->when($filter['q'] ?? false, function ($query, $q) {
-            $query->where('name', 'LIKE', '%'.$q.'%')->orWhere('email', 'LIKE', '%'.$q.'%');
+            $query->where('name', 'LIKE', '%' . $q . '%')->orWhere('email', 'LIKE', '%' . $q . '%');
         });
 
         $query->when($filter['id'] ?? false, function ($query, $id) {

@@ -36,4 +36,13 @@ class UserService
     {
         return $this->user->filter($filter)->first();
     }
+
+    public function update($id, $data)
+    {
+        $user = $this->find($id);
+        $user->fill($data);
+        $user->save();
+
+        return $user;
+    }
 }

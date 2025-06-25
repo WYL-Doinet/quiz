@@ -4,12 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\QuizAssignedCompletedEvent;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\QuizAssignmentResource;
 use App\Notifications\QuizAssignmentCompletedNotification;
 use App\Services\QuestionService;
 use App\Services\QuizAssignmentService;
 use App\Services\QuizService;
 use App\Services\UserAnswerService;
+use App\Services\UserService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -22,6 +25,7 @@ class UserController extends Controller
         protected QuestionService $questionService,
         protected QuizAssignmentService $quizAssignmentService,
         protected UserAnswerService $userAnswerService,
+        protected UserService $userService,
 
     ) {}
 
@@ -36,7 +40,7 @@ class UserController extends Controller
 
         $assignments = $this->quizAssignmentService->findAll(filter: $filters);
 
-        $assignments->load(['quiz' => fn ($query) => $query->withCount('questions')->with('category')]);
+        $assignments->load(['quiz' => fn($query) => $query->withCount('questions')->with('category')]);
 
         return QuizAssignmentResource::collection($assignments);
     }
@@ -82,8 +86,8 @@ class UserController extends Controller
 
             $expectedQuestionIds =
                 $questions->pluck('id')
-                    ->sort()
-                    ->toArray();
+                ->sort()
+                ->toArray();
 
             if (count(array_intersect($expectedQuestionIds, $receivedQuestionIds)) !== count($receivedQuestionIds)) {
                 return response()->json([
@@ -92,7 +96,7 @@ class UserController extends Controller
             }
 
             $correctAnswers = $questions
-                ->flatMap(fn ($q) => $q->choices)
+                ->flatMap(fn($q) => $q->choices)
                 ->where('is_correct', true)
                 ->select(['id', 'question_id'])
                 ->keyBy('question_id');
@@ -159,8 +163,8 @@ class UserController extends Controller
         }
 
         $assignment->load([
-            'quiz' => fn ($query) => $query->with([
-                'questions' => fn ($query) => $query->addSelect(
+            'quiz' => fn($query) => $query->with([
+                'questions' => fn($query) => $query->addSelect(
                     [
                         'user_choice_id' => DB::table('user_answers')
                             ->select('choice_id')
@@ -199,5 +203,13 @@ class UserController extends Controller
         return response()->json([
             'data' => $read,
         ]);
+    }
+
+    public function update(UpdateUserRequest $request)
+    {
+        $id = $request->user()->id;
+        $data = $request->validated();
+        $user = $this->userService->update($id, $data);
+        return response()->json(['data' => $user]);
     }
 }
