@@ -29,8 +29,8 @@ class QuizSeeder extends Seeder
         ]);
 
         $userTwo = User::create([
-            'name' => 'Tashi Bana',
-            'email' => 'mmotashibana@gmail.com',
+            'name' => 'waiyanlin',
+            'email' => 'waiyanlin2991998@gmail.com',
             'password' => bcrypt('password'),
             'avatar' => '406.png'
         ]);
@@ -94,7 +94,7 @@ class QuizSeeder extends Seeder
                     'question_text' => 'PHPで単一行コメントを書く方法を教えてください。',
                     'choices' => [
                         ['choice_text' => '// これはコメントです', 'is_correct' => true],
-                        ['choice_text' => ''],
+                        ['choice_text' => '# これはコメントです'],
                         ['choice_text' => '/* これはコメントです */'],
                         ['choice_text' => '-- これはコメントです'],
                     ],

@@ -1,5 +1,5 @@
 <template>
-    <Teleport to="modal-body">
+    <Teleport to="#modal-container">
         <transition name="fade">
             <AssignUserModal
                 v-if="modal.open"
